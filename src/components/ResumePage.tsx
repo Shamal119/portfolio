@@ -15,6 +15,9 @@ const theme = createTheme({
 
 const ResumePage = () => {
   const navigate = useNavigate();
+  
+  // Get the current origin (domain)
+  const pdfUrl = '/resume.pdf';
 
   return (
     <ThemeProvider theme={theme}>
@@ -27,13 +30,27 @@ const ResumePage = () => {
         }}
       >
         <Container maxWidth="md">
-          <Box sx={{ mb: 3 }}>
+          <Box 
+            sx={{ 
+              mb: 3,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
             <Button
               startIcon={<ArrowBack />}
               onClick={() => navigate('/')}
               sx={{ mb: 2 }}
             >
               Back to Home
+            </Button>
+            <Button
+              variant="contained"
+              href={pdfUrl}
+              download="Shamal_Musthafa_Resume.pdf"
+            >
+              Download PDF
             </Button>
           </Box>
           
@@ -47,7 +64,7 @@ const ResumePage = () => {
             }}
           >
             <iframe
-              src="/Shamal_Musthafa_Resume.pdf"
+              src={pdfUrl}
               width="100%"
               height="100%"
               style={{ border: 'none' }}

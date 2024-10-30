@@ -166,7 +166,7 @@ const HomePage = () => {
                                     {[
                                         { icon: <Email />, link: 'mailto:shamalmusthafa59@gmail.com' },
                                         { icon: <LinkedIn />, link: 'https://www.linkedin.com/in/shamalmusthafa/' },
-                                        { icon: <GitHub />, link: 'https://github.com/shamalmusthafa' },
+                                        { icon: <GitHub />, link: 'https://github.com/Shamal119' },
                                     ].map((social, index) => (
                                         <IconButton
                                             key={index}

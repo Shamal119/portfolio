@@ -1,17 +1,17 @@
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import ResumePage from './components/ResumePage';
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from './components/Homepage';
-import ResumePage from './components/resumepage';
 
-function App() {
+const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/resume" element={<ResumePage />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
-}
+};
 
-export default App;
+export default App;  // Make sure this export is present
