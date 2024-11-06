@@ -223,7 +223,7 @@ const HomePage = () => {
                                 >
                                     Data Scientist specializing in Generative AI, Machine Learning, and Cloud AI Solutions.
                                     Expert in LLMs, API development, and NLP techniques with experience in Azure AI,
-                                    Virtex AI and Amazon bedrock.
+                                    Virtex AI and Other AI tools.
                                 </Typography>
 
                                 {/* Social Links */}
@@ -306,7 +306,7 @@ const HomePage = () => {
                                                     variant="contained"
                                                     size="large"
                                                     onClick={() => scrollToSection('projects')}
-                                                    startIcon={<CodeIcon  />}
+                                                    startIcon={<CodeIcon />}
                                                     sx={{
                                                         background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
                                                         boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)',

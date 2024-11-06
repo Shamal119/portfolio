@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Container,
   Typography,
   Grid,
-  useTheme,
   Card,
   Tooltip,
   styled,
   Zoom,
   ThemeProvider,
   createTheme,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  IconButton,
+  List,
+  ListItem,
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import CodeIcon from '@mui/icons-material/Code';
@@ -19,8 +26,9 @@ import CloudIcon from '@mui/icons-material/Cloud';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
 import BiotechIcon from '@mui/icons-material/Biotech';
+import LaunchIcon from '@mui/icons-material/Launch';
+import CloseIcon from '@mui/icons-material/Close';
 
-// Match the theme from Projects component
 const theme = createTheme({
   palette: {
     primary: {
@@ -36,12 +44,12 @@ const theme = createTheme({
   typography: {
     h2: {
       fontWeight: 700,
-      fontSize: '2.5rem', // Match Projects heading size
+      fontSize: '2.5rem',
       marginBottom: '2rem',
     },
     h5: {
       fontWeight: 600,
-      color: '#1e293b', // Darker text color to match Projects
+      color: '#1e293b',
       fontSize: '1.25rem',
     },
   },
@@ -102,84 +110,38 @@ const SkillBar = styled(Box)(({ value }: { value: number }) => ({
   },
 }));
 
-// Define skill categories
-const skillCategories = [
-  {
-    title: 'AI & ML',
-    icon: <BiotechIcon fontSize="large" />,
-    skills: [
-      { name: "Generative AI", level: 95 },
-      { name: "LLM", level: 90 },
-      { name: "NLP", level: 88 },
-      { name: "Deep Learning", level: 85 },
-      { name: "Machine Learning", level: 85 },
-      { name: "PyTorch", level: 65 },
-      { name: "TensorFlow", level: 60 }
-    ]
-  },
-  {
-    title: 'Cloud & Tools',
-    icon: <CloudIcon fontSize="large" />,
-    skills: [
-      { name: "Azure AI", level: 95 },
-      { name: "OpenAI", level: 85 },
-      { name: "Google Vertex AI", level: 85 },
-      { name: "Google Gemini", level: 85 },
-      { name: "Dialogflow CX", level: 80 },
-      { name: "LangChain", level: 80 },
-      { name: "AWS Bedrock", level: 55 }
-    ]
-  },
-  {
-    title: 'Programming',
-    icon: <CodeIcon fontSize="large" />,
-    skills: [
-      { name: "Python", level: 95 },
-      { name: "FastAPI", level: 85 },
-      { name: "SQL", level: 85 },
-      { name: "JavaScript", level: 80 },
-      { name: "Java", level: 65 },
-      { name: "R", level: 55 }
-    ]
-  },
-  {
-    title: 'Web Development',
-    icon: <DeveloperModeIcon fontSize="large" />,
-    skills: [
-      { name: "Streamlit", level: 95 },
-      { name: "ReactJS", level: 85 },
-      { name: "NextJS", level: 80 }
-    ]
-  },
-  {
-    title: 'Data Analysis',
-    icon: <StorageIcon fontSize="large" />,
-    skills: [
-      { name: "Pandas", level: 90 },
-      { name: "NumPy", level: 88 },
-      { name: "Scikit-Learn", level: 85 },
-      { name: "OpenCV", level: 82 },
-      { name: "TensorFlow", level: 65 },
-      { name: "PyTorch", level: 65 }
-    ]
-  },
-  {
-    title: 'Visualization',
-    icon: <BarChartIcon fontSize="large" />,
-    skills: [
-      { name: "Power BI", level: 90 },
-      { name: "Matplotlib", level: 80 },
-      { name: "Seaborn", level: 80 },
-      { name: "Plotly", level: 80 },
-      { name: "Excel", level: 75 },
-      { name: "Alteryx", level: 65 },
- 
-    ]
-  }
-];
+interface Project {
+  name: string;
+  description: string;
+  link?: string;
+}
 
+interface SkillDetail {
+  name: string;
+  level: number;
+  projects: Project[];
+}
+
+interface SkillCategory {
+  title: string;
+  icon: React.ReactNode;
+  skills: SkillDetail[];
+}
 
 const Skills = () => {
+  const [selectedSkill, setSelectedSkill] = useState<SkillDetail | null>(null);
+  const [open, setOpen] = useState(false);
+
+  const handleSkillClick = (skill: SkillDetail) => {
+    setSelectedSkill(skill);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedSkill(null);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -193,9 +155,9 @@ const Skills = () => {
             variant="h2"
             align="center"
             sx={{
-              mb: 6, // Match Projects spacing
+              mb: 6,
               position: 'relative',
-              color: '#1e293b', // Match Projects heading color
+              color: '#1e293b',
               '&:after': {
                 content: '""',
                 display: 'block',
@@ -237,7 +199,7 @@ const Skills = () => {
                       sx={{
                         mb: 2,
                         textAlign: 'center',
-                        color: '#1e293b', // Darker text color to match Projects
+                        color: '#1e293b',
                         fontWeight: 600,
                       }}
                     >
@@ -253,7 +215,16 @@ const Skills = () => {
                           transition={{ duration: 0.5, delay: i * 0.1 }}
                           viewport={{ once: true }}
                         >
-                          <Box sx={{ mb: 2 }}>
+                          <Box 
+                            sx={{ 
+                              mb: 2,
+                              cursor: 'pointer',
+                              '&:hover': {
+                                opacity: 0.8
+                              }
+                            }}
+                            onClick={() => handleSkillClick(skill)}
+                          >
                             <Box sx={{
                               display: 'flex',
                               justifyContent: 'space-between',
@@ -263,7 +234,7 @@ const Skills = () => {
                               <Typography
                                 variant="body2"
                                 sx={{
-                                  color: '#64748b', // Lighter text color for skills
+                                  color: '#64748b',
                                   fontWeight: 500,
                                 }}
                               >
@@ -289,6 +260,76 @@ const Skills = () => {
               </Grid>
             ))}
           </Grid>
+
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            maxWidth="md"
+            fullWidth
+            TransitionComponent={Zoom}
+          >
+            <DialogTitle sx={{ 
+              borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <Typography variant="h6">
+                Projects Using {selectedSkill?.name}
+              </Typography>
+              <IconButton onClick={handleClose} size="small">
+                <CloseIcon />
+              </IconButton>
+            </DialogTitle>
+            <DialogContent sx={{ mt: 2 }}>
+              {selectedSkill?.projects.length ? (
+                <List>
+                  {selectedSkill.projects.map((project, index) => (
+                    <ListItem 
+                      key={index}
+                      sx={{
+                        mb: 2,
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                        bgcolor: 'rgba(37, 99, 235, 0.04)',
+                        borderRadius: '8px',
+                        padding: 2,
+                        '&:hover': {
+                          bgcolor: 'rgba(37, 99, 235, 0.08)',
+                        }
+                      }}
+                    >
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
+                        {project.name}
+                      </Typography>
+                      <Typography variant="body2" sx={{ mt: 1, color: 'text.secondary' }}>
+                        {project.description}
+                      </Typography>
+                      {project.link && (
+                        <Button
+                          size="small"
+                          startIcon={<LaunchIcon />}
+                          onClick={() => window.open(project.link, '_blank')}
+                          sx={{ mt: 1 }}
+                        >
+                          View Project
+                        </Button>
+                      )}
+                    </ListItem>
+                  ))}
+                </List>
+              ) : (
+                <Typography variant="body1" sx={{ textAlign: 'center', py: 3 }}>
+                  No project references available for this skill.
+                </Typography>
+              )}
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Close
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Container>
       </Box>
     </ThemeProvider>
@@ -296,3 +337,392 @@ const Skills = () => {
 };
 
 export default Skills;
+
+const skillCategories: SkillCategory[] = [
+  {
+    title: 'AI & ML',
+    icon: <BiotechIcon fontSize="large" />,
+    skills: [
+      {
+        name: "Generative AI",
+        level: 95,
+        projects: [
+          {
+            name: "AI-Powered Chatbot Application",
+            description: "Developed an enterprise chatbot using Azure OpenAI for generating context-aware responses.",
+            link: "https://ragchatbot-shamal.streamlit.app/"
+          },
+          {
+            name: "RAG Chatbot Assistant",
+            description: "Implemented RAG architecture with multiple generative AI models for enhanced responses.",
+            link: "https://ragchatbot-shamal.streamlit.app/"
+          },
+          {
+            name: "AI Financial Advisor",
+            description: "Utilized generative AI for providing personalized financial insights and recommendations.",
+            link: "https://aipersonalfinance-shamal.streamlit.app/"
+          }
+        ]
+      },
+      {
+        name: "LLM",
+        level: 90,
+        projects: [
+          {
+            name: "RAG Chatbot Assistant",
+            description: "Integrated OpenAI and Google's Gemini models for versatile language processing capabilities.",
+            link: "https://ragchatbot-shamal.streamlit.app/"
+          },
+          {
+            name: "AI Financial Advisor",
+            description: "Leveraged multiple LLM models for comprehensive financial analysis and advice generation.",
+            link: "https://aipersonalfinance-shamal.streamlit.app/"
+          }
+        ]
+      },
+      {
+        name: "NLP",
+        level: 88,
+        projects: [
+          {
+            name: "Sentiment Analysis Dashboard",
+            description: "Implemented advanced NLP techniques for analyzing sentiment in text and news articles.",
+            link: "https://sentimentalanalysis-shamal.streamlit.app/"
+          },
+          {
+            name: "Call Center Data Analytics Dashboard",
+            description: "Applied NLP for analyzing transcribed call center conversations and extracting insights."
+          }
+        ]
+      },
+      {
+        name: "Deep Learning",
+        level: 85,
+        projects: [
+          {
+            name: "Breast Cancer Detection",
+            description: "Developed deep learning models using neural networks for accurate cancer detection and classification."
+          },
+          {
+            name: "Indian Stock Market Analysis",
+            description: "Implemented LSTM neural networks for stock price prediction and trend analysis.",
+            link: "https://indianstockanalysis-shamal119.streamlit.app/"
+          }
+        ]
+      },
+      {
+        name: "Machine Learning",
+        level: 85,
+        projects: []
+      },
+      {
+        name: "PyTorch",
+        level: 65,
+        projects: []
+      },
+      {
+        name: "TensorFlow",
+        level: 60,
+        projects: []
+      }
+    ]
+  },
+  {
+    title: 'Cloud & Tools',
+    icon: <CloudIcon fontSize="large" />,
+    skills: [
+      {
+        name: "Azure AI",
+        level: 95,
+        projects: [
+          {
+            name: "AI-Powered Chatbot Application",
+            description: "Utilized Azure AI services including Azure OpenAI and Azure AI Search for building an intelligent chatbot system."
+          },
+          {
+            name: "RAG Chatbot Assistant",
+            description: "Integrated Azure AI services for enhanced document processing and search capabilities.",
+            link: "https://ragchatbot-shamal.streamlit.app/"
+          }
+        ]
+      },
+      {
+        name: "OpenAI",
+        level: 85,
+        projects: [
+          {
+            name: "RAG Chatbot Assistant",
+            description: "Implemented OpenAI models for advanced language understanding and generation.",
+            link: "https://ragchatbot-shamal.streamlit.app/"
+          },
+          {
+            name: "AI Financial Advisor",
+            description: "Used OpenAI for generating financial insights and recommendations.",
+            link: "https://aipersonalfinance-shamal.streamlit.app/"
+          }
+        ]
+      },
+      {
+        name: "Google Vertex AI",
+        level: 85,
+        projects: [
+          {
+            name: "Chatbot Platform",
+            description: "Leveraged Google Cloud's Vertex AI for building scalable ML models and chatbot capabilities."
+          }
+        ]
+      },
+      {
+        name: "Google Gemini",
+        level: 85,
+        projects: []
+      },
+      {
+        name: "Dialogflow CX",
+        level: 80,
+        projects: []
+      },
+      {
+        name: "LangChain",
+        level: 80,
+        projects: []
+      },
+      {
+        name: "AWS Bedrock",
+        level: 55,
+        projects: []
+      }
+    ]
+  },
+  {
+    title: 'Programming',
+    icon: <CodeIcon fontSize="large" />,
+    skills: [
+      {
+        name: "Python",
+        level: 95,
+        projects: [
+          {
+            name: "RAG Chatbot Assistant",
+            description: "Developed complete backend logic and ML pipeline using Python.",
+            link: "https://ragchatbot-shamal.streamlit.app/"
+          },
+          {
+            name: "Indian Stock Market Analysis",
+            description: "Built data processing and analysis system using Python libraries.",
+            link: "https://indianstockanalysis-shamal119.streamlit.app/"
+          },
+          {
+            name: "Sentiment Analysis Dashboard",
+            description: "Implemented NLP and data processing workflows in Python.",
+            link: "https://sentimentalanalysis-shamal.streamlit.app/"
+          }
+        ]
+      },
+      {
+        name: "FastAPI",
+        level: 85,
+        projects: [
+          {
+            name: "Chatbot Platform",
+            description: "Created robust REST API endpoints using FastAPI for the chatbot backend."
+          },
+          {
+            name: "AI-Powered Chatbot Application",
+            description: "Developed API infrastructure for handling chat requests and responses."
+          }
+        ]
+      },
+      {
+        name: "SQL",
+        level: 85,
+        projects: [
+          {
+            name: "Call Center Data Analytics",
+            description: "Designed and implemented database schemas for storing and analyzing call center data."
+          },
+          {
+            name: "Indian Stock Market Analysis",
+            description: "Created complex queries for analyzing market data and generating insights.",
+            link: "https://indianstockanalysis-shamal119.streamlit.app/"
+          }
+        ]
+      },
+      {
+        name: "JavaScript",
+        level: 80,
+        projects: []
+      },
+      {
+        name: "Java",
+        level: 65,
+        projects: []
+      },
+      {
+        name: "R",
+        level: 55,
+        projects: []
+      }
+    ]
+  },
+  {
+    title: 'Web Development',
+    icon: <DeveloperModeIcon fontSize="large" />,
+    skills: [
+      {
+        name: "Streamlit",
+        level: 95,
+        projects: [
+          {
+            name: "RAG Chatbot Assistant",
+            description: "Built intuitive user interface for chatbot interaction.",
+            link: "https://ragchatbot-shamal.streamlit.app/"
+          },
+          {
+            name: "AI Financial Advisor",
+            description: "Created interactive dashboard for financial analysis.",
+            link: "https://aipersonalfinance-shamal.streamlit.app/"
+          },
+          {
+            name: "Sentiment Analysis Dashboard",
+            description: "Developed real-time sentiment analysis interface.",
+            link: "https://sentimentalanalysis-shamal.streamlit.app/"
+          }
+        ]
+      },
+      {
+        name: "ReactJS",
+        level: 85,
+        projects: [
+          {
+            name: "AI-Powered Chatbot Application",
+            description: "Developed responsive frontend interface using ReactJS."
+          },
+          {
+            name: "Chatbot Platform",
+            description: "Built dynamic user interface components and chat interface."
+          }
+        ]
+      },
+      {
+        name: "NextJS",
+        level: 80,
+        projects: []
+      }
+    ]
+  },
+  {
+    title: 'Data Analysis',
+    icon: <StorageIcon fontSize="large" />,
+    skills: [
+      {
+        name: "Pandas",
+        level: 90,
+        projects: [
+          {
+            name: "Indian Stock Market Analysis",
+            description: "Processed and analyzed large-scale market data.",
+            link: "https://indianstockanalysis-shamal119.streamlit.app/"
+          },
+          {
+            name: "AI Financial Advisor",
+            description: "Implemented data processing pipelines for financial analysis.",
+            link: "https://aipersonalfinance-shamal.streamlit.app/"
+          }
+        ]
+      },
+      {
+        name: "NumPy",
+        level: 88,
+        projects: []
+      },
+      {
+        name: "Scikit-Learn",
+        level: 85,
+        projects: [
+          {
+            name: "Breast Cancer Detection",
+            description: "Used machine learning algorithms for cancer classification."
+          },
+          {
+            name: "Sentiment Analysis Dashboard",
+            description: "Implemented ML models for sentiment classification.",
+            link: "https://sentimentalanalysis-shamal.streamlit.app/"
+          }
+        ]
+      },
+      {
+        name: "OpenCV",
+        level: 82,
+        projects: []
+      },
+      {
+        name: "TensorFlow",
+        level: 65,
+        projects: []
+      },
+      {
+        name: "PyTorch",
+        level: 65,
+        projects: []
+      }
+    ]
+  },
+  {
+    title: 'Visualization',
+    icon: <BarChartIcon fontSize="large" />,
+    skills: [
+      {
+        name: "Power BI",
+        level: 90,
+        projects: [
+          {
+            name: "Call Center Data Analytics Dashboard",
+            description: "Created comprehensive dashboards for visualizing call center metrics and KPIs."
+          }
+        ]
+      },
+      {
+        name: "Matplotlib",
+        level: 80,
+        projects: []
+      },
+      {
+        name: "Seaborn",
+        level: 80,
+        projects: []
+      },
+      {
+        name: "Plotly",
+        level: 80,
+        projects: [
+          {
+            name: "Indian Stock Market Analysis",
+            description: "Implemented interactive financial charts and visualizations.",
+            link: "https://indianstockanalysis-shamal119.streamlit.app/"
+          },
+          {
+            name: "AI Financial Advisor",
+            description: "Created dynamic visualizations for financial insights.",
+            link: "https://aipersonalfinance-shamal.streamlit.app/"
+          }
+        ]
+      },
+      {
+        name: "Excel",
+        level: 75,
+        projects: []
+      },
+      {
+        name: "Alteryx",
+        level: 65,
+        projects: [
+          {
+            name: "Call Center Data Analytics Dashboard",
+            description: "Used Alteryx for data preparation and transformation workflows."
+          }
+        ]
+      }
+    ]
+  }
+];
