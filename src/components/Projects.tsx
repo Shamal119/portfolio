@@ -1,6 +1,6 @@
 // src/components/Projects.tsx
 import React from 'react';
-import { 
+import {
   Box,
   Card,
   CardContent,
@@ -40,8 +40,15 @@ const theme = createTheme({
   },
 });
 
+interface Project {
+  title: string;
+  description: string;
+  tech: string[];
+  link?: string;
+}
+
 const Projects = () => {
-  const projects = [
+  const projects: Project[] = [
     {
       title: "Chatbot Platform",
       description: "Developed enterprise-grade chatbot using Dialogflow, FastAPI, and cloud services. Implemented custom middleware for enhanced conversation handling and integrated with multiple backend systems.",
@@ -53,20 +60,52 @@ const Projects = () => {
       tech: ["Azure OpenAI", "Azure AI search", "FastAPI", "ReactJS"],
     },
     {
+      title: "RAG Chatbot Assistant",
+      description: "Built a conversational AI system using Retrieval Augmented Generation (RAG) for context-aware responses. Supports OpenAI and Google's Gemini models, with features like document processing, FAISS vector search, conversation history, and source attribution.",
+      tech: ["LangChain", "Streamlit", "FAISS", "OpenAI", "Gemini"],
+      link: "https://ragchatbot-shamal.streamlit.app/"
+    },
+    {
+      title: "AI Financial Advisor",
+      description: "Developed an intelligent financial analysis platform that provides AI-powered insights on spending patterns. Features include interactive visualizations, category-wise analysis, and personalized financial recommendations using both OpenAI and Google's Gemini models.",
+      tech: ["Streamlit", "OpenAI", "Gemini", "Plotly", "Pandas"],
+      link: "https://aipersonalfinance-shamal.streamlit.app/"
+    },
+   
+    {
+      title: "Indian Stock Market Analysis Dashboard",
+      description: "Developed a comprehensive real-time stock analysis platform for Indian markets featuring ML-powered predictions, technical analysis, and market intelligence. Implemented LSTM neural networks for 30-day forecasting and integrated multiple data sources for market insights.",
+      tech: ["Python", "TensorFlow", "Streamlit", "LSTM", "Plotly"],
+      link: "https://indianstockanalysis-shamal119.streamlit.app/"
+    },
+    {
+      title: "Sentiment Analysis Dashboard",
+      description: "Built a web application that performs real-time sentiment analysis on custom text and news articles. Features include sentiment scoring, sentence-level breakdown, topic-based news analysis, and interactive visualizations with sentiment distribution and word clouds.",
+      tech: ["Streamlit", "TextBlob", "NLTK", "Plotly", "WordCloud", "NewsAPI"],
+      link: "https://sentimentalanalysis-shamal.streamlit.app/"
+    },
+  
+    {
       title: "Call Center Data Analytics Dashboard",
       description: "Transcribed call data using OpenAI Whisper, analyzed content, and created Power BI dashboard.",
       tech: ["Python", "NLP", "Power BI", "Alteryx"],
     },
     {
-      title: "Sentiment Analysis Dashboard",
-      description: "Built a real-time sentiment analysis tool that monitors social media platforms for brand sentiment using NLP. Created dashboards to visualize sentiment trends and volume.",
-      tech: ["Python", "NLP", "Power BI", "FastAPI"],
-    },
-    {
-      title: "Breast Cancer Detection Using Machine Learning",
-      description: "Developed classification model achieving 95% accuracy using Random Forest and k-Nearest Neighbors (KNN). Implemented cross-validation and hyperparameter tuning.",
-      tech: ["Python", "scikit-learn", "Flask", "Pandas"],
-    },
+      "title": "Breast Cancer Detection Using Neural Networks",
+      "description": "Developed a deep learning classification model using Sequential Neural Networks to predict breast cancer malignancy.  Features include automated hospital recommendations based on predictions and an intuitive interface for medical image analysis.",
+      "tech": [
+          "Python ",
+          "Keras",
+          "TensorFlow",
+          "Streamlit",
+          "Pandas",
+          "scikit-learn",
+          "NumPy",
+          "Matplotlib",
+          "Seaborn"
+      ],
+      "link": "https://breastcancer-shamal.streamlit.app/"
+  }
   ];
 
   return (
@@ -104,6 +143,8 @@ const Projects = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
+                  style={{ textDecoration: 'none' }}
+                  onClick={() => project.link && window.open(project.link, '_blank')}
                 >
                   <Card
                     sx={{
@@ -114,23 +155,28 @@ const Projects = () => {
                       '&:hover': {
                         transform: 'translateY(-8px)',
                         boxShadow: '0 12px 20px rgba(37, 99, 235, 0.1)',
+                        '& .project-title': {
+                          color: theme.palette.primary.main,
+                          textDecoration: 'underline'
+                        }
                       },
                       borderTop: `4px solid ${theme.palette.primary.main}`,
+                      cursor: project.link ? 'pointer' : 'default',
+                      position: 'relative',
+                      '&::after': project.link ? {
+                        content: '"🔗"',
+                        position: 'absolute',
+                        top: '10px',
+                        right: '10px',
+                        fontSize: '1.2rem'
+                      } : {}
                     }}
                   >
                     <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography 
-                        variant="h5" 
-                        gutterBottom
-                        sx={{ mb: 2 }}
-                      >
+                      <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
                         {project.title}
                       </Typography>
-                      <Typography 
-                        variant="body2" 
-                        color="text.secondary"
-                        sx={{ mb: 2 }}
-                      >
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                         {project.description}
                       </Typography>
                       <Box sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', gap: 1 }}>
@@ -149,25 +195,13 @@ const Projects = () => {
                           />
                         ))}
                       </Box>
-                      <Button 
-                        variant="contained" 
-                        fullWidth
-                        sx={{
-                          mt: 'auto',
-                          bgcolor: 'primary.main',
-                          '&:hover': {
-                            bgcolor: 'primary.dark',
-                          }
-                        }}
-                      >
-                        View Details
-                      </Button>
                     </CardContent>
                   </Card>
                 </motion.div>
               </Grid>
             ))}
           </Grid>
+
         </Container>
       </Box>
     </ThemeProvider>

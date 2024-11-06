@@ -17,7 +17,7 @@ const ResumePage = () => {
   const navigate = useNavigate();
   
   // Get the current origin (domain)
-  const pdfUrl = '/resume.pdf';
+  const pdfUrl = '/portfolio/resume.pdf';  
 
   return (
     <ThemeProvider theme={theme}>
