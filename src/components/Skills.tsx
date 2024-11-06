@@ -1,18 +1,16 @@
-// src/components/Skills.tsx
 import React from 'react';
 import {
   Box,
   Container,
   Typography,
   Grid,
-  Paper,
-  LinearProgress,
   useTheme,
   Card,
-  Icon,
   Tooltip,
   styled,
-  Zoom
+  Zoom,
+  ThemeProvider,
+  createTheme,
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import CodeIcon from '@mui/icons-material/Code';
@@ -22,29 +20,47 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
 import BiotechIcon from '@mui/icons-material/Biotech';
 
+// Match the theme from Projects component
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#2563eb',
+      light: '#3b82f6',
+      dark: '#1d4ed8',
+    },
+    background: {
+      default: '#ffffff',
+      paper: '#ffffff',
+    },
+  },
+  typography: {
+    h2: {
+      fontWeight: 700,
+      fontSize: '2.5rem', // Match Projects heading size
+      marginBottom: '2rem',
+    },
+    h5: {
+      fontWeight: 600,
+      color: '#1e293b', // Darker text color to match Projects
+      fontSize: '1.25rem',
+    },
+  },
+});
 
 const StyledCard = styled(Card)(({ theme }) => ({
   height: '100%',
   padding: theme.spacing(3),
   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'relative',
+  borderRadius: '12px',
+  background: '#ffffff',
+  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+  borderTop: `4px solid ${theme.palette.primary.main}`,
   '&:hover': {
     transform: 'translateY(-8px)',
     boxShadow: '0 12px 20px rgba(37, 99, 235, 0.1)',
-  },
-  display: 'flex',
-  flexDirection: 'column',
-  borderTop: `4px solid ${theme.palette.primary.main}`,
-  background: 'rgba(255, 255, 255, 0.9)',
-  backdropFilter: 'blur(10px)',
-}));
-
-const StyledLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 8,
-  borderRadius: 4,
-  backgroundColor: 'rgba(37, 99, 235, 0.1)',
-  '& .MuiLinearProgress-bar': {
-    borderRadius: 4,
-    backgroundColor: theme.palette.primary.main,
   },
 }));
 
@@ -54,15 +70,35 @@ const SkillIcon = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   width: 50,
   height: 50,
-  borderRadius: '50%',
+  borderRadius: '8px',
   backgroundColor: 'rgba(37, 99, 235, 0.1)',
   color: theme.palette.primary.main,
   marginBottom: theme.spacing(2),
   transition: 'all 0.3s ease',
   '&:hover': {
-    transform: 'scale(1.1)',
     backgroundColor: theme.palette.primary.main,
-    color: 'white',
+    color: '#ffffff',
+    transform: 'scale(1.05)',
+  },
+}));
+
+const SkillBar = styled(Box)(({ value }: { value: number }) => ({
+  height: '8px',
+  width: '100%',
+  backgroundColor: 'rgba(37, 99, 235, 0.1)',
+  borderRadius: '4px',
+  position: 'relative',
+  overflow: 'hidden',
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    height: '100%',
+    width: `${value}%`,
+    backgroundColor: '#2563eb',
+    borderRadius: '4px',
+    transition: 'width 1s ease-in-out',
   },
 }));
 
@@ -91,7 +127,7 @@ const skillCategories = [
       { name: "Google Gemini", level: 85 },
       { name: "Dialogflow CX", level: 80 },
       { name: "LangChain", level: 80 },
-      { name: "AWS Bedrock", level: 70 }
+      { name: "AWS Bedrock", level: 55 }
     ]
   },
   {
@@ -144,124 +180,119 @@ const skillCategories = [
 
 
 const Skills = () => {
-  const theme = useTheme();
-
   return (
-    <Box
-      sx={{
-        py: 8,
-        background: 'linear-gradient(165deg, #f0f7ff 0%, #ffffff 50%, #f0f7ff 100%)',
-        position: 'relative',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '100%',
-          backgroundImage: 'radial-gradient(circle at 30% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 50%)',
-        },
-      }}
-    >
-      <Container maxWidth="lg">
-        <Typography
-          variant="h2"
-          align="center"
-          sx={{
-            mb: 6,
-            position: 'relative',
-            fontWeight: 700,
-            color: '#1a365d',
-            textShadow: '0 2px 4px rgba(0,0,0,0.1)',
-            '&:after': {
-              content: '""',
-              display: 'block',
-              width: '60px',
-              height: '4px',
-              background: 'linear-gradient(90deg, #2563eb, #1d4ed8)',
-              margin: '1rem auto',
-              borderRadius: '2px',
-            }
-          }}
-        >
-          Skills & Technologies
-        </Typography>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          py: 8,
+          background: 'linear-gradient(to bottom, #ffffff, #f0f7ff)',
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography
+            variant="h2"
+            align="center"
+            sx={{
+              mb: 6, // Match Projects spacing
+              position: 'relative',
+              color: '#1e293b', // Match Projects heading color
+              '&:after': {
+                content: '""',
+                display: 'block',
+                width: '60px',
+                height: '4px',
+                background: theme.palette.primary.main,
+                margin: '1rem auto',
+                borderRadius: '2px',
+              }
+            }}
+          >
+            Skills & Technologies
+          </Typography>
 
-        <Grid container spacing={4}>
-          {skillCategories.map((category, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <StyledCard>
-                  <Tooltip
-                    title={`${category.title} Skills`}
-                    TransitionComponent={Zoom}
-                    arrow
-                  >
-                    <SkillIcon>
-                      {category.icon}
-                    </SkillIcon>
-                  </Tooltip>
+          <Grid container spacing={4}>
+            {skillCategories.map((category, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <StyledCard>
+                    <Tooltip
+                      title={`${category.title} Skills`}
+                      TransitionComponent={Zoom}
+                      arrow
+                      placement="top"
+                    >
+                      <SkillIcon>
+                        {category.icon}
+                      </SkillIcon>
+                    </Tooltip>
 
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      mb: 3,
-                      fontWeight: 600,
-                      color: theme.palette.primary.main,
-                      textAlign: 'center',
-                    }}
-                  >
-                    {category.title}
-                  </Typography>
+                    <Typography
+                      variant="h5"
+                      gutterBottom
+                      sx={{
+                        mb: 2,
+                        textAlign: 'center',
+                        color: '#1e293b', // Darker text color to match Projects
+                        fontWeight: 600,
+                      }}
+                    >
+                      {category.title}
+                    </Typography>
 
-                  <Box sx={{ flexGrow: 1 }}>
-                    {category.skills.map((skill, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: i * 0.1 }}
-                        viewport={{ once: true }}
-                      >
-                        <Box sx={{ mb: 2 }}>
-                          <Box sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            mb: 1,
-                            alignItems: 'center'
-                          }}>
-                            <Typography variant="body2" color="text.secondary">
-                              {skill.name}
-                            </Typography>
-                            <Typography
-                              variant="caption"
-                              sx={{ color: theme.palette.primary.main }}
-                            >
-                              {skill.level}%
-                            </Typography>
+                    <Box sx={{ flexGrow: 1 }}>
+                      {category.skills.map((skill, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.5, delay: i * 0.1 }}
+                          viewport={{ once: true }}
+                        >
+                          <Box sx={{ mb: 2 }}>
+                            <Box sx={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              mb: 1,
+                              alignItems: 'center'
+                            }}>
+                              <Typography
+                                variant="body2"
+                                sx={{
+                                  color: '#64748b', // Lighter text color for skills
+                                  fontWeight: 500,
+                                }}
+                              >
+                                {skill.name}
+                              </Typography>
+                              <Typography
+                                variant="caption"
+                                sx={{
+                                  color: theme.palette.primary.main,
+                                  fontWeight: 600,
+                                }}
+                              >
+                                {skill.level}%
+                              </Typography>
+                            </Box>
+                            <SkillBar value={skill.level} />
                           </Box>
-                          <StyledLinearProgress
-                            variant="determinate"
-                            value={skill.level}
-                          />
-                        </Box>
-                      </motion.div>
-                    ))}
-                  </Box>
-                </StyledCard>
-              </motion.div>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </Box>
+                        </motion.div>
+                      ))}
+                    </Box>
+                  </StyledCard>
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
 };
 
 export default Skills;
-

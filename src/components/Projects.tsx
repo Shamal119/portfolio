@@ -5,37 +5,51 @@ import {
   Card,
   CardContent,
   Typography,
-  Button,
   Chip,
   Container,
   Grid,
   useTheme,
   ThemeProvider,
-  createTheme
+  createTheme,
+  IconButton,
 } from '@mui/material';
 import { motion } from 'framer-motion';
+import LaunchIcon from '@mui/icons-material/Launch';
 
-// Create custom theme with blue and white
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2563eb', // Bright blue
+      main: '#2563eb',
       light: '#3b82f6',
       dark: '#1d4ed8',
     },
     background: {
-      default: '#ffffff',
+      default: '#f8fafc', // Lighter background
       paper: '#ffffff',
     },
   },
   typography: {
     h2: {
-      fontWeight: 700,
-      marginBottom: '2rem',
+      fontWeight: 800, // Increased weight
+      fontSize: '2.5rem',
+      letterSpacing: '-0.02em',
     },
     h5: {
-      fontWeight: 600,
-      color: '#2563eb',
+      fontWeight: 700,
+      fontSize: '1.25rem',
+      color: '#1e293b', // Darker text for better contrast
+    },
+    body2: {
+      lineHeight: 1.7, // Improved readability
+    },
+  },
+  components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: '16px', // Rounded corners
+        },
+      },
     },
   },
 });
@@ -92,9 +106,9 @@ const Projects = () => {
     },
     {
       "title": "Breast Cancer Detection Using Neural Networks",
-      "description": "Developed a deep learning classification model using Sequential Neural Networks to predict breast cancer malignancy.  Features include automated hospital recommendations based on predictions and an intuitive interface for medical image analysis.",
+      "description": "Developed a deep learning classification model using Sequential Neural Networks to predict breast cancer malignancy. Achieved high accuracy through careful preprocessing, model architecture optimization, and deployment as a user-friendly web application. Features include automated hospital recommendations based on predictions and an intuitive interface for medical image analysis.",
       "tech": [
-          "Python ",
+          "Python 3.9",
           "Keras",
           "TensorFlow",
           "Streamlit",
@@ -108,89 +122,123 @@ const Projects = () => {
   }
   ];
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+    hover: {
+      y: -12,
+      transition: { duration: 0.3 },
+    },
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Box
         sx={{
-          py: 8,
-          background: 'linear-gradient(to bottom, #ffffff, #f0f7ff)',
+          py: 12, // Increased padding
+          background: 'linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%)',
+          minHeight: '100vh',
         }}
       >
         <Container maxWidth="lg">
-          <Typography
-            variant="h2"
-            align="center"
-            sx={{
-              position: 'relative',
-              '&:after': {
-                content: '""',
-                display: 'block',
-                width: '60px',
-                height: '4px',
-                background: theme.palette.primary.main,
-                margin: '1rem auto',
-                borderRadius: '2px',
-              }
-            }}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            Featured Projects
-          </Typography>
+            <Typography
+              variant="h2"
+              align="center"
+              sx={{
+                mb: 6,
+                position: 'relative',
+                '&:after': {
+                  content: '""',
+                  display: 'block',
+                  width: '80px',
+                  height: '4px',
+                  background: 'linear-gradient(90deg, #2563eb, #3b82f6)',
+                  margin: '1.5rem auto',
+                  borderRadius: '4px',
+                },
+              }}
+            >
+              Featured Projects
+            </Typography>
+          </motion.div>
 
           <Grid container spacing={4}>
             {projects.map((project, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  variants={cardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  whileHover="hover"
+                  viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  style={{ textDecoration: 'none' }}
-                  onClick={() => project.link && window.open(project.link, '_blank')}
                 >
                   <Card
                     sx={{
                       height: '100%',
                       display: 'flex',
                       flexDirection: 'column',
-                      transition: '0.3s',
-                      '&:hover': {
-                        transform: 'translateY(-8px)',
-                        boxShadow: '0 12px 20px rgba(37, 99, 235, 0.1)',
-                        '& .project-title': {
-                          color: theme.palette.primary.main,
-                          textDecoration: 'underline'
-                        }
-                      },
-                      borderTop: `4px solid ${theme.palette.primary.main}`,
-                      cursor: project.link ? 'pointer' : 'default',
                       position: 'relative',
-                      '&::after': project.link ? {
-                        content: '"🔗"',
-                        position: 'absolute',
-                        top: '10px',
-                        right: '10px',
-                        fontSize: '1.2rem'
-                      } : {}
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                      '&:hover': {
+                        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+                      },
+                      background: 'linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)',
+                      border: '1px solid rgba(37, 99, 235, 0.1)',
                     }}
                   >
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
-                        {project.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                        <Typography variant="h5" gutterBottom>
+                          {project.title}
+                        </Typography>
+                        {project.link && (
+                          <IconButton
+                            size="small"
+                            onClick={() => window.open(project.link, '_blank')}
+                            sx={{
+                              color: 'primary.main',
+                              '&:hover': { backgroundColor: 'rgba(37, 99, 235, 0.1)' },
+                            }}
+                          >
+                            <LaunchIcon fontSize="small" />
+                          </IconButton>
+                        )}
+                      </Box>
+                      
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          mb: 3,
+                          overflow: 'hidden',
+                          display: '-webkit-box',
+                          WebkitLineClamp: 4,
+                          WebkitBoxOrient: 'vertical',
+                        }}
+                      >
                         {project.description}
                       </Typography>
-                      <Box sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                         {project.tech.map((tech, i) => (
                           <Chip
                             key={i}
                             label={tech}
                             size="small"
                             sx={{
-                              bgcolor: 'rgba(37, 99, 235, 0.1)',
-                              color: 'primary.main',
+                              bgcolor: 'rgba(37, 99, 235, 0.08)',
+                              color: 'primary.dark',
+                              fontWeight: 500,
                               '&:hover': {
-                                bgcolor: 'rgba(37, 99, 235, 0.2)',
-                              }
+                                bgcolor: 'rgba(37, 99, 235, 0.15)',
+                              },
+                              transition: 'all 0.2s ease',
                             }}
                           />
                         ))}
@@ -201,7 +249,6 @@ const Projects = () => {
               </Grid>
             ))}
           </Grid>
-
         </Container>
       </Box>
     </ThemeProvider>
