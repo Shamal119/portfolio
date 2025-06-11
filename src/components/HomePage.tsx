@@ -223,7 +223,7 @@ const HomePage = () => {
                                 >
                                     Data Scientist specializing in Generative AI, Machine Learning, and Cloud AI Solutions.
                                     Expert in LLMs, API development, and NLP techniques with experience in Azure AI,
-                                    Virtex AI and Other AI tools.
+                                    Vertex AI and other AI tools.
                                 </Typography>
 
                                 {/* Social Links */}
