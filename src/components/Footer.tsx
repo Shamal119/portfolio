@@ -1,13 +1,10 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
 
 const Footer = () => {
   return (
-    <Box component="footer" sx={{ textAlign: 'center', py: 2, mt: 'auto', backgroundColor: '#f8fafc' }}>
-      <Typography variant="body2" color="text.secondary">
-        © {new Date().getFullYear()} Shamal Musthafa. All rights reserved.
-      </Typography>
-    </Box>
+    <footer style={{ textAlign: 'center', padding: '1rem', marginTop: 'auto' }}>
+      <p>© {new Date().getFullYear()} Shamal Musthafa. All rights reserved.</p>
+    </footer>
   );
 };
 
