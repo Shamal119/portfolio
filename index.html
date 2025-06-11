@@ -6,8 +6,37 @@
     <title>Shamal Musthafa - Portfolio</title>
     <script type="module" crossorigin src="/portfolio/assets/index-Dr5J0pz-.js"></script>
     <link rel="stylesheet" crossorigin href="/portfolio/assets/index-tn0RQdqM.css">
+    <link rel="stylesheet" href="/portfolio/assets/custom.css">
   </head>
   <body>
+    <div id="alteryx-section">
+      <h2>Alteryx Designer with Power BI Integration</h2>
+      <div id="powerbi-details" hidden>
+        <p>
+          I am working on a leak detection analytics project using Alteryx Designer
+          connected with Power BI. The goal is to automate parsing and
+          visualisation of meter data.
+        </p>
+        <ul>
+          <li>Parsed hourly, daily and monthly meter data to flag leaks</li>
+          <li>Identified anomalies; built alert logic with over 80% precision</li>
+          <li>Created interactive dashboards with time-based drilldowns</li>
+        </ul>
+      </div>
+      <button id="toggle-details" aria-expanded="false">Show details</button>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var btn = document.getElementById("toggle-details");
+        var details = document.getElementById("powerbi-details");
+        btn.addEventListener("click", function () {
+          var expanded = btn.getAttribute("aria-expanded") === "true";
+          btn.setAttribute("aria-expanded", !expanded);
+          btn.textContent = expanded ? "Show details" : "Hide details";
+          details.hidden = expanded;
+        });
+      });
+    </script>
     <div id="root"></div>
   </body>
 
