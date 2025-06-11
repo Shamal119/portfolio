@@ -16,7 +16,7 @@ const theme = createTheme({
 const ResumePage = () => {
   const navigate = useNavigate();
   
-  // Get the current origin (domain)
+  // PDF path relative to the deployment base
   const pdfUrl = '/portfolio/resume.pdf';  
 
   return (
