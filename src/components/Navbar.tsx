@@ -7,10 +7,10 @@ const Navbar = () => {
       <div className="logo">SM</div>
       <div className="nav-links">
         <Link to="/">Home</Link>
-        <Link to="/projects">Projects</Link>
-        <Link to="/experience">Experience</Link>
-        <Link to="/skills">Skills</Link>
-        <Link to="/contact">Contact</Link>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
       </div>
     </nav>
   );
