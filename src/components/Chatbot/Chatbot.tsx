@@ -68,8 +68,8 @@ const Chatbot: React.FC = () => {
   return (
     <div className="chatbot-container" style={{ 
       position: 'fixed', 
-      bottom: '20px', 
-      right: '20px', 
+      bottom: window.innerWidth <= 480 ? '15px' : '20px', 
+      right: window.innerWidth <= 480 ? '15px' : '20px', 
       zIndex: 1001,
       opacity: 1,
       visibility: 'visible',

@@ -274,4 +274,48 @@
     display: flex !important;
     position: relative !important;
   }
+  
+  /* Mobile-specific chatbot visibility */
+  @media (max-width: 768px) {
+    .chatbot-container {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: block !important;
+      z-index: 1001 !important;
+      position: fixed !important;
+      bottom: 20px !important;
+      right: 20px !important;
+    }
+    
+    .chatbot-icon {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: flex !important;
+      position: relative !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .chatbot-container {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: block !important;
+      z-index: 1001 !important;
+      position: fixed !important;
+      bottom: 15px !important;
+      right: 15px !important;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    .chatbot-container {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: block !important;
+      z-index: 1001 !important;
+      position: fixed !important;
+      bottom: 10px !important;
+      right: 10px !important;
+    }
+  }
 }
