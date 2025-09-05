@@ -258,4 +258,18 @@
     opacity: 1 !important;
     visibility: visible !important;
   }
+  
+  /* Ensure chatbot is always visible */
+  .chatbot-container {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    z-index: 1001 !important;
+  }
+  
+  .chatbot-icon {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+  }
 }

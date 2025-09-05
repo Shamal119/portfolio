@@ -2,7 +2,9 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 999;
+    z-index: 1001;
+    opacity: 1;
+    visibility: visible;
   }
 
   @media (max-width: 768px) {
@@ -15,14 +17,18 @@
   .chatbot-icon {
     width: 60px;
     height: 60px;
-    background-color: #007bff;
+    background: linear-gradient(45deg, #2563eb, #1d4ed8);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    transition: all 0.3s ease;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.2);
   }
 
   @media (max-width: 768px) {
@@ -33,7 +39,8 @@
   }
 
   .chatbot-icon:hover {
-    transform: scale(1.1);
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
   }
 
   .chatbot-icon svg {

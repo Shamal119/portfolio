@@ -66,7 +66,15 @@ const Chatbot: React.FC = () => {
   };
 
   return (
-    <div className="chatbot-container">
+    <div className="chatbot-container" style={{ 
+      position: 'fixed', 
+      bottom: '20px', 
+      right: '20px', 
+      zIndex: 1001,
+      opacity: 1,
+      visibility: 'visible',
+      display: 'block'
+    }}>
       {isOpen ? (
         <div className="chatbot-window">
           <div className="chatbot-header">
