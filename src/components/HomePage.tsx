@@ -50,20 +50,43 @@ const theme = createTheme({
         h1: {
             fontSize: '3.5rem',
             fontWeight: 800,
+            '@media (max-width:768px)': {
+                fontSize: '2.8rem',
+            },
             '@media (max-width:600px)': {
-                fontSize: '2.5rem',
+                fontSize: '2.2rem',
+            },
+            '@media (max-width:480px)': {
+                fontSize: '1.8rem',
             },
         },
         h2: {
             fontWeight: 700,
             fontSize: '2.5rem',
             marginBottom: '2rem',
+            '@media (max-width:768px)': {
+                fontSize: '2rem',
+                marginBottom: '1.5rem',
+            },
+            '@media (max-width:600px)': {
+                fontSize: '1.8rem',
+                marginBottom: '1rem',
+            },
         },
         h4: {
             fontWeight: 600,
+            '@media (max-width:768px)': {
+                fontSize: '1.3rem',
+            },
+            '@media (max-width:600px)': {
+                fontSize: '1.1rem',
+            },
         },
         body1: {
             lineHeight: 1.8,
+            '@media (max-width:768px)': {
+                fontSize: '0.95rem',
+            },
         },
     },
     components: {
@@ -75,6 +98,16 @@ const theme = createTheme({
                     padding: '14px 28px',
                     fontSize: '1rem',
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    '@media (max-width:768px)': {
+                        padding: '12px 20px',
+                        fontSize: '0.9rem',
+                        minHeight: '44px',
+                    },
+                    '@media (max-width:600px)': {
+                        padding: '10px 16px',
+                        fontSize: '0.85rem',
+                        minHeight: '40px',
+                    },
                 },
             },
         },
@@ -185,8 +218,8 @@ const HomePage = () => {
                     },
                 }}
             >
-                <Container maxWidth="lg">
-                    <Grid container spacing={4} alignItems="center">
+                <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
+                    <Grid container spacing={{ xs: 3, md: 4 }} alignItems="center">
                         <Grid item xs={12} md={8}>
                             <motion.div variants={itemVariants}>
                                 <Typography
@@ -279,14 +312,16 @@ const HomePage = () => {
                                         sx={{
                                             display: 'flex',
                                             flexWrap: 'wrap',
-                                            gap: 2,
+                                            gap: { xs: 1.5, sm: 2 },
                                             maxWidth: 'fit-content',
-                                            p: 2,
+                                            p: { xs: 1.5, sm: 2 },
                                             borderRadius: 4,
                                             backgroundColor: 'rgba(255, 255, 255, 0.9)',
                                             backdropFilter: 'blur(20px)',
                                             boxShadow: '0 12px 40px rgba(37, 99, 235, 0.15)',
                                             border: '1px solid rgba(255, 255, 255, 0.2)',
+                                            width: { xs: '100%', sm: 'auto' },
+                                            justifyContent: { xs: 'center', sm: 'flex-start' },
                                         }}
                                     >
                                         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -469,13 +504,13 @@ const HomePage = () => {
                         background: 'linear-gradient(to bottom, #f0f7ff, #ffffff)',
                     }}
                 >
-                    <Container maxWidth="md">
+                    <Container maxWidth="md" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
                         <motion.div variants={itemVariants}>
                             <Typography
                                 variant="h2"
                                 align="center"
                                 sx={{
-                                    mb: 4,
+                                    mb: { xs: 3, md: 4 },
                                     position: 'relative',
                                     '&:after': {
                                         content: '""',
@@ -492,7 +527,7 @@ const HomePage = () => {
                             </Typography>
                         </motion.div>
 
-                        <Grid container spacing={3} justifyContent="center">
+                        <Grid container spacing={{ xs: 2, sm: 3 }} justifyContent="center">
                             {contactInfo.map((info, index) => (
                                 <Grid item xs={12} sm={4} key={index}>
                                     <motion.div
@@ -580,9 +615,15 @@ const HomePage = () => {
                 transition={{ delay: 1 }}
                 style={{
                     position: 'fixed',
-                    bottom: '2rem',
-                    right: '2rem',
+                    bottom: '1rem',
+                    right: '1rem',
                     zIndex: 1000,
+                }}
+                sx={{
+                    '@media (max-width:768px)': {
+                        bottom: '1rem',
+                        right: '1rem',
+                    },
                 }}
             >
                 <Tooltip title="Scroll to Top" placement="left">

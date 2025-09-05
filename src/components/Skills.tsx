@@ -47,11 +47,22 @@ const theme = createTheme({
       fontWeight: 700,
       fontSize: '2.5rem',
       marginBottom: '2rem',
+      '@media (max-width:768px)': {
+        fontSize: '2rem',
+        marginBottom: '1.5rem',
+      },
+      '@media (max-width:600px)': {
+        fontSize: '1.8rem',
+        marginBottom: '1rem',
+      },
     },
     h5: {
       fontWeight: 600,
       color: '#1e293b',
       fontSize: '1.25rem',
+      '@media (max-width:768px)': {
+        fontSize: '1.1rem',
+      },
     },
   },
 });
@@ -150,11 +161,11 @@ const Skills = () => {
     <ThemeProvider theme={theme}>
       <Box
         sx={{
-          py: 8,
+          py: { xs: 6, md: 8 },
           background: 'linear-gradient(to bottom, #ffffff, #f0f7ff)',
         }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
           <Typography
             variant="h2"
             align="center"
@@ -184,7 +195,7 @@ const Skills = () => {
                 sm: 'repeat(2, 1fr)',
                 lg: 'repeat(3, 1fr)',
               },
-              gap: 3,
+              gap: { xs: 2, sm: 3 },
             }}
           >
             {skillCategories.map((category, index) => (

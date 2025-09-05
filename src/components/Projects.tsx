@@ -39,19 +39,34 @@ const theme = createTheme({
       fontWeight: 800,
       fontSize: '2.5rem',
       letterSpacing: '-0.02em',
+      '@media (max-width:768px)': {
+        fontSize: '2rem',
+      },
+      '@media (max-width:600px)': {
+        fontSize: '1.8rem',
+      },
     },
     h5: {
       fontWeight: 700,
       fontSize: '1.25rem',
       color: '#1e293b',
+      '@media (max-width:768px)': {
+        fontSize: '1.1rem',
+      },
     },
     h6: {
       fontWeight: 700,
       fontSize: '1.1rem',
       color: '#1e293b',
+      '@media (max-width:768px)': {
+        fontSize: '1rem',
+      },
     },
     body2: {
       lineHeight: 1.7,
+      '@media (max-width:768px)': {
+        fontSize: '0.9rem',
+      },
     },
   },
   components: {
@@ -304,12 +319,12 @@ const Projects = () => {
     <ThemeProvider theme={theme}>
       <Box
         sx={{
-          py: 12,
+          py: { xs: 6, md: 12 },
           background: 'linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%)',
           minHeight: '100vh',
         }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -344,7 +359,8 @@ const Projects = () => {
                 sm: 'repeat(2, 1fr)',
                 lg: 'repeat(3, 1fr)',
               },
-              gap: 3,
+              gap: { xs: 2, sm: 3 },
+              
             }}
           >
             {projects.map((project, index) => (
@@ -360,7 +376,7 @@ const Projects = () => {
                   <Card
                     sx={{
                       height: '100%',
-                      minHeight: '320px',
+                      minHeight: { xs: '280px', sm: '320px' },
                       display: 'flex',
                       flexDirection: 'column',
                       position: 'relative',

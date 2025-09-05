@@ -77,8 +77,8 @@ const FloatingNav: React.FC<FloatingNavProps> = ({ onNavigate }) => {
             transition={{ duration: 0.3 }}
             style={{
               position: 'fixed',
-              bottom: '2rem',
-              right: '2rem',
+              bottom: '1rem',
+              right: '1rem',
               zIndex: 1000,
             }}
           >
@@ -161,7 +161,7 @@ const FloatingNav: React.FC<FloatingNavProps> = ({ onNavigate }) => {
           style={{
             position: 'fixed',
             top: '50%',
-            right: '2rem',
+            right: '1rem',
             transform: 'translateY(-50%)',
             zIndex: 1000,
           }}

@@ -2,6 +2,7 @@
 const getApiBaseUrl = (): string => {
   // Check if we're in development
   if (import.meta.env.DEV) {
+    
     return 'http://localhost:3001';
   }
   
