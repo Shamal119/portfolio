@@ -265,11 +265,17 @@
     visibility: visible !important;
     display: block !important;
     z-index: 1001 !important;
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    max-height: 100vh !important;
+    overflow: visible !important;
   }
   
   .chatbot-icon {
     opacity: 1 !important;
     visibility: visible !important;
     display: flex !important;
+    position: relative !important;
   }
 }

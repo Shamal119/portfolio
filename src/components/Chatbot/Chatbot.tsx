@@ -73,7 +73,9 @@ const Chatbot: React.FC = () => {
       zIndex: 1001,
       opacity: 1,
       visibility: 'visible',
-      display: 'block'
+      display: 'block',
+      maxHeight: '100vh',
+      overflow: 'visible'
     }}>
       {isOpen ? (
         <div className="chatbot-window">
