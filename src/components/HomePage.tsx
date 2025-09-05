@@ -203,16 +203,16 @@ const HomePage = () => {
             <Box
                 id="hero"
                 className="hero-section"
-                component={motion.div}
-                initial="hidden"
-                animate="visible"
-                variants={isMobile ? mobileContainerVariants : containerVariants}
-                style={{ opacity: 1 }}
+                component={isMobile ? 'div' : motion.div}
+                initial={isMobile ? undefined : "hidden"}
+                animate={isMobile ? undefined : "visible"}
+                variants={isMobile ? undefined : containerVariants}
+                style={{ opacity: 1, overflow: 'visible', backgroundColor: 'rgba(255, 0, 0, 0.1)' }}
                 sx={{
                     minHeight: { xs: 'calc(var(--vh, 1vh) * 100)', sm: '100vh' },
                     background: 'linear-gradient(135deg, #f0f7ff 0%, #ffffff 50%, #f0f7ff 100%)',
                     position: 'relative',
-                    overflow: 'visible',
+                    overflow: 'visible !important',
                     display: 'flex',
                     alignItems: 'center',
                     '&::before': {
@@ -234,7 +234,11 @@ const HomePage = () => {
                 <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 }, py: { xs: 4, sm: 6 } }}>
                     <Grid container spacing={{ xs: 3, md: 4 }} alignItems="center" sx={{ minHeight: { xs: 'calc(var(--vh, 1vh) * 80)', sm: '80vh' } }}>
                         <Grid item xs={12} md={8}>
-                            <motion.div variants={isMobile ? mobileItemVariants : itemVariants} style={{ position: 'relative', zIndex: 2 }}>
+                            {isMobile ? (
+                                <div style={{ position: 'relative', zIndex: 2 }}>
+                            ) : (
+                                <motion.div variants={itemVariants} style={{ position: 'relative', zIndex: 2 }}>
+                            )}
                                 <Typography
                                     variant="h1"
                                     sx={{
@@ -320,7 +324,11 @@ const HomePage = () => {
                                 </Box>
 
                                 {/* Action Buttons */}
-                                <motion.div variants={isMobile ? mobileItemVariants : itemVariants}>
+                                {isMobile ? (
+                                    <div>
+                                ) : (
+                                    <motion.div variants={itemVariants}>
+                                )}
                                     <Box
                                         sx={{
                                             display: 'flex',
@@ -460,8 +468,16 @@ const HomePage = () => {
                                             </Button>
                                         </motion.div>
                                     </Box>
+                                {isMobile ? (
+                                    </div>
+                                ) : (
+                                    </motion.div>
+                                )}
+                            {isMobile ? (
+                                </div>
+                            ) : (
                                 </motion.div>
-                            </motion.div>
+                            )}
                         </Grid>
                     </Grid>
                 </Container>

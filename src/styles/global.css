@@ -114,3 +114,36 @@
       min-height: -webkit-fill-available;
     }
   }
+
+  /* Force hero section overflow to be visible */
+  .hero-section {
+    overflow: visible !important;
+  }
+
+  /* Target the specific MUI class that's causing issues */
+  .css-1hz2e14 {
+    overflow: visible !important;
+  }
+
+  /* Ensure content is visible on mobile */
+  @media (max-width: 768px) {
+    .hero-section {
+      overflow: visible !important;
+      min-height: calc(var(--vh, 1vh) * 100) !important;
+    }
+    
+    /* Force all MUI Box elements in hero to be visible */
+    .hero-section .MuiBox-root {
+      overflow: visible !important;
+    }
+    
+    /* Ensure Grid content is visible */
+    .hero-section .MuiGrid-root {
+      overflow: visible !important;
+    }
+    
+    /* Force Container to be visible */
+    .hero-section .MuiContainer-root {
+      overflow: visible !important;
+    }
+  }
