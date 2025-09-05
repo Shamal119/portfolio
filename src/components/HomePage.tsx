@@ -18,6 +18,8 @@ import { useNavigate } from 'react-router-dom';
 import Projects from './Projects';
 import Skills from './Skills';
 import Experience from './Experience';
+import Certifications from './Certifications';
+import FloatingNav from './FloatingNav';
 import {
     LinkedIn,
     GitHub,
@@ -27,7 +29,8 @@ import {
     LocationOn,
     WorkOutline,
     BoltOutlined,
-    DescriptionOutlined
+    DescriptionOutlined,
+    School as SchoolIcon
 } from '@mui/icons-material';
 import { useInView } from 'react-intersection-observer';
 import { Code as CodeIcon } from '@mui/icons-material';
@@ -95,7 +98,13 @@ const HomePage = () => {
     });
 
     const scrollToSection = (sectionId: string) => {
-        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+        if (sectionId === 'hero') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (sectionId === 'resume') {
+            navigate('/resume');
+        } else {
+            document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+        }
     };
 
     const contactInfo = [
@@ -148,6 +157,7 @@ const HomePage = () => {
 
             {/* Hero Section */}
             <Box
+                id="hero"
                 component={motion.div}
                 initial="hidden"
                 animate="visible"
@@ -209,7 +219,7 @@ const HomePage = () => {
                                         },
                                     }}
                                 >
-                                    Data Scientist & AI Engineer
+                                    Data Scientist | Generative AI & Business Intelligence
                                 </Typography>
 
                                 <Typography
@@ -221,9 +231,10 @@ const HomePage = () => {
                                         lineHeight: 1.8,
                                     }}
                                 >
-                                    Data Scientist specializing in Generative AI, Machine Learning, and Cloud AI Solutions.
-                                    Expert in LLMs, API development, and NLP techniques with experience in Azure AI,
-                                    Virtex AI and Other AI tools.
+                                    A Data Scientist with over two years of experience delivering end-to-end data solutions. 
+                                    Core competencies include automating complex data workflows with Alteryx, developing 
+                                    advanced Generative AI and LLM applications using Python, and translating data into 
+                                    actionable insights through dynamic visualizations in Tableau and Power BI.
                                 </Typography>
 
                                 {/* Social Links */}
@@ -264,115 +275,143 @@ const HomePage = () => {
 
                                 {/* Action Buttons */}
                                 <motion.div variants={itemVariants}>
-                                    <Grid
-                                        container
-                                        spacing={2}
+                                    <Box
                                         sx={{
+                                            display: 'flex',
+                                            flexWrap: 'wrap',
+                                            gap: 2,
                                             maxWidth: 'fit-content',
-                                            p: 1.5,
+                                            p: 2,
                                             borderRadius: 4,
-                                            backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                                            backdropFilter: 'blur(10px)',
-                                            boxShadow: '0 8px 32px rgba(37, 99, 235, 0.1)',
+                                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                            backdropFilter: 'blur(20px)',
+                                            boxShadow: '0 12px 40px rgba(37, 99, 235, 0.15)',
+                                            border: '1px solid rgba(255, 255, 255, 0.2)',
                                         }}
                                     >
-                                        <Grid item>
-                                            <motion.div whileHover={{ scale: 1.02 }}>
-                                                <Button
-                                                    variant="outlined"
-                                                    size="large"
-                                                    onClick={() => scrollToSection('experience')}
-                                                    startIcon={<WorkOutline />}
-                                                    sx={{
-                                                        borderColor: 'primary.main',
-                                                        borderWidth: 2,
-                                                        '&:hover': {
-                                                            borderColor: 'primary.dark',
-                                                            backgroundColor: 'rgba(37, 99, 235, 0.05)',
-                                                            transform: 'translateY(-2px)',
-                                                            boxShadow: '0 4px 12px rgba(37, 99, 235, 0.1)',
-                                                        },
-                                                    }}
-                                                >
-                                                    <Typography sx={{ fontWeight: 600 }}>
-                                                        Experience
-                                                    </Typography>
-                                                </Button>
-                                            </motion.div>
-                                        </Grid>
-                                        <Grid item>
-                                            <motion.div whileHover={{ scale: 1.02 }}>
-                                                <Button
-                                                    variant="contained"
-                                                    size="large"
-                                                    onClick={() => scrollToSection('projects')}
-                                                    startIcon={<CodeIcon />}
-                                                    sx={{
-                                                        background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
-                                                        boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)',
-                                                        '&:hover': {
-                                                            background: 'linear-gradient(45deg, #1d4ed8 30%, #1e40af 90%)',
-                                                            transform: 'translateY(-2px)',
-                                                            boxShadow: '0 8px 16px rgba(37, 99, 235, 0.3)',
-                                                        },
-                                                    }}
-                                                >
-                                                    <Typography sx={{ fontWeight: 600 }}>
-                                                        Projects
-                                                    </Typography>
-                                                </Button>
-                                            </motion.div>
-                                        </Grid>
+                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                            <Button
+                                                variant="outlined"
+                                                size="large"
+                                                onClick={() => scrollToSection('experience')}
+                                                startIcon={<WorkOutline />}
+                                                sx={{
+                                                    borderColor: 'primary.main',
+                                                    borderWidth: 2,
+                                                    px: 3,
+                                                    py: 1.5,
+                                                    '&:hover': {
+                                                        borderColor: 'primary.dark',
+                                                        backgroundColor: 'rgba(37, 99, 235, 0.05)',
+                                                        transform: 'translateY(-2px)',
+                                                        boxShadow: '0 8px 20px rgba(37, 99, 235, 0.15)',
+                                                    },
+                                                }}
+                                            >
+                                                <Typography sx={{ fontWeight: 600 }}>
+                                                    Experience
+                                                </Typography>
+                                            </Button>
+                                        </motion.div>
 
-                                        <Grid item>
-                                            <motion.div whileHover={{ scale: 1.02 }}>
-                                                <Button
-                                                    variant="outlined"
-                                                    size="large"
-                                                    onClick={() => scrollToSection('skills')}
-                                                    startIcon={<BoltOutlined />}
-                                                    sx={{
-                                                        borderColor: 'primary.main',
-                                                        borderWidth: 2,
-                                                        '&:hover': {
-                                                            borderColor: 'primary.dark',
-                                                            backgroundColor: 'rgba(37, 99, 235, 0.05)',
-                                                            transform: 'translateY(-2px)',
-                                                            boxShadow: '0 4px 12px rgba(37, 99, 235, 0.1)',
-                                                        },
-                                                    }}
-                                                >
-                                                    <Typography sx={{ fontWeight: 600 }}>
-                                                        Skills
-                                                    </Typography>
-                                                </Button>
-                                            </motion.div>
-                                        </Grid>
+                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                            <Button
+                                                variant="contained"
+                                                size="large"
+                                                onClick={() => scrollToSection('projects')}
+                                                startIcon={<CodeIcon />}
+                                                sx={{
+                                                    background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
+                                                    boxShadow: '0 6px 20px rgba(37, 99, 235, 0.25)',
+                                                    px: 3,
+                                                    py: 1.5,
+                                                    '&:hover': {
+                                                        background: 'linear-gradient(45deg, #1d4ed8 30%, #1e40af 90%)',
+                                                        transform: 'translateY(-2px)',
+                                                        boxShadow: '0 10px 25px rgba(37, 99, 235, 0.35)',
+                                                    },
+                                                }}
+                                            >
+                                                <Typography sx={{ fontWeight: 600 }}>
+                                                    Projects
+                                                </Typography>
+                                            </Button>
+                                        </motion.div>
 
-                                        <Grid item>
-                                            <motion.div whileHover={{ scale: 1.02 }}>
-                                                <Button
-                                                    variant="contained"
-                                                    size="large"
-                                                    onClick={() => navigate('/resume')}
-                                                    startIcon={<DescriptionOutlined />}
-                                                    sx={{
-                                                        background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
-                                                        boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)',
-                                                        '&:hover': {
-                                                            background: 'linear-gradient(45deg, #1d4ed8 30%, #1e40af 90%)',
-                                                            transform: 'translateY(-2px)',
-                                                            boxShadow: '0 8px 16px rgba(37, 99, 235, 0.3)',
-                                                        },
-                                                    }}
-                                                >
-                                                    <Typography sx={{ fontWeight: 600 }}>
-                                                        Resume
-                                                    </Typography>
-                                                </Button>
-                                            </motion.div>
-                                        </Grid>
-                                    </Grid>
+                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                            <Button
+                                                variant="outlined"
+                                                size="large"
+                                                onClick={() => scrollToSection('skills')}
+                                                startIcon={<BoltOutlined />}
+                                                sx={{
+                                                    borderColor: 'primary.main',
+                                                    borderWidth: 2,
+                                                    px: 3,
+                                                    py: 1.5,
+                                                    '&:hover': {
+                                                        borderColor: 'primary.dark',
+                                                        backgroundColor: 'rgba(37, 99, 235, 0.05)',
+                                                        transform: 'translateY(-2px)',
+                                                        boxShadow: '0 8px 20px rgba(37, 99, 235, 0.15)',
+                                                    },
+                                                }}
+                                            >
+                                                <Typography sx={{ fontWeight: 600 }}>
+                                                    Skills
+                                                </Typography>
+                                            </Button>
+                                        </motion.div>
+
+                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                            <Button
+                                                variant="outlined"
+                                                size="large"
+                                                onClick={() => scrollToSection('certifications')}
+                                                startIcon={<SchoolIcon />}
+                                                sx={{
+                                                    borderColor: 'primary.main',
+                                                    borderWidth: 2,
+                                                    px: 3,
+                                                    py: 1.5,
+                                                    '&:hover': {
+                                                        borderColor: 'primary.dark',
+                                                        backgroundColor: 'rgba(37, 99, 235, 0.05)',
+                                                        transform: 'translateY(-2px)',
+                                                        boxShadow: '0 8px 20px rgba(37, 99, 235, 0.15)',
+                                                    },
+                                                }}
+                                            >
+                                                <Typography sx={{ fontWeight: 600 }}>
+                                                    Certifications
+                                                </Typography>
+                                            </Button>
+                                        </motion.div>
+
+                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                            <Button
+                                                variant="contained"
+                                                size="large"
+                                                onClick={() => navigate('/resume')}
+                                                startIcon={<DescriptionOutlined />}
+                                                sx={{
+                                                    background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
+                                                    boxShadow: '0 6px 20px rgba(37, 99, 235, 0.25)',
+                                                    px: 3,
+                                                    py: 1.5,
+                                                    '&:hover': {
+                                                        background: 'linear-gradient(45deg, #1d4ed8 30%, #1e40af 90%)',
+                                                        transform: 'translateY(-2px)',
+                                                        boxShadow: '0 10px 25px rgba(37, 99, 235, 0.35)',
+                                                    },
+                                                }}
+                                            >
+                                                <Typography sx={{ fontWeight: 600 }}>
+                                                    Resume
+                                                </Typography>
+                                            </Button>
+                                        </motion.div>
+                                    </Box>
                                 </motion.div>
                             </motion.div>
                         </Grid>
@@ -413,6 +452,11 @@ const HomePage = () => {
                     },
                 }}>
                     <Skills />
+                </Box>
+
+                {/* Certifications Section */}
+                <Box id="certifications" sx={{ py: 8 }}>
+                    <Certifications />
                 </Box>
 
 
@@ -572,6 +616,9 @@ const HomePage = () => {
                     </IconButton>
                 </Tooltip>
             </motion.div>
+
+            {/* Floating Navigation */}
+            <FloatingNav onNavigate={scrollToSection} />
         </ThemeProvider>
     );
 };

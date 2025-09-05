@@ -20,6 +20,7 @@ import {
 import { motion } from 'framer-motion';
 import LaunchIcon from '@mui/icons-material/Launch';
 import CloseIcon from '@mui/icons-material/Close';
+import resumeData from '../data/resumeData.json';
 
 const theme = createTheme({
   palette: {
@@ -98,6 +99,19 @@ const Projects = () => {
   };
 
   const projects: Project[] = [
+    // Resume projects
+    ...resumeData.projects.map(project => ({
+      title: project.title,
+      description: project.description,
+      tech: project.technologies,
+      link: undefined,
+      longDescription: project.description,
+      features: [],
+      implementation: "",
+      challenges: [],
+      outcome: ""
+    })),
+    // Detailed projects
     {
       title: "Chatbot Platform",
       description: "Developed enterprise-grade chatbot using Dialogflow, FastAPI, and cloud services. Implemented custom middleware for enhanced conversation handling and integrated with multiple backend systems.",
@@ -322,9 +336,19 @@ const Projects = () => {
             </Typography>
           </motion.div>
 
-          <Grid container spacing={4}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                lg: 'repeat(3, 1fr)',
+              },
+              gap: 3,
+            }}
+          >
             {projects.map((project, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
+              <Box key={index}>
                 <motion.div
                   variants={cardVariants}
                   initial="hidden"
@@ -336,20 +360,31 @@ const Projects = () => {
                   <Card
                     sx={{
                       height: '100%',
+                      minHeight: '320px',
                       display: 'flex',
                       flexDirection: 'column',
                       position: 'relative',
                       cursor: 'pointer',
                       boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                      '&:hover': {
-                        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
-                      },
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                       background: 'linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)',
                       border: '1px solid rgba(37, 99, 235, 0.1)',
+                      borderRadius: '16px',
+                      '&:hover': {
+                        boxShadow: '0 20px 25px -5px rgba(37, 99, 235, 0.15)',
+                        transform: 'translateY(-8px)',
+                        borderColor: 'rgba(37, 99, 235, 0.3)',
+                      },
                     }}
                     onClick={() => handleClickOpen(project)}
                   >
-                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                    <CardContent sx={{ 
+                      flexGrow: 1, 
+                      p: 3, 
+                      display: 'flex', 
+                      flexDirection: 'column',
+                      height: '100%'
+                    }}>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
                         <Typography variant="h5" gutterBottom>
                           {project.title}
@@ -376,16 +411,23 @@ const Projects = () => {
                         color="text.secondary"
                         sx={{
                           mb: 3,
+                          flexGrow: 1,
                           overflow: 'hidden',
                           display: '-webkit-box',
-                          WebkitLineClamp: 4,
+                          WebkitLineClamp: 3,
                           WebkitBoxOrient: 'vertical',
+                          minHeight: '72px',
                         }}
                       >
                         {project.description}
                       </Typography>
 
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                      <Box sx={{ 
+                        display: 'flex', 
+                        flexWrap: 'wrap', 
+                        gap: 1,
+                        mt: 'auto'
+                      }}>
                         {project.tech.map((tech, i) => (
                           <Chip
                             key={i}
@@ -406,9 +448,9 @@ const Projects = () => {
                     </CardContent>
                   </Card>
                 </motion.div>
-              </Grid>
+              </Box>
             ))}
-          </Grid>
+          </Box>
 
           <Dialog
             open={open}

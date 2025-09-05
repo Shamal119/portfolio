@@ -17,39 +17,17 @@ import {
   TimelineDot,
 } from '@mui/lab';
 import { motion } from 'framer-motion';
+import resumeData from '../data/resumeData.json';
 
 interface ExperienceData {
   title: string;
   company: string;
+  location: string;
   period: string;
   responsibilities: string[];
 }
 
-const experienceData: ExperienceData[] = [
-  {
-    title: "Data Scientist",
-    company: "Truwave Software LLC",
-    period: "August 2023 - Present",
-    responsibilities: [
-      "Architected and deployed enterprise chatbots using Dialogflow CX and Gemini technologies",
-      "Designed and maintained scalable APIs using FastAPI",
-      "Developed custom middleware and webhooks for enhanced Dialogflow conversation flows",
-      "Implemented Generative AI and LLMs to build advanced AI models",
-      "Utilized Azure AI and OpenAI for AI-based functionalities in production environments",
-      "Created robust backend systems using Python and FastAPI for data processing pipelines"
-    ]
-  },
-  {
-    title: "Data Analyst Intern",
-    company: "Truwave Software LLC",
-    period: "January 2023 - April 2023",
-    responsibilities: [
-      "Analyzed call center audio data using OpenAI Whisper Timestamp and LDA",
-      "Identified common customer issues and recommended service improvements",
-      "Developed proficiency in Alteryx, Microsoft Power BI, and NLP techniques"
-    ]
-  }
-];
+const experienceData: ExperienceData[] = resumeData.experience;
 
 const Experience = () => {
   const theme = useTheme();
@@ -148,15 +126,16 @@ const Experience = () => {
                   <Paper
                     elevation={3}
                     sx={{
-                      p: { xs: 2, sm: 3 }, // Reduced padding on mobile
-                      transition: '0.3s',
+                      p: { xs: 2, sm: 3 },
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                       '&:hover': {
-                        transform: { xs: 'none', sm: 'translateY(-5px)' }, // Disable hover effect on mobile
-                        boxShadow: '0 12px 20px rgba(37, 99, 235, 0.1)',
+                        transform: { xs: 'none', sm: 'translateY(-8px)' },
+                        boxShadow: '0 20px 40px rgba(37, 99, 235, 0.15)',
                       },
                       borderTop: `4px solid ${theme.palette.primary.main}`,
-                      borderRadius: '8px',
-                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      borderRadius: '16px',
+                      background: 'linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)',
+                      border: '1px solid rgba(37, 99, 235, 0.1)',
                     }}
                   >
                     <Typography
@@ -177,7 +156,7 @@ const Experience = () => {
                       }}
                       color="text.secondary"
                     >
-                      {exp.company}
+                      {exp.company} • {exp.location}
                     </Typography>
                     <Typography
                       variant="caption"
