@@ -629,51 +629,6 @@ const HomePage = () => {
                 </Box>
             </motion.div>
 
-            {/* Scroll to Top Button */}
-            <motion.div
-                className="scroll-to-top"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-                style={{
-                    position: 'fixed',
-                    bottom: '5rem',
-                    right: '1rem',
-                    zIndex: 1000,
-                    pointerEvents: 'auto',
-                }}
-            >
-                <Tooltip title="Scroll to Top" placement="left">
-                    <IconButton
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                        sx={{
-                            backgroundColor: 'primary.main',
-                            color: 'white',
-                            boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
-                            '&:hover': {
-                                backgroundColor: 'primary.dark',
-                                transform: 'translateY(-2px)',
-                            },
-                            transition: 'all 0.3s ease',
-                            width: 48,
-                            height: 48,
-                        }}
-                    >
-                        <motion.div
-                            animate={{
-                                y: [0, -4, 0],
-                            }}
-                            transition={{
-                                duration: 1.5,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                            }}
-                        >
-                            <WorkOutline />
-                        </motion.div>
-                    </IconButton>
-                </Tooltip>
-            </motion.div>
 
             {/* Floating Navigation */}
             <FloatingNav onNavigate={scrollToSection} />
