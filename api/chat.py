@@ -10,7 +10,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Load resume data
-with open('src/data/resumeData.json', 'r') as f:
+import os
+resume_data_path = os.path.join(os.path.dirname(__file__), '..', 'src', 'data', 'resumeData.json')
+with open(resume_data_path, 'r') as f:
     resume_data = json.load(f)
 
 # Configure Gemini AI
