@@ -78,8 +78,9 @@ const FloatingNav: React.FC<FloatingNavProps> = ({ onNavigate }) => {
             style={{
               position: 'fixed',
               bottom: '1rem',
-              right: '1rem',
+              left: '1rem',
               zIndex: 1000,
+              pointerEvents: 'auto',
             }}
           >
             <Fab
@@ -104,11 +105,11 @@ const FloatingNav: React.FC<FloatingNavProps> = ({ onNavigate }) => {
               onClose={handleMenuClose}
               anchorOrigin={{
                 vertical: 'top',
-                horizontal: 'left',
+                horizontal: 'right',
               }}
               transformOrigin={{
                 vertical: 'bottom',
-                horizontal: 'right',
+                horizontal: 'left',
               }}
               PaperProps={{
                 sx: {
@@ -154,14 +155,14 @@ const FloatingNav: React.FC<FloatingNavProps> = ({ onNavigate }) => {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, x: 100 }}
+          initial={{ opacity: 0, x: -100 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 100 }}
+          exit={{ opacity: 0, x: -100 }}
           transition={{ duration: 0.3 }}
           style={{
             position: 'fixed',
             top: '50%',
-            right: '1rem',
+            left: '1rem',
             transform: 'translateY(-50%)',
             zIndex: 1000,
           }}
@@ -186,7 +187,7 @@ const FloatingNav: React.FC<FloatingNavProps> = ({ onNavigate }) => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2, delay: index * 0.05 }}
               >
-                <Tooltip title={item.label} placement="left" arrow>
+                <Tooltip title={item.label} placement="right" arrow>
                   <IconButton
                     onClick={() => handleNavigation(item.section)}
                     sx={{

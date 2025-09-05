@@ -3,6 +3,7 @@
     --secondary-color: #1e40af;
     --background-color: #ffffff;
     --text-color: #1f2937;
+    --vh: 1vh;
   }
   
   * {
@@ -18,16 +19,23 @@
     background-color: var(--background-color);
     line-height: 1.6;
     overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-y: auto; /* Ensure vertical scrolling works */
+    height: 100%;
+    position: relative;
   }
   
   .layout {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
+    width: 100%;
   }
   
   main {
     flex: 1;
+    position: relative;
+    width: 100%;
   }
   
   /* Smooth scrolling for the entire page */
@@ -59,12 +67,26 @@
   @media (max-width: 768px) {
     body {
       font-size: 14px;
+      /* Fix for iOS Safari viewport issues */
+      -webkit-overflow-scrolling: touch;
+      position: relative;
     }
     
     /* Improve touch targets */
     button, a, [role="button"] {
       min-height: 44px;
       min-width: 44px;
+    }
+    
+    /* Ensure proper scrolling on mobile */
+    html, body {
+      height: auto;
+      min-height: 100vh;
+    }
+    
+    .layout {
+      min-height: 100vh;
+      height: auto;
     }
   }
 
@@ -83,5 +105,12 @@
     input[type="url"], input[type="search"], input[type="tel"], 
     input[type="color"] {
       font-size: 16px;
+    }
+  }
+
+  /* iOS Safari viewport height fix */
+  @supports (-webkit-touch-callout: none) {
+    .hero-section {
+      min-height: -webkit-fill-available;
     }
   }

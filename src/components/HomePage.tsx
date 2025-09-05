@@ -184,6 +184,17 @@ const HomePage = () => {
         },
     };
 
+    // Simplified variants for mobile
+    const mobileContainerVariants = {
+        hidden: { opacity: 1 },
+        visible: { opacity: 1 },
+    };
+
+    const mobileItemVariants = {
+        hidden: { opacity: 1, y: 0 },
+        visible: { opacity: 1, y: 0 },
+    };
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -191,15 +202,17 @@ const HomePage = () => {
             {/* Hero Section */}
             <Box
                 id="hero"
+                className="hero-section"
                 component={motion.div}
                 initial="hidden"
                 animate="visible"
-                variants={containerVariants}
+                variants={isMobile ? mobileContainerVariants : containerVariants}
+                style={{ opacity: 1 }}
                 sx={{
-                    minHeight: '100vh',
+                    minHeight: { xs: 'calc(var(--vh, 1vh) * 100)', sm: '100vh' },
                     background: 'linear-gradient(135deg, #f0f7ff 0%, #ffffff 50%, #f0f7ff 100%)',
                     position: 'relative',
-                    overflow: 'hidden',
+                    overflow: 'visible',
                     display: 'flex',
                     alignItems: 'center',
                     '&::before': {
@@ -218,10 +231,10 @@ const HomePage = () => {
                     },
                 }}
             >
-                <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
-                    <Grid container spacing={{ xs: 3, md: 4 }} alignItems="center">
+                <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 }, py: { xs: 4, sm: 6 } }}>
+                    <Grid container spacing={{ xs: 3, md: 4 }} alignItems="center" sx={{ minHeight: { xs: 'calc(var(--vh, 1vh) * 80)', sm: '80vh' } }}>
                         <Grid item xs={12} md={8}>
-                            <motion.div variants={itemVariants}>
+                            <motion.div variants={isMobile ? mobileItemVariants : itemVariants} style={{ position: 'relative', zIndex: 2 }}>
                                 <Typography
                                     variant="h1"
                                     sx={{
@@ -307,7 +320,7 @@ const HomePage = () => {
                                 </Box>
 
                                 {/* Action Buttons */}
-                                <motion.div variants={itemVariants}>
+                                <motion.div variants={isMobile ? mobileItemVariants : itemVariants}>
                                     <Box
                                         sx={{
                                             display: 'flex',
@@ -460,6 +473,7 @@ const HomePage = () => {
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
                 variants={containerVariants}
+                style={{ position: 'relative', zIndex: 1 }}
             >
 
                 {/* Experience Section */}
@@ -615,13 +629,14 @@ const HomePage = () => {
                 transition={{ delay: 1 }}
                 style={{
                     position: 'fixed',
-                    bottom: '1rem',
+                    bottom: '5rem',
                     right: '1rem',
                     zIndex: 1000,
+                    pointerEvents: 'auto',
                 }}
                 sx={{
                     '@media (max-width:768px)': {
-                        bottom: '1rem',
+                        bottom: '4rem',
                         right: '1rem',
                     },
                 }}
