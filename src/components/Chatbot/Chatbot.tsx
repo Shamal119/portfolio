@@ -66,16 +66,18 @@ const Chatbot: React.FC = () => {
   };
 
   return (
-    <div className="chatbot-container" style={{ 
+     <div className="chatbot-container" style={{ 
       position: 'fixed', 
-      bottom: window.innerWidth <= 480 ? '15px' : '20px', 
-      right: window.innerWidth <= 480 ? '15px' : '20px', 
+      bottom: '20px', 
+      right: '20px', 
       zIndex: 1001,
       opacity: 1,
       visibility: 'visible',
       display: 'block',
       maxHeight: '100vh',
-      overflow: 'visible'
+      overflow: 'visible',
+      top: 'auto',
+      left: 'auto'
     }}>
       {isOpen ? (
         <div className="chatbot-window">
