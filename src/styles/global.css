@@ -146,4 +146,9 @@
     .hero-section .MuiContainer-root {
       overflow: visible !important;
     }
+    
+    /* Mobile responsive scroll to top button */
+    .scroll-to-top {
+      bottom: 4rem !important;
+    }
   }

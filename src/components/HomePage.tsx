@@ -334,128 +334,118 @@ const HomePage = () => {
                                             justifyContent: { xs: 'center', sm: 'flex-start' },
                                         }}
                                     >
-                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                            <Button
-                                                variant="outlined"
-                                                size="large"
-                                                onClick={() => scrollToSection('experience')}
-                                                startIcon={<WorkOutline />}
-                                                sx={{
-                                                    borderColor: 'primary.main',
-                                                    borderWidth: 2,
-                                                    px: 3,
-                                                    py: 1.5,
-                                                    '&:hover': {
-                                                        borderColor: 'primary.dark',
-                                                        backgroundColor: 'rgba(37, 99, 235, 0.05)',
-                                                        transform: 'translateY(-2px)',
-                                                        boxShadow: '0 8px 20px rgba(37, 99, 235, 0.15)',
-                                                    },
-                                                }}
-                                            >
-                                                <Typography sx={{ fontWeight: 600 }}>
-                                                    Experience
-                                                </Typography>
-                                            </Button>
-                                        </motion.div>
+                                        <Button
+                                            variant="outlined"
+                                            size="large"
+                                            onClick={() => scrollToSection('experience')}
+                                            startIcon={<WorkOutline />}
+                                            sx={{
+                                                borderColor: 'primary.main',
+                                                borderWidth: 2,
+                                                px: 3,
+                                                py: 1.5,
+                                                '&:hover': {
+                                                    borderColor: 'primary.dark',
+                                                    backgroundColor: 'rgba(37, 99, 235, 0.05)',
+                                                    transform: 'translateY(-2px)',
+                                                    boxShadow: '0 8px 20px rgba(37, 99, 235, 0.15)',
+                                                },
+                                            }}
+                                        >
+                                            <Typography sx={{ fontWeight: 600 }}>
+                                                Experience
+                                            </Typography>
+                                        </Button>
 
-                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                            <Button
-                                                variant="contained"
-                                                size="large"
-                                                onClick={() => scrollToSection('projects')}
-                                                startIcon={<CodeIcon />}
-                                                sx={{
-                                                    background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
-                                                    boxShadow: '0 6px 20px rgba(37, 99, 235, 0.25)',
-                                                    px: 3,
-                                                    py: 1.5,
-                                                    '&:hover': {
-                                                        background: 'linear-gradient(45deg, #1d4ed8 30%, #1e40af 90%)',
-                                                        transform: 'translateY(-2px)',
-                                                        boxShadow: '0 10px 25px rgba(37, 99, 235, 0.35)',
-                                                    },
-                                                }}
-                                            >
-                                                <Typography sx={{ fontWeight: 600 }}>
-                                                    Projects
-                                                </Typography>
-                                            </Button>
-                                        </motion.div>
+                                        <Button
+                                            variant="contained"
+                                            size="large"
+                                            onClick={() => scrollToSection('projects')}
+                                            startIcon={<CodeIcon />}
+                                            sx={{
+                                                background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
+                                                boxShadow: '0 6px 20px rgba(37, 99, 235, 0.25)',
+                                                px: 3,
+                                                py: 1.5,
+                                                '&:hover': {
+                                                    background: 'linear-gradient(45deg, #1d4ed8 30%, #1e40af 90%)',
+                                                    transform: 'translateY(-2px)',
+                                                    boxShadow: '0 10px 25px rgba(37, 99, 235, 0.35)',
+                                                },
+                                            }}
+                                        >
+                                            <Typography sx={{ fontWeight: 600 }}>
+                                                Projects
+                                            </Typography>
+                                        </Button>
 
-                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                            <Button
-                                                variant="outlined"
-                                                size="large"
-                                                onClick={() => scrollToSection('skills')}
-                                                startIcon={<BoltOutlined />}
-                                                sx={{
-                                                    borderColor: 'primary.main',
-                                                    borderWidth: 2,
-                                                    px: 3,
-                                                    py: 1.5,
-                                                    '&:hover': {
-                                                        borderColor: 'primary.dark',
-                                                        backgroundColor: 'rgba(37, 99, 235, 0.05)',
-                                                        transform: 'translateY(-2px)',
-                                                        boxShadow: '0 8px 20px rgba(37, 99, 235, 0.15)',
-                                                    },
-                                                }}
-                                            >
-                                                <Typography sx={{ fontWeight: 600 }}>
-                                                    Skills
-                                                </Typography>
-                                            </Button>
-                                        </motion.div>
+                                        <Button
+                                            variant="outlined"
+                                            size="large"
+                                            onClick={() => scrollToSection('skills')}
+                                            startIcon={<BoltOutlined />}
+                                            sx={{
+                                                borderColor: 'primary.main',
+                                                borderWidth: 2,
+                                                px: 3,
+                                                py: 1.5,
+                                                '&:hover': {
+                                                    borderColor: 'primary.dark',
+                                                    backgroundColor: 'rgba(37, 99, 235, 0.05)',
+                                                    transform: 'translateY(-2px)',
+                                                    boxShadow: '0 8px 20px rgba(37, 99, 235, 0.15)',
+                                                },
+                                            }}
+                                        >
+                                            <Typography sx={{ fontWeight: 600 }}>
+                                                Skills
+                                            </Typography>
+                                        </Button>
 
-                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                            <Button
-                                                variant="outlined"
-                                                size="large"
-                                                onClick={() => scrollToSection('certifications')}
-                                                startIcon={<SchoolIcon />}
-                                                sx={{
-                                                    borderColor: 'primary.main',
-                                                    borderWidth: 2,
-                                                    px: 3,
-                                                    py: 1.5,
-                                                    '&:hover': {
-                                                        borderColor: 'primary.dark',
-                                                        backgroundColor: 'rgba(37, 99, 235, 0.05)',
-                                                        transform: 'translateY(-2px)',
-                                                        boxShadow: '0 8px 20px rgba(37, 99, 235, 0.15)',
-                                                    },
-                                                }}
-                                            >
-                                                <Typography sx={{ fontWeight: 600 }}>
-                                                    Certifications
-                                                </Typography>
-                                            </Button>
-                                        </motion.div>
+                                        <Button
+                                            variant="outlined"
+                                            size="large"
+                                            onClick={() => scrollToSection('certifications')}
+                                            startIcon={<SchoolIcon />}
+                                            sx={{
+                                                borderColor: 'primary.main',
+                                                borderWidth: 2,
+                                                px: 3,
+                                                py: 1.5,
+                                                '&:hover': {
+                                                    borderColor: 'primary.dark',
+                                                    backgroundColor: 'rgba(37, 99, 235, 0.05)',
+                                                    transform: 'translateY(-2px)',
+                                                    boxShadow: '0 8px 20px rgba(37, 99, 235, 0.15)',
+                                                },
+                                            }}
+                                        >
+                                            <Typography sx={{ fontWeight: 600 }}>
+                                                Certifications
+                                            </Typography>
+                                        </Button>
 
-                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                            <Button
-                                                variant="contained"
-                                                size="large"
-                                                onClick={() => navigate('/resume')}
-                                                startIcon={<DescriptionOutlined />}
-                                                sx={{
-                                                    background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
-                                                    boxShadow: '0 6px 20px rgba(37, 99, 235, 0.25)',
-                                                    px: 3,
-                                                    py: 1.5,
-                                                    '&:hover': {
-                                                        background: 'linear-gradient(45deg, #1d4ed8 30%, #1e40af 90%)',
-                                                        transform: 'translateY(-2px)',
-                                                        boxShadow: '0 10px 25px rgba(37, 99, 235, 0.35)',
-                                                    },
-                                                }}
-                                            >
-                                                <Typography sx={{ fontWeight: 600 }}>
-                                                    Resume
-                                                </Typography>
-                                            </Button>
-                                        </motion.div>
+                                        <Button
+                                            variant="contained"
+                                            size="large"
+                                            onClick={() => navigate('/resume')}
+                                            startIcon={<DescriptionOutlined />}
+                                            sx={{
+                                                background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
+                                                boxShadow: '0 6px 20px rgba(37, 99, 235, 0.25)',
+                                                px: 3,
+                                                py: 1.5,
+                                                '&:hover': {
+                                                    background: 'linear-gradient(45deg, #1d4ed8 30%, #1e40af 90%)',
+                                                    transform: 'translateY(-2px)',
+                                                    boxShadow: '0 10px 25px rgba(37, 99, 235, 0.35)',
+                                                },
+                                            }}
+                                        >
+                                            <Typography sx={{ fontWeight: 600 }}>
+                                                Resume
+                                            </Typography>
+                                        </Button>
                                     </Box>
                                 </div>
                             </div>
@@ -621,6 +611,7 @@ const HomePage = () => {
 
             {/* Scroll to Top Button */}
             <motion.div
+                className="scroll-to-top"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
@@ -630,12 +621,6 @@ const HomePage = () => {
                     right: '1rem',
                     zIndex: 1000,
                     pointerEvents: 'auto',
-                }}
-                sx={{
-                    '@media (max-width:768px)': {
-                        bottom: '4rem',
-                        right: '1rem',
-                    },
                 }}
             >
                 <Tooltip title="Scroll to Top" placement="left">
