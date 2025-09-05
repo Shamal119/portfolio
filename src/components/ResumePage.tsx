@@ -17,8 +17,27 @@ const ResumePage = () => {
   const navigate = useNavigate();
   const [pdfError, setPdfError] = useState(false);
   
-  // PDF path - works for both development and production
-  const pdfUrl = process.env.NODE_ENV === 'production' ? '/portfolio/resume.pdf' : '/resume.pdf';
+  // PDF path - works for development, GitHub Pages, and Vercel
+  const getPdfUrl = () => {
+    if (process.env.NODE_ENV === 'development') {
+      return '/resume.pdf';
+    }
+    
+    // Check if we're on Vercel (has vercel.app in URL) or GitHub Pages
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname;
+      if (hostname.includes('vercel.app')) {
+        return '/resume.pdf'; // Vercel
+      } else if (hostname.includes('github.io')) {
+        return '/portfolio/resume.pdf'; // GitHub Pages
+      }
+    }
+    
+    // Default fallback
+    return '/resume.pdf';
+  };
+  
+  const pdfUrl = getPdfUrl();
 
   const handlePdfError = () => {
     setPdfError(true);
@@ -94,14 +113,21 @@ const ResumePage = () => {
                 p: 4,
               }}
             >
-              <Alert severity="warning" sx={{ mb: 3, maxWidth: 500 }}>
-                Unable to display the PDF inline. Please use the buttons above to download or open the resume.
+              <Alert severity="info" sx={{ mb: 3, maxWidth: 500 }}>
+                Resume PDF is available for download. Click the "Download PDF" or "Open in New Tab" buttons above to view the resume.
               </Alert>
               <Typography variant="h6" color="text.secondary" align="center">
                 Shamal Musthafa - Resume
               </Typography>
               <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
                 Data Scientist | Generative AI & Business Intelligence
+              </Typography>
+              <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 2, maxWidth: 400 }}>
+                With over two years of experience delivering end-to-end data solutions. 
+                Core competencies include automating complex data workflows with Alteryx, 
+                developing advanced Generative AI and LLM applications using Python, 
+                and translating data into actionable insights through dynamic visualizations 
+                in Tableau and Power BI.
               </Typography>
             </Box>
           ) : (

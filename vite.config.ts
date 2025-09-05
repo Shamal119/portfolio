@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig(({ command, mode }) => {
   // Determine base path based on deployment target
   const isGitHubPages = process.env.VITE_DEPLOY_TARGET === 'github-pages'
+  const isVercel = process.env.VITE_DEPLOY_TARGET === 'vercel'
   const base = isGitHubPages ? '/portfolio/' : '/'
   
   return {
