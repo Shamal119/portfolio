@@ -210,8 +210,52 @@
       word-wrap: break-word !important;
     }
     
-    /* Mobile responsive scroll to top button */
-    .scroll-to-top {
-      bottom: 4rem !important;
-    }
+      /* Mobile responsive scroll to top button */
+  .scroll-to-top {
+    bottom: 4rem !important;
   }
+  
+  /* Ensure grid elements are visible on all screen sizes */
+  .MuiGrid-root {
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Fix grid container overflow issues */
+  .MuiContainer-root {
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Ensure proper grid display */
+  [class*="MuiGrid"] {
+    overflow: visible !important;
+  }
+  
+  /* Force immediate visibility for grid elements */
+  .MuiBox-root {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Ensure motion elements are visible on initial render */
+  [data-framer-motion] {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Force grid containers to be visible immediately */
+  .projects-grid, .skills-grid {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: grid !important;
+  }
+  
+  /* Ensure all grid items are visible */
+  .grid-item, [class*="grid"] {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}

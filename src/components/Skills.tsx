@@ -188,23 +188,28 @@ const Skills = () => {
           </Typography>
 
           <Box
+            className="skills-grid"
             sx={{
               display: 'grid',
               gridTemplateColumns: {
                 xs: '1fr',
                 sm: 'repeat(2, 1fr)',
+                md: 'repeat(2, 1fr)',
                 lg: 'repeat(3, 1fr)',
               },
               gap: { xs: 2, sm: 3 },
+              width: '100%',
+              maxWidth: '100%',
+              overflow: 'visible',
+              opacity: 1,
+              visibility: 'visible',
             }}
           >
             {skillCategories.map((category, index) => (
               <Box key={index}>
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
                 >
                   <StyledCard>
                     <Tooltip
@@ -240,10 +245,8 @@ const Skills = () => {
                       {category.skills.map((skill, i) => (
                         <motion.div
                           key={i}
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
+                          initial={{ opacity: 1, x: 0 }}
                           transition={{ duration: 0.5, delay: i * 0.1 }}
-                          viewport={{ once: true }}
                         >
                           <Box 
                             sx={{ 

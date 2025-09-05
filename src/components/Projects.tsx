@@ -352,26 +352,29 @@ const Projects = () => {
           </motion.div>
 
           <Box
+            className="projects-grid"
             sx={{
               display: 'grid',
               gridTemplateColumns: {
                 xs: '1fr',
                 sm: 'repeat(2, 1fr)',
+                md: 'repeat(2, 1fr)',
                 lg: 'repeat(3, 1fr)',
               },
               gap: { xs: 2, sm: 3 },
-              
-              
+              width: '100%',
+              maxWidth: '100%',
+              overflow: 'visible',
+              opacity: 1,
+              visibility: 'visible',
             }}
           >
             {projects.map((project, index) => (
               <Box key={index}>
                 <motion.div
                   variants={cardVariants}
-                  initial="hidden"
-                  whileInView="visible"
+                  initial="visible"
                   whileHover="hover"
-                  viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <Card

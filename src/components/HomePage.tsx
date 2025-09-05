@@ -129,6 +129,9 @@ const HomePage = () => {
         triggerOnce: true,
         threshold: 0.1,
     });
+    
+    // Force inView to true for initial render to prevent hiding issues
+    const isInView = inView || true;
 
     const scrollToSection = (sectionId: string) => {
         if (sectionId === 'hero') {
@@ -206,7 +209,7 @@ const HomePage = () => {
                 component="div"
                 style={{ opacity: 1, overflow: 'visible', backgroundColor: 'rgba(255, 0, 0, 0.1)' }}
                 sx={{
-                    minHeight: { xs: 'calc(var(--vh, 1vh) * 100)', sm: '100vh' },
+                    minHeight: { xs: '100vh', sm: '100vh' },
                     width: { xs: '100%', sm: '100%' },
                     maxWidth: { xs: '100%', sm: '100%' },
                     background: 'linear-gradient(135deg, #f0f7ff 0%, #ffffff 50%, #f0f7ff 100%)',
@@ -230,9 +233,17 @@ const HomePage = () => {
                     },
                 }}
             >
-                <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 }, py: { xs: 4, sm: 6 }, width: '100%', maxWidth: '100%' }}>
-                    <Grid container spacing={{ xs: 3, md: 4 }} alignItems="center" sx={{ minHeight: { xs: 'calc(var(--vh, 1vh) * 80)', sm: '80vh' }, width: '100%' }}>
-                        <Grid item xs={12} md={8}>
+                <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 }, py: { xs: 4, sm: 6 }, width: '100%', maxWidth: '100%', overflow: 'visible' }}>
+                    <Box sx={{ 
+                        display: 'flex', 
+                        flexDirection: { xs: 'column', md: 'row' },
+                        alignItems: 'center',
+                        gap: { xs: 3, md: 4 },
+                        minHeight: { xs: '80vh', sm: '80vh' }, 
+                        width: '100%', 
+                        overflow: 'visible' 
+                    }}>
+                        <Box sx={{ flex: { xs: '1', md: '2' }, width: '100%' }}>
                             <div style={{ position: 'relative', zIndex: 2 }}>
                                 <Typography
                                     variant="h1"
@@ -358,6 +369,7 @@ const HomePage = () => {
                                                 Experience
                                             </Typography>
                                         </Button>
+                                        
 
                                         <Button
                                             variant="contained"
@@ -451,16 +463,16 @@ const HomePage = () => {
                                     </Box>
                                 </div>
                             </div>
-                        </Grid>
-                    </Grid>
+                        </Box>
+                    </Box>
                 </Container>
             </Box>
 
             {/* Other Sections */}
             <motion.div
                 ref={ref}
-                initial="hidden"
-                animate={inView ? "visible" : "hidden"}
+                initial="visible"
+                animate={isInView ? "visible" : "visible"}
                 variants={containerVariants}
                 style={{ position: 'relative', zIndex: 1 }}
             >
@@ -530,9 +542,15 @@ const HomePage = () => {
                             </Typography>
                         </motion.div>
 
-                        <Grid container spacing={{ xs: 2, sm: 3 }} justifyContent="center">
+                        <Box sx={{ 
+                            display: 'grid',
+                            gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' },
+                            gap: { xs: 2, sm: 3 },
+                            width: '100%', 
+                            overflow: 'visible' 
+                        }}>
                             {contactInfo.map((info, index) => (
-                                <Grid item xs={12} sm={4} key={index}>
+                                <Box key={index}>
                                     <motion.div
                                         variants={itemVariants}
                                         whileHover={{
@@ -604,9 +622,9 @@ const HomePage = () => {
                                             </Typography>
                                         </Paper>
                                     </motion.div>
-                                </Grid>
+                                </Box>
                             ))}
-                        </Grid>
+                        </Box>
                     </Container>
                 </Box>
             </motion.div>
