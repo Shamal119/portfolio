@@ -77,7 +77,12 @@ const Chatbot: React.FC = () => {
       maxHeight: '100vh',
       overflow: 'visible',
       top: 'auto',
-      left: 'auto'
+      left: 'auto',
+      width: 'auto',
+      height: 'auto',
+      transform: 'none',
+      margin: 0,
+      padding: 0
     }}>
       {isOpen ? (
         <div className="chatbot-window">
