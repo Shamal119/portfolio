@@ -11,6 +11,11 @@ const getApiBaseUrl = (): string => {
     return productionApiUrl;
   }
   
+  // Check if we're on Vercel (serverless functions)
+  if (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')) {
+    return ''; // Use relative paths for Vercel
+  }
+  
   // Fallback: disable chatbot in production if no API URL is configured
   console.warn('No API URL configured for production. Chatbot will be disabled.');
   return '';
