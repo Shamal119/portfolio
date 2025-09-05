@@ -70,6 +70,10 @@
       /* Fix for iOS Safari viewport issues */
       -webkit-overflow-scrolling: touch;
       position: relative;
+      /* Fix scaling issues */
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      text-size-adjust: 100%;
     }
     
     /* Improve touch targets */
@@ -82,11 +86,30 @@
     html, body {
       height: auto;
       min-height: 100vh;
+      /* Fix viewport scaling */
+      width: 100%;
+      overflow-x: hidden;
     }
     
     .layout {
       min-height: 100vh;
       height: auto;
+      width: 100%;
+    }
+    
+    /* Force content to be visible and properly scaled */
+    .hero-section {
+      width: 100% !important;
+      min-width: 100% !important;
+      max-width: 100% !important;
+      transform: scale(1) !important;
+      zoom: 1 !important;
+    }
+    
+    /* Ensure all content is visible */
+    .hero-section * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
     }
   }
 
@@ -125,26 +148,66 @@
     overflow: visible !important;
   }
 
+  /* Mobile viewport fixes */
+  @media (max-width: 768px) {
+    html {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    
+    body {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      transform: scale(1) !important;
+      zoom: 1 !important;
+    }
+    
+    #root {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+    }
+  }
+
   /* Ensure content is visible on mobile */
   @media (max-width: 768px) {
     .hero-section {
       overflow: visible !important;
       min-height: calc(var(--vh, 1vh) * 100) !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      transform: scale(1) !important;
+      zoom: 1 !important;
     }
     
     /* Force all MUI Box elements in hero to be visible */
     .hero-section .MuiBox-root {
       overflow: visible !important;
+      width: 100% !important;
+      max-width: 100% !important;
     }
     
     /* Ensure Grid content is visible */
     .hero-section .MuiGrid-root {
       overflow: visible !important;
+      width: 100% !important;
+      max-width: 100% !important;
     }
     
     /* Force Container to be visible */
     .hero-section .MuiContainer-root {
       overflow: visible !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    
+    /* Ensure Typography elements are visible */
+    .hero-section .MuiTypography-root {
+      width: 100% !important;
+      max-width: 100% !important;
+      word-wrap: break-word !important;
     }
     
     /* Mobile responsive scroll to top button */

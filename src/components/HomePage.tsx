@@ -207,6 +207,8 @@ const HomePage = () => {
                 style={{ opacity: 1, overflow: 'visible', backgroundColor: 'rgba(255, 0, 0, 0.1)' }}
                 sx={{
                     minHeight: { xs: 'calc(var(--vh, 1vh) * 100)', sm: '100vh' },
+                    width: { xs: '100%', sm: '100%' },
+                    maxWidth: { xs: '100%', sm: '100%' },
                     background: 'linear-gradient(135deg, #f0f7ff 0%, #ffffff 50%, #f0f7ff 100%)',
                     position: 'relative',
                     overflow: 'visible !important',
@@ -228,8 +230,8 @@ const HomePage = () => {
                     },
                 }}
             >
-                <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 }, py: { xs: 4, sm: 6 } }}>
-                    <Grid container spacing={{ xs: 3, md: 4 }} alignItems="center" sx={{ minHeight: { xs: 'calc(var(--vh, 1vh) * 80)', sm: '80vh' } }}>
+                <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 }, py: { xs: 4, sm: 6 }, width: '100%', maxWidth: '100%' }}>
+                    <Grid container spacing={{ xs: 3, md: 4 }} alignItems="center" sx={{ minHeight: { xs: 'calc(var(--vh, 1vh) * 80)', sm: '80vh' }, width: '100%' }}>
                         <Grid item xs={12} md={8}>
                             <div style={{ position: 'relative', zIndex: 2 }}>
                                 <Typography
