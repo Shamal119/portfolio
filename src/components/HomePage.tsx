@@ -203,10 +203,7 @@ const HomePage = () => {
             <Box
                 id="hero"
                 className="hero-section"
-                component={isMobile ? 'div' : motion.div}
-                initial={isMobile ? undefined : "hidden"}
-                animate={isMobile ? undefined : "visible"}
-                variants={isMobile ? undefined : containerVariants}
+                component="div"
                 style={{ opacity: 1, overflow: 'visible', backgroundColor: 'rgba(255, 0, 0, 0.1)' }}
                 sx={{
                     minHeight: { xs: 'calc(var(--vh, 1vh) * 100)', sm: '100vh' },
@@ -234,11 +231,7 @@ const HomePage = () => {
                 <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 }, py: { xs: 4, sm: 6 } }}>
                     <Grid container spacing={{ xs: 3, md: 4 }} alignItems="center" sx={{ minHeight: { xs: 'calc(var(--vh, 1vh) * 80)', sm: '80vh' } }}>
                         <Grid item xs={12} md={8}>
-                            {isMobile ? (
-                                <div style={{ position: 'relative', zIndex: 2 }}>
-                            ) : (
-                                <motion.div variants={itemVariants} style={{ position: 'relative', zIndex: 2 }}>
-                            )}
+                            <div style={{ position: 'relative', zIndex: 2 }}>
                                 <Typography
                                     variant="h1"
                                     sx={{
@@ -324,11 +317,7 @@ const HomePage = () => {
                                 </Box>
 
                                 {/* Action Buttons */}
-                                {isMobile ? (
-                                    <div>
-                                ) : (
-                                    <motion.div variants={itemVariants}>
-                                )}
+                                <div>
                                     <Box
                                         sx={{
                                             display: 'flex',
@@ -468,16 +457,8 @@ const HomePage = () => {
                                             </Button>
                                         </motion.div>
                                     </Box>
-                                {isMobile ? (
-                                    </div>
-                                ) : (
-                                    </motion.div>
-                                )}
-                            {isMobile ? (
                                 </div>
-                            ) : (
-                                </motion.div>
-                            )}
+                            </div>
                         </Grid>
                     </Grid>
                 </Container>
