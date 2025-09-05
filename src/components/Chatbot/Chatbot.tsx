@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ChatbotIcon from './ChatbotIcon';
+import { getApiEndpoint, isApiAvailable } from '../../config/api';
 import './Chatbot.css';
 
 const Chatbot: React.FC = () => {
@@ -31,13 +32,22 @@ const Chatbot: React.FC = () => {
   const handleSendMessage = async () => {
     if (inputValue.trim() === '') return;
 
+    // Check if API is available
+    if (!isApiAvailable()) {
+      setMessages((prevMessages) => [...prevMessages, { 
+        sender: 'bot' as 'bot', 
+        text: 'Sorry, the chatbot is currently unavailable. Please contact me directly through the contact form or email.' 
+      }]);
+      return;
+    }
+
     const newMessages = [...messages, { sender: 'user' as 'user', text: inputValue }];
     setMessages(newMessages);
     const currentInputValue = inputValue;
     setInputValue('');
 
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch(getApiEndpoint('/chat'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
