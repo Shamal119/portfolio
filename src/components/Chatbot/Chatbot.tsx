@@ -1,13 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import ChatbotIcon from './ChatbotIcon';
+import LoadingSkeleton from '../LoadingSkeleton';
 import { getApiEndpoint, isApiAvailable } from '../../config/api';
 import './Chatbot.css';
 
-const Chatbot: React.FC = () => {
+export interface ChatbotRef {
+  toggleChat: () => void;
+}
+
+const Chatbot = forwardRef<ChatbotRef>((props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ sender: 'user' | 'bot'; text: string }[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -17,13 +25,41 @@ const Chatbot: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
+
   const toggleChat = () => {
-    setIsOpen(!isOpen);
-    if (!isOpen && messages.length === 0) {
-      // Greet the user when the chat is opened for the first time
-      setMessages([{ sender: 'bot', text: "Hello! I'm Shamal, an AI assistant for Shamal Musthafa's portfolio. I can answer questions about his skills, experience, and projects. What would you like to know? 😊" }]);
+    if (isOpen) {
+      // Smooth closing animation
+      setIsClosing(true);
+      setTimeout(() => {
+        setIsOpen(false);
+        setIsClosing(false);
+      }, 300);
+    } else {
+      setIsOpen(true);
+      setIsClosing(false);
+      if (messages.length === 0) {
+        // Show loading skeleton first, then greet
+        setIsTyping(true);
+        setTimeout(() => {
+          setIsTyping(false);
+          setMessages([{ 
+            sender: 'bot', 
+            text: "👋 Hi there! I'm Shamal's AI assistant. I can help you learn about his skills, experience, and projects. What would you like to know?" 
+          }]);
+        }, 800);
+      }
     }
   };
+
+  // Expose toggleChat method via ref
+  useImperativeHandle(ref, () => ({
+    toggleChat,
+  }));
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -32,19 +68,25 @@ const Chatbot: React.FC = () => {
   const handleSendMessage = async () => {
     if (inputValue.trim() === '') return;
 
+    const currentInputValue = inputValue.trim();
+    setInputValue('');
+    setIsTyping(true);
+
+    // Add user message immediately
+    const newMessages = [...messages, { sender: 'user' as 'user', text: currentInputValue }];
+    setMessages(newMessages);
+
     // Check if API is available
     if (!isApiAvailable()) {
-      setMessages((prevMessages) => [...prevMessages, { 
-        sender: 'bot' as 'bot', 
-        text: 'Sorry, the chatbot is currently unavailable. Please contact me directly through the contact form or email.' 
-      }]);
+      setTimeout(() => {
+        setIsTyping(false);
+        setMessages((prevMessages) => [...prevMessages, { 
+          sender: 'bot' as 'bot', 
+          text: '🔧 Sorry, the chatbot is currently unavailable. Please contact Shamal directly through the contact form or email for immediate assistance!' 
+        }]);
+      }, 1000);
       return;
     }
-
-    const newMessages = [...messages, { sender: 'user' as 'user', text: inputValue }];
-    setMessages(newMessages);
-    const currentInputValue = inputValue;
-    setInputValue('');
 
     try {
       const response = await fetch(getApiEndpoint('/chat'), {
@@ -58,37 +100,32 @@ const Chatbot: React.FC = () => {
       const data = await response.json();
       const botMessage = data.response;
 
-      setMessages((prevMessages) => [...prevMessages, { sender: 'bot' as 'bot', text: botMessage }]);
+      // Simulate typing delay for better UX
+      setTimeout(() => {
+        setIsTyping(false);
+        setMessages((prevMessages) => [...prevMessages, { sender: 'bot' as 'bot', text: botMessage }]);
+      }, 800);
     } catch (error) {
       console.error('Error sending message:', error);
-      setMessages((prevMessages) => [...prevMessages, { sender: 'bot' as 'bot', text: 'Sorry, something went wrong. Please try again.' }]);
+      setTimeout(() => {
+        setIsTyping(false);
+        setMessages((prevMessages) => [...prevMessages, { 
+          sender: 'bot' as 'bot', 
+          text: '❌ Sorry, something went wrong. Please try again or contact Shamal directly!' 
+        }]);
+      }, 1000);
     }
   };
 
   return (
-     <div className="chatbot-container" style={{ 
-      position: 'fixed', 
-      bottom: '20px', 
-      right: '20px', 
-      zIndex: 1001,
-      opacity: 1,
-      visibility: 'visible',
-      display: 'block',
-      maxHeight: '100vh',
-      overflow: 'visible',
-      top: 'auto',
-      left: 'auto',
-      width: 'auto',
-      height: 'auto',
-      transform: 'none',
-      margin: 0,
-      padding: 0
-    }}>
+    <div className="chatbot-container">
       {isOpen ? (
-        <div className="chatbot-window">
+        <div className={`chatbot-window ${isClosing ? 'closing' : ''}`}>
           <div className="chatbot-header">
-            <span>Chat with Shamal's AI</span>
-            <button onClick={toggleChat}>&times;</button>
+            <span>💬 Chat with Shamal's AI</span>
+            <button onClick={toggleChat} aria-label="Close chat">
+              ✕
+            </button>
           </div>
           <div className="chatbot-messages">
             {messages.map((msg, index) => (
@@ -96,17 +133,32 @@ const Chatbot: React.FC = () => {
                 {msg.text}
               </div>
             ))}
+            {isTyping && (
+              <div className="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
           <div className="chatbot-input">
             <input
+              ref={inputRef}
               type="text"
               value={inputValue}
               onChange={handleInputChange}
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder="Type a message..."
+              placeholder="Ask me anything about Shamal..."
+              disabled={isTyping}
             />
-            <button onClick={handleSendMessage}>Send</button>
+            <button 
+              onClick={handleSendMessage} 
+              disabled={!inputValue.trim() || isTyping}
+              aria-label="Send message"
+            >
+              {isTyping ? '⏳' : '📤'}
+            </button>
           </div>
         </div>
       ) : (
@@ -114,6 +166,6 @@ const Chatbot: React.FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default Chatbot;

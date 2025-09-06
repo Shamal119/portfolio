@@ -1,27 +1,91 @@
 :root {
     --primary-color: #2563eb;
+    --primary-light: #3b82f6;
+    --primary-dark: #1d4ed8;
     --secondary-color: #1e40af;
     --background-color: #ffffff;
+    --surface-color: #f8fafc;
     --text-color: #1f2937;
+    --text-light: #64748b;
+    --border-color: #e2e8f0;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --vh: 1vh;
   }
   
   * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
   
   body {
-    margin: 0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: var(--text-color);
     background-color: var(--background-color);
     line-height: 1.6;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-    overflow-y: auto; /* Ensure vertical scrolling works */
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Page load animation */
+  body {
+    animation: pageLoad 0.8s ease-out;
+  }
+  
+  @keyframes pageLoad {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Enhanced scroll behavior */
+  * {
+    scroll-behavior: smooth;
+  }
+  
+  /* Custom scrollbar for webkit browsers */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--surface-color);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+  }
+  
+html {
+    scroll-behavior: smooth;
     height: 100%;
-    position: relative;
   }
   
   .layout {
@@ -38,312 +102,265 @@
     width: 100%;
   }
   
-  /* Smooth scrolling for the entire page */
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  /* Remove default button styles */
+  /* Reset default styles */
   button {
     border: none;
     background: none;
     cursor: pointer;
+    font-family: inherit;
   }
   
-  /* Remove default link styles */
   a {
     color: inherit;
     text-decoration: none;
   }
   
-  /* Image optimization */
   img {
     max-width: 100%;
     height: auto;
     display: block;
   }
 
-  /* Mobile-first responsive utilities */
-  @media (max-width: 768px) {
-    body {
-      font-size: 14px;
-      /* Fix for iOS Safari viewport issues */
-      -webkit-overflow-scrolling: touch;
-      position: relative;
-      /* Fix scaling issues */
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-      text-size-adjust: 100%;
-    }
-    
-    /* Improve touch targets */
-    button, a, [role="button"] {
-      min-height: 44px;
-      min-width: 44px;
-    }
-    
-    /* Ensure proper scrolling on mobile */
-    html, body {
-      height: auto;
-      min-height: 100vh;
-      /* Fix viewport scaling */
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5em;
+  }
+  
+  p {
+    margin-bottom: 1em;
+    line-height: 1.7;
+  }
+  
+  /* Utility classes */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .section {
+    padding: 4rem 0;
+  }
+  
+  .card {
+    background: var(--background-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
       width: 100%;
-      overflow-x: hidden;
-    }
-    
-    .layout {
-      min-height: 100vh;
-      height: auto;
-      width: 100%;
-    }
-    
-    /* Force content to be visible and properly scaled */
-    .hero-section {
-      width: 100% !important;
-      min-width: 100% !important;
-      max-width: 100% !important;
-      transform: scale(1) !important;
-      zoom: 1 !important;
-    }
-    
-    /* Ensure all content is visible */
-    .hero-section * {
-      max-width: 100% !important;
-      box-sizing: border-box !important;
-    }
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05), transparent);
+    transition: left 0.6s ease;
+  }
+  
+  .card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-4px) scale(1.02);
+    border: 1px solid rgba(37, 99, 235, 0.1);
+  }
+  
+  .card:hover::before {
+    left: 100%;
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    font-size: 0.875rem;
+    min-height: 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  .btn:hover::before {
+    left: 100%;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background-size: 200% 200%;
+    color: white;
+    box-shadow: var(--shadow-md);
+    animation: gradientShift 3s ease-in-out infinite;
+  }
+  
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-2px) scale(1.05);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0) scale(0.98);
+    transition: var(--transition-fast);
+  }
+  
+  .btn-secondary {
+    background: var(--surface-color);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+  }
+  
+  .btn-secondary:hover {
+    background: var(--background-color);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .btn-secondary:active {
+    transform: translateY(0);
+    transition: var(--transition-fast);
   }
 
-  @media (max-width: 480px) {
-    body {
-      font-size: 13px;
-    }
+  /* Mobile-first responsive design */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.75rem;
   }
+  
+  .section {
+    padding: 2rem 0;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+  
+  .btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.8125rem;
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+}
 
-  /* Prevent zoom on input focus on iOS */
-  @media screen and (-webkit-min-device-pixel-ratio: 0) {
-    select, textarea, input[type="text"], input[type="password"], 
-    input[type="datetime"], input[type="datetime-local"], 
-    input[type="date"], input[type="month"], input[type="time"], 
-    input[type="week"], input[type="number"], input[type="email"], 
-    input[type="url"], input[type="search"], input[type="tel"], 
-    input[type="color"] {
-      font-size: 16px;
-    }
+@media (min-width: 481px) and (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
   }
+  
+  .section {
+    padding: 3rem 0;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+}
 
-  /* iOS Safari viewport height fix */
-  @supports (-webkit-touch-callout: none) {
-    .hero-section {
-      min-height: -webkit-fill-available;
-    }
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding: 0 1.5rem;
   }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+}
 
-  /* Force hero section overflow to be visible */
-  .hero-section {
-    overflow: visible !important;
+@media (min-width: 1025px) {
+  .container {
+    padding: 0 2rem;
   }
+  
+  h1 {
+    font-size: 3rem;
+  }
+  
+  h2 {
+    font-size: 2.25rem;
+  }
+}
 
-  /* Target the specific MUI class that's causing issues */
-  .css-1hz2e14 {
-    overflow: visible !important;
+/* iOS Safari fixes */
+@supports (-webkit-touch-callout: none) {
+  body {
+    min-height: -webkit-fill-available;
   }
+}
 
-  /* Mobile viewport fixes */
-  @media (max-width: 768px) {
-    html {
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-      text-size-adjust: 100%;
-    }
-    
-    body {
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-      text-size-adjust: 100%;
-      transform: scale(1) !important;
-      zoom: 1 !important;
-    }
-    
-    #root {
-      width: 100% !important;
-      max-width: 100% !important;
-      overflow-x: hidden !important;
-    }
+/* Prevent zoom on input focus on iOS */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type="text"], input[type="email"], input[type="tel"], 
+  input[type="number"], input[type="search"], textarea {
+    font-size: 16px;
   }
+}
 
-  /* Ensure content is visible on mobile */
-  @media (max-width: 768px) {
-    .hero-section {
-      overflow: visible !important;
-      min-height: calc(var(--vh, 1vh) * 100) !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      transform: scale(1) !important;
-      zoom: 1 !important;
-    }
-    
-    /* Force all MUI Box elements in hero to be visible */
-    .hero-section .MuiBox-root {
-      overflow: visible !important;
-      width: 100% !important;
-      max-width: 100% !important;
-    }
-    
-    /* Ensure Grid content is visible */
-    .hero-section .MuiGrid-root {
-      overflow: visible !important;
-      width: 100% !important;
-      max-width: 100% !important;
-    }
-    
-    /* Force Container to be visible */
-    .hero-section .MuiContainer-root {
-      overflow: visible !important;
-      width: 100% !important;
-      max-width: 100% !important;
-    }
-    
-    /* Ensure Typography elements are visible */
-    .hero-section .MuiTypography-root {
-      width: 100% !important;
-      max-width: 100% !important;
-      word-wrap: break-word !important;
-    }
-    
-  
-  /* Ensure grid elements are visible on all screen sizes */
-  .MuiGrid-root {
-    overflow: visible !important;
-    width: 100% !important;
-    max-width: 100% !important;
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid var(--text-color);
   }
   
-  /* Fix grid container overflow issues */
-  .MuiContainer-root {
-    overflow: visible !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  
-  /* Ensure proper grid display */
-  [class*="MuiGrid"] {
-    overflow: visible !important;
-  }
-  
-  /* Force immediate visibility for grid elements */
-  .MuiBox-root {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  
-  /* Ensure motion elements are visible on initial render */
-  [data-framer-motion] {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  
-  /* Force grid containers to be visible immediately */
-  .projects-grid, .skills-grid {
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: grid !important;
-  }
-  
-  /* Ensure all grid items are visible */
-  .grid-item, [class*="grid"] {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  
-  /* Ensure chatbot is always visible */
-  .chatbot-container {
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: block !important;
-    z-index: 1001 !important;
-    position: fixed !important;
-    bottom: 20px !important;
-    right: 20px !important;
-    max-height: 100vh !important;
-    overflow: visible !important;
-    top: auto !important;
-    left: auto !important;
-    width: auto !important;
-    height: auto !important;
-    transform: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  
-  .chatbot-icon {
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: flex !important;
-    position: relative !important;
-  }
-  
-  /* Mobile-specific chatbot visibility */
-  @media (max-width: 768px) {
-    .chatbot-container {
-      opacity: 1 !important;
-      visibility: visible !important;
-      display: block !important;
-      z-index: 1001 !important;
-      position: fixed !important;
-      bottom: 20px !important;
-      right: 20px !important;
-      top: auto !important;
-      left: auto !important;
-      width: auto !important;
-      height: auto !important;
-      transform: none !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-    
-    .chatbot-icon {
-      opacity: 1 !important;
-      visibility: visible !important;
-      display: flex !important;
-      position: relative !important;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .chatbot-container {
-      opacity: 1 !important;
-      visibility: visible !important;
-      display: block !important;
-      z-index: 1001 !important;
-      position: fixed !important;
-      bottom: 20px !important;
-      right: 20px !important;
-      top: auto !important;
-      left: auto !important;
-      width: auto !important;
-      height: auto !important;
-      transform: none !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-  }
-  
-  @media (max-width: 360px) {
-    .chatbot-container {
-      opacity: 1 !important;
-      visibility: visible !important;
-      display: block !important;
-      z-index: 1001 !important;
-      position: fixed !important;
-      bottom: 20px !important;
-      right: 20px !important;
-      top: auto !important;
-      left: auto !important;
-      width: auto !important;
-      height: auto !important;
-      transform: none !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
+  .btn-primary {
+    background: var(--text-color);
+    color: var(--background-color);
   }
 }

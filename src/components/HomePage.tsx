@@ -8,7 +8,6 @@ import {
     Typography,
     Button,
     useMediaQuery,
-    Grid,
     Paper,
     IconButton,
     Tooltip,
@@ -19,12 +18,10 @@ import Projects from './Projects';
 import Skills from './Skills';
 import Experience from './Experience';
 import Certifications from './Certifications';
-import FloatingNav from './FloatingNav';
 import {
     LinkedIn,
     GitHub,
     Email,
-    Download,
     Phone,
     LocationOn,
     WorkOutline,
@@ -32,7 +29,6 @@ import {
     DescriptionOutlined,
     School as SchoolIcon
 } from '@mui/icons-material';
-import { useInView } from 'react-intersection-observer';
 import { Code as CodeIcon } from '@mui/icons-material';
 const theme = createTheme({
     palette: {
@@ -125,13 +121,6 @@ const theme = createTheme({
 const HomePage = () => {
     const navigate = useNavigate();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const [ref, inView] = useInView({
-        triggerOnce: true,
-        threshold: 0.1,
-    });
-    
-    // Force inView to true for initial render to prevent hiding issues
-    const isInView = inView || true;
 
     const scrollToSection = (sectionId: string) => {
         if (sectionId === 'hero') {
@@ -139,7 +128,15 @@ const HomePage = () => {
         } else if (sectionId === 'resume') {
             navigate('/resume');
         } else {
-            document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const headerHeight = 70;
+                const elementPosition = element.offsetTop - headerHeight;
+                window.scrollTo({
+                    top: elementPosition,
+                    behavior: 'smooth'
+                });
+            }
         }
     };
 
@@ -164,38 +161,19 @@ const HomePage = () => {
         },
     ];
 
-    // Animation variants
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
+    // Simple animation variants
+    const fadeInUp = {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.6, ease: "easeOut" }
+    };
+
+    const staggerContainer = {
+        animate: {
             transition: {
-                staggerChildren: 0.2,
-                duration: 0.5,
-            },
-        },
-    };
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.5,
-            },
-        },
-    };
-
-    // Simplified variants for mobile
-    const mobileContainerVariants = {
-        hidden: { opacity: 1 },
-        visible: { opacity: 1 },
-    };
-
-    const mobileItemVariants = {
-        hidden: { opacity: 1, y: 0 },
-        visible: { opacity: 1, y: 0 },
+                staggerChildren: 0.1
+            }
+        }
     };
 
     return (
@@ -205,46 +183,29 @@ const HomePage = () => {
             {/* Hero Section */}
             <Box
                 id="hero"
-                className="hero-section"
-                component="div"
-                style={{ opacity: 1, overflow: 'visible', backgroundColor: 'rgba(255, 0, 0, 0.1)' }}
+                component="section"
                 sx={{
-                    minHeight: { xs: '100vh', sm: '100vh' },
-                    width: { xs: '100%', sm: '100%' },
-                    maxWidth: { xs: '100%', sm: '100%' },
-                    background: 'linear-gradient(135deg, #f0f7ff 0%, #ffffff 50%, #f0f7ff 100%)',
+                    minHeight: { xs: 'calc(100vh - 70px)', sm: 'calc(100vh - 70px)' },
+                    background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f7ff 100%)',
                     position: 'relative',
-                    overflow: 'visible !important',
                     display: 'flex',
                     alignItems: 'center',
-                    '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: '100%',
-                        backgroundImage: 'radial-gradient(circle at 30% 20%, rgba(37, 99, 235, 0.08) 0%, transparent 60%)',
-                        animation: 'pulse 8s ease-in-out infinite',
-                    },
-                    '@keyframes pulse': {
-                        '0%, 100%': { opacity: 0.5 },
-                        '50%': { opacity: 0.8 },
-                    },
+                    pt: { xs: 4, sm: 6 },
+                    pb: { xs: 6, sm: 8 },
                 }}
             >
-                <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 }, py: { xs: 4, sm: 6 }, width: '100%', maxWidth: '100%', overflow: 'visible' }}>
-                    <Box sx={{ 
-                        display: 'flex', 
-                        flexDirection: { xs: 'column', md: 'row' },
-                        alignItems: 'center',
-                        gap: { xs: 3, md: 4 },
-                        minHeight: { xs: '80vh', sm: '80vh' }, 
-                        width: '100%', 
-                        overflow: 'visible' 
-                    }}>
-                        <Box sx={{ flex: { xs: '1', md: '2' }, width: '100%' }}>
-                            <div style={{ position: 'relative', zIndex: 2 }}>
+                <Container maxWidth="lg">
+                    <motion.div
+                        variants={staggerContainer}
+                        initial="initial"
+                        animate="animate"
+                    >
+                        <Box sx={{ 
+                            textAlign: { xs: 'center', md: 'left' },
+                            maxWidth: { xs: '100%', md: '800px' },
+                            mx: 'auto'
+                        }}>
+                            <motion.div variants={fadeInUp}>
                                 <Typography
                                     variant="h1"
                                     sx={{
@@ -252,39 +213,34 @@ const HomePage = () => {
                                         WebkitBackgroundClip: 'text',
                                         WebkitTextFillColor: 'transparent',
                                         mb: 2,
-                                        filter: 'drop-shadow(0 2px 4px rgba(37, 99, 235, 0.2))',
+                                        fontWeight: 800,
                                     }}
                                 >
                                     Shamal Musthafa
                                 </Typography>
+                            </motion.div>
 
+                            <motion.div variants={fadeInUp}>
                                 <Typography
                                     variant="h4"
                                     sx={{
                                         color: 'text.secondary',
                                         mb: 3,
-                                        position: 'relative',
-                                        '&::after': {
-                                            content: '""',
-                                            position: 'absolute',
-                                            bottom: -8,
-                                            left: 0,
-                                            width: '60px',
-                                            height: '3px',
-                                            background: 'linear-gradient(90deg, #2563eb, transparent)',
-                                        },
+                                        fontWeight: 600,
                                     }}
                                 >
                                     Data Scientist | Generative AI & Business Intelligence
                                 </Typography>
+                            </motion.div>
 
+                            <motion.div variants={fadeInUp}>
                                 <Typography
                                     variant="body1"
                                     sx={{
                                         color: 'text.secondary',
                                         mb: 4,
-                                        maxWidth: 600,
-                                        lineHeight: 1.8,
+                                        lineHeight: 1.7,
+                                        fontSize: { xs: '1rem', sm: '1.125rem' },
                                     }}
                                 >
                                     A Data Scientist with over two years of experience delivering end-to-end data solutions. 
@@ -292,346 +248,249 @@ const HomePage = () => {
                                     advanced Generative AI and LLM applications using Python, and translating data into 
                                     actionable insights through dynamic visualizations in Tableau and Power BI.
                                 </Typography>
+                            </motion.div>
 
-                                {/* Social Links */}
-                                <Box sx={{ mb: 4, display: 'flex', gap: 2 }}>
+                            {/* Social Links */}
+                            <motion.div variants={fadeInUp}>
+                                <Box sx={{ 
+                                    mb: 4, 
+                                    display: 'flex', 
+                                    gap: 2,
+                                    justifyContent: { xs: 'center', md: 'flex-start' }
+                                }}>
                                     {[
                                         { icon: <Email />, link: 'mailto:shamalmusthafa59@gmail.com', label: 'Email' },
                                         { icon: <LinkedIn />, link: 'https://www.linkedin.com/in/shamalmusthafa/', label: 'LinkedIn' },
                                         { icon: <GitHub />, link: 'https://github.com/Shamal119', label: 'GitHub' },
                                     ].map((social, index) => (
-                                        <motion.div
-                                            key={index}
-                                            whileHover={{ scale: 1.1, rotate: 5 }}
-                                            transition={{ duration: 0.2 }}
-                                        >
-                                            <Tooltip title={social.label} placement="top">
-                                                <IconButton
-                                                    href={social.link}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    sx={{
-                                                        color: 'primary.main',
-                                                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                                                        backdropFilter: 'blur(4px)',
-                                                        '&:hover': {
-                                                            backgroundColor: 'primary.main',
-                                                            color: 'white',
-                                                            transform: 'translateY(-2px)',
-                                                            boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
-                                                        },
-                                                    }}
-                                                >
-                                                    {social.icon}
-                                                </IconButton>
-                                            </Tooltip>
-                                        </motion.div>
+                                        <Tooltip key={index} title={social.label} placement="top">
+                                            <IconButton
+                                                href={social.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                sx={{
+                                                    color: 'primary.main',
+                                                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                                                    '&:hover': {
+                                                        backgroundColor: 'primary.main',
+                                                        color: 'white',
+                                                        transform: 'translateY(-2px)',
+                                                        boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
+                                                    },
+                                                    transition: 'all 0.3s ease',
+                                                }}
+                                            >
+                                                {social.icon}
+                                            </IconButton>
+                                        </Tooltip>
                                     ))}
                                 </Box>
+                            </motion.div>
 
-                                {/* Action Buttons */}
-                                <div>
-                                    <Box
+                            {/* Action Buttons */}
+                            <motion.div variants={fadeInUp}>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        flexWrap: 'wrap',
+                                        gap: { xs: 2, sm: 3 },
+                                        justifyContent: { xs: 'center', md: 'flex-start' },
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <Button
+                                        variant="contained"
+                                        size="large"
+                                        onClick={() => scrollToSection('projects')}
+                                        startIcon={<CodeIcon />}
                                         sx={{
-                                            display: 'flex',
-                                            flexWrap: 'wrap',
-                                            gap: { xs: 1.5, sm: 2 },
-                                            maxWidth: 'fit-content',
-                                            p: { xs: 1.5, sm: 2 },
-                                            borderRadius: 4,
-                                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                                            backdropFilter: 'blur(20px)',
-                                            boxShadow: '0 12px 40px rgba(37, 99, 235, 0.15)',
-                                            border: '1px solid rgba(255, 255, 255, 0.2)',
-                                            width: { xs: '100%', sm: 'auto' },
-                                            justifyContent: { xs: 'center', sm: 'flex-start' },
+                                            background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
+                                            boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
+                                            px: { xs: 2, sm: 3 },
+                                            py: 1.5,
+                                            fontWeight: 600,
+                                            textTransform: 'none',
+                                            '&:hover': {
+                                                background: 'linear-gradient(45deg, #1d4ed8 30%, #1e40af 90%)',
+                                                transform: 'translateY(-2px)',
+                                                boxShadow: '0 6px 16px rgba(37, 99, 235, 0.4)',
+                                            },
                                         }}
                                     >
-                                        <Button
-                                            variant="outlined"
-                                            size="large"
-                                            onClick={() => scrollToSection('experience')}
-                                            startIcon={<WorkOutline />}
-                                            sx={{
-                                                borderColor: 'primary.main',
-                                                borderWidth: 2,
-                                                px: 3,
-                                                py: 1.5,
-                                                '&:hover': {
-                                                    borderColor: 'primary.dark',
-                                                    backgroundColor: 'rgba(37, 99, 235, 0.05)',
-                                                    transform: 'translateY(-2px)',
-                                                    boxShadow: '0 8px 20px rgba(37, 99, 235, 0.15)',
-                                                },
-                                            }}
-                                        >
-                                            <Typography sx={{ fontWeight: 600 }}>
-                                                Experience
-                                            </Typography>
-                                        </Button>
-                                        
+                                        View Projects
+                                    </Button>
 
-                                        <Button
-                                            variant="contained"
-                                            size="large"
-                                            onClick={() => scrollToSection('projects')}
-                                            startIcon={<CodeIcon />}
-                                            sx={{
-                                                background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
-                                                boxShadow: '0 6px 20px rgba(37, 99, 235, 0.25)',
-                                                px: 3,
-                                                py: 1.5,
-                                                '&:hover': {
-                                                    background: 'linear-gradient(45deg, #1d4ed8 30%, #1e40af 90%)',
-                                                    transform: 'translateY(-2px)',
-                                                    boxShadow: '0 10px 25px rgba(37, 99, 235, 0.35)',
-                                                },
-                                            }}
-                                        >
-                                            <Typography sx={{ fontWeight: 600 }}>
-                                                Projects
-                                            </Typography>
-                                        </Button>
+                                    <Button
+                                        variant="outlined"
+                                        size="large"
+                                        onClick={() => scrollToSection('experience')}
+                                        startIcon={<WorkOutline />}
+                                        sx={{
+                                            borderColor: 'primary.main',
+                                            borderWidth: 2,
+                                            px: { xs: 2, sm: 3 },
+                                            py: 1.5,
+                                            fontWeight: 600,
+                                            textTransform: 'none',
+                                            '&:hover': {
+                                                borderColor: 'primary.dark',
+                                                backgroundColor: 'rgba(37, 99, 235, 0.05)',
+                                                transform: 'translateY(-2px)',
+                                            },
+                                        }}
+                                    >
+                                        Experience
+                                    </Button>
 
-                                        <Button
-                                            variant="outlined"
-                                            size="large"
-                                            onClick={() => scrollToSection('skills')}
-                                            startIcon={<BoltOutlined />}
-                                            sx={{
-                                                borderColor: 'primary.main',
-                                                borderWidth: 2,
-                                                px: 3,
-                                                py: 1.5,
-                                                '&:hover': {
-                                                    borderColor: 'primary.dark',
-                                                    backgroundColor: 'rgba(37, 99, 235, 0.05)',
-                                                    transform: 'translateY(-2px)',
-                                                    boxShadow: '0 8px 20px rgba(37, 99, 235, 0.15)',
-                                                },
-                                            }}
-                                        >
-                                            <Typography sx={{ fontWeight: 600 }}>
-                                                Skills
-                                            </Typography>
-                                        </Button>
-
-                                        <Button
-                                            variant="outlined"
-                                            size="large"
-                                            onClick={() => scrollToSection('certifications')}
-                                            startIcon={<SchoolIcon />}
-                                            sx={{
-                                                borderColor: 'primary.main',
-                                                borderWidth: 2,
-                                                px: 3,
-                                                py: 1.5,
-                                                '&:hover': {
-                                                    borderColor: 'primary.dark',
-                                                    backgroundColor: 'rgba(37, 99, 235, 0.05)',
-                                                    transform: 'translateY(-2px)',
-                                                    boxShadow: '0 8px 20px rgba(37, 99, 235, 0.15)',
-                                                },
-                                            }}
-                                        >
-                                            <Typography sx={{ fontWeight: 600 }}>
-                                                Certifications
-                                            </Typography>
-                                        </Button>
-
-                                        <Button
-                                            variant="contained"
-                                            size="large"
-                                            onClick={() => navigate('/resume')}
-                                            startIcon={<DescriptionOutlined />}
-                                            sx={{
-                                                background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
-                                                boxShadow: '0 6px 20px rgba(37, 99, 235, 0.25)',
-                                                px: 3,
-                                                py: 1.5,
-                                                '&:hover': {
-                                                    background: 'linear-gradient(45deg, #1d4ed8 30%, #1e40af 90%)',
-                                                    transform: 'translateY(-2px)',
-                                                    boxShadow: '0 10px 25px rgba(37, 99, 235, 0.35)',
-                                                },
-                                            }}
-                                        >
-                                            <Typography sx={{ fontWeight: 600 }}>
-                                                Resume
-                                            </Typography>
-                                        </Button>
-                                    </Box>
-                                </div>
-                            </div>
+                                    <Button
+                                        variant="contained"
+                                        size="large"
+                                        onClick={() => navigate('/resume')}
+                                        startIcon={<DescriptionOutlined />}
+                                        sx={{
+                                            background: 'linear-gradient(45deg, #2563eb 30%, #1d4ed8 90%)',
+                                            boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
+                                            px: { xs: 2, sm: 3 },
+                                            py: 1.5,
+                                            fontWeight: 600,
+                                            textTransform: 'none',
+                                            '&:hover': {
+                                                background: 'linear-gradient(45deg, #1d4ed8 30%, #1e40af 90%)',
+                                                transform: 'translateY(-2px)',
+                                                boxShadow: '0 6px 16px rgba(37, 99, 235, 0.4)',
+                                            },
+                                        }}
+                                    >
+                                        Resume
+                                    </Button>
+                                </Box>
+                            </motion.div>
                         </Box>
-                    </Box>
+                    </motion.div>
                 </Container>
             </Box>
 
-            {/* Other Sections */}
-            <motion.div
-                ref={ref}
-                initial="visible"
-                animate={isInView ? "visible" : "visible"}
-                variants={containerVariants}
-                style={{ position: 'relative', zIndex: 1 }}
-            >
+            {/* Experience Section */}
+            <Box id="experience" component="section" sx={{ py: { xs: 6, md: 8 } }}>
+                <Experience />
+            </Box>
 
-                {/* Experience Section */}
-                <Box id="experience" sx={{ py: 8 }}>
-                    <Experience />
-                </Box>
-                {/* Projects Section */}
-                <Box id="projects" sx={{ py: 8 }}>
-                    <Projects />
-                </Box>
+            {/* Projects Section */}
+            <Box id="projects" component="section" sx={{ py: { xs: 6, md: 8 } }}>
+                <Projects />
+            </Box>
 
-                {/* Skills Section */}
-                <Box id="skills" sx={{
-                    py: 8,
+            {/* Skills Section */}
+            <Box 
+                id="skills" 
+                component="section"
+                sx={{
+                    py: { xs: 6, md: 8 },
                     backgroundColor: 'rgba(37, 99, 235, 0.02)',
-                    position: 'relative',
-                    '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: '100%',
-                        backgroundImage: 'radial-gradient(circle at 70% 50%, rgba(37, 99, 235, 0.05) 0%, transparent 70%)',
-                    },
-                }}>
-                    <Skills />
-                </Box>
+                }}
+            >
+                <Skills />
+            </Box>
 
-                {/* Certifications Section */}
-                <Box id="certifications" sx={{ py: 8 }}>
-                    <Certifications />
-                </Box>
+            {/* Certifications Section */}
+            <Box id="certifications" component="section" sx={{ py: { xs: 6, md: 8 } }}>
+                <Certifications />
+            </Box>
 
 
 
-                {/* Contact Section */}
-                <Box
-                    id="contact"
-                    sx={{
-                        py: 8,
-                        background: 'linear-gradient(to bottom, #f0f7ff, #ffffff)',
-                    }}
-                >
-                    <Container maxWidth="md" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
-                        <motion.div variants={itemVariants}>
-                            <Typography
-                                variant="h2"
-                                align="center"
+            {/* Contact Section */}
+            <Box
+                id="contact"
+                component="section"
+                sx={{
+                    py: { xs: 6, md: 8 },
+                    background: 'linear-gradient(to bottom, #f8fafc, #ffffff)',
+                }}
+            >
+                <Container maxWidth="md">
+                    <Typography
+                        variant="h2"
+                        align="center"
+                        sx={{
+                            mb: { xs: 4, md: 6 },
+                            fontWeight: 700,
+                        }}
+                    >
+                        Get In Touch
+                    </Typography>
+
+                    <Box sx={{ 
+                        display: 'grid',
+                        gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' },
+                        gap: { xs: 3, sm: 4 },
+                    }}>
+                        {contactInfo.map((info, index) => (
+                            <Paper
+                                key={index}
+                                elevation={0}
                                 sx={{
-                                    mb: { xs: 3, md: 4 },
-                                    position: 'relative',
-                                    '&:after': {
-                                        content: '""',
-                                        display: 'block',
-                                        width: '60px',
-                                        height: '4px',
-                                        background: 'linear-gradient(90deg, #2563eb, #1d4ed8)',
-                                        margin: '1rem auto',
-                                        borderRadius: '2px',
+                                    p: 3,
+                                    textAlign: 'center',
+                                    height: '100%',
+                                    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                                    border: '1px solid rgba(37, 99, 235, 0.1)',
+                                    borderRadius: 3,
+                                    transition: 'all 0.3s ease',
+                                    '&:hover': {
+                                        backgroundColor: 'rgba(255, 255, 255, 1)',
+                                        boxShadow: '0 8px 30px rgba(37, 99, 235, 0.15)',
+                                        transform: 'translateY(-4px)',
                                     },
                                 }}
                             >
-                                Get In Touch
-                            </Typography>
-                        </motion.div>
+                                <IconButton
+                                    component={info.link ? 'a' : 'button'}
+                                    href={info.link || undefined}
+                                    target={info.link ? '_blank' : undefined}
+                                    rel={info.link ? 'noopener noreferrer' : undefined}
+                                    sx={{
+                                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                                        color: 'primary.main',
+                                        mb: 2,
+                                        width: 56,
+                                        height: 56,
+                                        transition: 'all 0.3s ease',
+                                        '&:hover': {
+                                            backgroundColor: 'primary.main',
+                                            color: 'white',
+                                            transform: 'scale(1.1)',
+                                        },
+                                    }}
+                                >
+                                    {info.icon}
+                                </IconButton>
 
-                        <Box sx={{ 
-                            display: 'grid',
-                            gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' },
-                            gap: { xs: 2, sm: 3 },
-                            width: '100%', 
-                            overflow: 'visible' 
-                        }}>
-                            {contactInfo.map((info, index) => (
-                                <Box key={index}>
-                                    <motion.div
-                                        variants={itemVariants}
-                                        whileHover={{
-                                            y: -5,
-                                            transition: { duration: 0.2 }
-                                        }}
-                                    >
-                                        <Paper
-                                            elevation={0}
-                                            sx={{
-                                                p: 3,
-                                                textAlign: 'center',
-                                                height: '100%',
-                                                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                                                backdropFilter: 'blur(10px)',
-                                                boxShadow: '0 4px 20px rgba(37, 99, 235, 0.1)',
-                                                border: '1px solid rgba(37, 99, 235, 0.1)',
-                                                transition: 'all 0.3s ease',
-                                                '&:hover': {
-                                                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                                                    boxShadow: '0 8px 30px rgba(37, 99, 235, 0.15)',
-                                                },
-                                            }}
-                                        >
-                                            <motion.div
-                                                whileHover={{ scale: 1.1 }}
-                                                transition={{ duration: 0.2 }}
-                                            >
-                                                <IconButton
-                                                    component={info.link ? 'a' : 'button'}
-                                                    href={info.link || undefined}
-                                                    target={info.link ? '_blank' : undefined}
-                                                    rel={info.link ? 'noopener noreferrer' : undefined}
-                                                    sx={{
-                                                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                                                        color: 'primary.main',
-                                                        mb: 2,
-                                                        transition: 'all 0.3s ease',
-                                                        '&:hover': {
-                                                            backgroundColor: 'primary.main',
-                                                            color: 'white',
-                                                            transform: 'rotate(8deg)',
-                                                        },
-                                                    }}
-                                                >
-                                                    {info.icon}
-                                                </IconButton>
-                                            </motion.div>
+                                <Typography
+                                    variant="h6"
+                                    gutterBottom
+                                    sx={{
+                                        fontWeight: 600,
+                                        color: 'primary.main',
+                                    }}
+                                >
+                                    {info.label}
+                                </Typography>
 
-                                            <Typography
-                                                variant="h6"
-                                                gutterBottom
-                                                sx={{
-                                                    fontWeight: 600,
-                                                    color: 'primary.main',
-                                                }}
-                                            >
-                                                {info.label}
-                                            </Typography>
-
-                                            <Typography
-                                                color="text.secondary"
-                                                sx={{
-                                                    fontSize: '0.95rem',
-                                                    lineHeight: 1.6,
-                                                }}
-                                            >
-                                                {info.value}
-                                            </Typography>
-                                        </Paper>
-                                    </motion.div>
-                                </Box>
-                            ))}
-                        </Box>
-                    </Container>
-                </Box>
-            </motion.div>
-
-
-            {/* Floating Navigation */}
-            <FloatingNav onNavigate={scrollToSection} />
+                                <Typography
+                                    color="text.secondary"
+                                    sx={{
+                                        fontSize: '0.95rem',
+                                        lineHeight: 1.6,
+                                    }}
+                                >
+                                    {info.value}
+                                </Typography>
+                            </Paper>
+                        ))}
+                    </Box>
+                </Container>
+            </Box>
         </ThemeProvider>
     );
 };
