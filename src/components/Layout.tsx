@@ -36,21 +36,25 @@ const Layout = () => {
   };
 
   return (
-    <div className="layout">
-      {isHomePage && (
-        <Header 
-          onNavigate={handleNavigation} 
-          onChatToggle={handleChatToggle}
-        />
-      )}
+    <>
+      <div className="layout">
+        {isHomePage && (
+          <Header 
+            onNavigate={handleNavigation} 
+            onChatToggle={handleChatToggle}
+          />
+        )}
+        
+        <main style={{ paddingTop: isHomePage ? '70px' : '0' }}>
+          <Outlet />
+        </main>
+        
+        <Footer />
+      </div>
       
-      <main style={{ paddingTop: isHomePage ? '70px' : '0' }}>
-        <Outlet />
-      </main>
-      
-      <Footer />
+      {/* Chatbot outside layout for proper floating */}
       <Chatbot ref={chatbotRef} />
-    </div>
+    </>
   );
 };
 

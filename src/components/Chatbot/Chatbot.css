@@ -84,6 +84,8 @@
   body .chatbot-container,
   html .chatbot-container,
   #root .chatbot-container,
+  .layout .chatbot-container,
+  main .chatbot-container,
   * .chatbot-container {
     position: fixed !important;
     z-index: 99999 !important;
@@ -94,6 +96,18 @@
     transform: none !important;
     margin: 0 !important;
     padding: 0 !important;
+    /* Ensure it escapes any container constraints */
+    width: auto !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+  }
+  
+  /* Additional mobile viewport fixes */
+  .chatbot-container {
+    /* Use viewport units to ensure proper positioning */
+    bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
+    right: calc(1rem + env(safe-area-inset-right)) !important;
   }
 }
 
