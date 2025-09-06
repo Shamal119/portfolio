@@ -25,16 +25,18 @@
 }
 
 /* ========================================
-   CHATBOT CONTAINER - SMART POSITIONING
+   CHATBOT CONTAINER - FLOATING THROUGHOUT SCREEN
    ======================================== */
 .chatbot-container {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
-  z-index: var(--chatbot-z-index);
+  z-index: 10000;
   pointer-events: none; /* Allow background scrolling */
   width: auto;
   height: auto;
+  /* Ensure it floats above everything */
+  will-change: transform;
 }
 
 .chatbot-container * {
@@ -51,26 +53,47 @@
   pointer-events: auto;
 }
 
-/* Prevent body scroll lock on mobile */
+/* Ensure floating behavior on mobile */
 @media (max-width: 480px) {
+  /* Prevent body scroll lock */
   body.chatbot-open {
     overflow: auto !important;
     position: static !important;
     height: auto !important;
   }
   
-  /* Override any conflicting styles */
+  /* Force floating behavior - override any conflicting styles */
   .chatbot-container {
     z-index: 99999 !important;
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+    /* Ensure it floats above all content */
+    position: fixed !important;
+    /* Prevent any layout interference */
+    contain: layout style paint;
   }
   
-  /* Ensure proper alignment */
+  /* Ensure proper window display */
   .chatbot-container .chatbot-window {
     display: flex !important;
     flex-direction: column !important;
+  }
+  
+  /* Override any parent container styles that might interfere */
+  body .chatbot-container,
+  html .chatbot-container,
+  #root .chatbot-container,
+  * .chatbot-container {
+    position: fixed !important;
+    z-index: 99999 !important;
+    bottom: 1rem !important;
+    right: 1rem !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 }
 
@@ -660,7 +683,7 @@
    MOBILE RESPONSIVE DESIGN
    ======================================== */
 
-/* Mobile Phones */
+/* Mobile Phones - Floating Chatbot */
 @media (max-width: 480px) {
   .chatbot-container {
     position: fixed !important;
@@ -668,23 +691,30 @@
     right: 1rem !important;
     left: auto !important;
     top: auto !important;
-    z-index: 9999 !important;
-    pointer-events: none;
+    z-index: 99999 !important;
+    pointer-events: none !important;
     width: auto !important;
     height: auto !important;
     transform: none !important;
     margin: 0 !important;
+    /* Ensure floating behavior */
+    will-change: transform !important;
+    isolation: isolate;
   }
 
   .chatbot-container * {
-    pointer-events: auto;
+    pointer-events: auto !important;
   }
 
   .chatbot-icon {
     width: 56px;
     height: 56px;
-    position: static;
+    position: relative;
     margin: 0;
+    /* Ensure icon floats properly */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
 
   .chatbot-icon svg {
@@ -698,12 +728,14 @@
     max-width: calc(100vw - 2rem) !important;
     max-height: calc(100vh - 8rem) !important;
     border-radius: var(--chatbot-radius);
-    position: static !important;
+    position: relative !important;
     transform: none !important;
     margin: 0 !important;
     box-shadow: var(--chatbot-shadow-xl), 
                 0 0 0 1px rgba(37, 99, 235, 0.1),
                 0 0 50px rgba(0, 0, 0, 0.2);
+    /* Ensure window appears above content */
+    isolation: isolate;
   }
 
   .chatbot-header {
