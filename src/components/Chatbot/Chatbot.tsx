@@ -118,7 +118,7 @@ const Chatbot = forwardRef<ChatbotRef>((props, ref) => {
   };
 
   return (
-    <div className="chatbot-container">
+    <div className={`chatbot-container ${isOpen ? 'chatbot-open' : ''}`}>
       {isOpen ? (
         <div className={`chatbot-window ${isClosing ? 'closing' : ''}`}>
           <div className="chatbot-header">

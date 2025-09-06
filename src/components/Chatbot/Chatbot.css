@@ -32,10 +32,22 @@
   bottom: 1rem;
   right: 1rem;
   z-index: var(--chatbot-z-index);
-  pointer-events: none;
+  pointer-events: none; /* Allow background scrolling */
+  width: auto;
+  height: auto;
 }
 
 .chatbot-container * {
+  pointer-events: auto; /* Re-enable for chatbot elements */
+}
+
+/* Ensure chatbot doesn't block scrolling on any device */
+.chatbot-container.chatbot-open {
+  pointer-events: none;
+}
+
+.chatbot-container.chatbot-open .chatbot-window,
+.chatbot-container.chatbot-open .chatbot-icon {
   pointer-events: auto;
 }
 
@@ -627,7 +639,12 @@
   .chatbot-container {
     bottom: 0.75rem;
     right: 0.75rem;
-    left: 0.75rem;
+    left: auto; /* Allow background scrolling */
+    pointer-events: none; /* Let background events pass through */
+  }
+
+  .chatbot-container * {
+    pointer-events: auto; /* Re-enable pointer events for chatbot elements */
   }
 
   .chatbot-icon {
@@ -641,10 +658,18 @@
   }
 
   .chatbot-window {
-    width: 100%;
+    width: min(320px, calc(100vw - 1.5rem)); /* Responsive width but not full screen */
     height: min(70vh, 500px);
     max-width: none;
     border-radius: var(--chatbot-radius);
+    /* Position from the right edge, allowing background interaction */
+    position: fixed;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    /* Enhanced shadow for better separation */
+    box-shadow: var(--chatbot-shadow-xl), 
+                0 0 0 1px rgba(37, 99, 235, 0.1),
+                0 0 50px rgba(0, 0, 0, 0.15);
   }
 
   .chatbot-header {
@@ -687,6 +712,21 @@
     padding: 0.625rem 0.875rem;
     min-width: 44px;
     min-height: 44px;
+  }
+}
+
+/* Extra Small Mobile (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  .chatbot-window {
+    width: min(300px, calc(100vw - 1rem)); /* Even smaller on tiny screens */
+    height: min(65vh, 450px);
+    right: 0.5rem;
+    bottom: 0.5rem;
+  }
+  
+  .chatbot-container {
+    bottom: 0.5rem;
+    right: 0.5rem;
   }
 }
 
