@@ -31,6 +31,28 @@ const Chatbot = forwardRef<ChatbotRef>((props, ref) => {
     }
   }, [isOpen]);
 
+  // Ensure chatbot stays visible on mobile during scroll
+  useEffect(() => {
+    const handleViewportChange = () => {
+      // Force repaint to ensure fixed positioning works correctly
+      const container = document.querySelector('.chatbot-container') as HTMLElement;
+      if (container) {
+        container.style.transform = 'translateZ(0)';
+      }
+    };
+
+    // Listen for viewport changes (scroll, resize, orientation)
+    window.addEventListener('scroll', handleViewportChange, { passive: true });
+    window.addEventListener('resize', handleViewportChange);
+    window.addEventListener('orientationchange', handleViewportChange);
+
+    return () => {
+      window.removeEventListener('scroll', handleViewportChange);
+      window.removeEventListener('resize', handleViewportChange);
+      window.removeEventListener('orientationchange', handleViewportChange);
+    };
+  }, []);
+
   const toggleChat = () => {
     if (isOpen) {
       // Smooth closing animation
