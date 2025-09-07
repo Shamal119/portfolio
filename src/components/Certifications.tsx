@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import SchoolIcon from '@mui/icons-material/School';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import resumeData from '../data/resumeData.json';
 
 const theme = createTheme({
@@ -112,6 +113,10 @@ const Certifications = () => {
                   viewport={{ once: true }}
                 >
                   <Card
+                    component="a"
+                    href={certification.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     sx={{
                       height: '100%',
                       minHeight: '200px',
@@ -123,10 +128,14 @@ const Certifications = () => {
                       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                       cursor: 'pointer',
                       borderRadius: '16px',
+                      textDecoration: 'none',
+                      color: 'inherit',
                       '&:hover': {
                         transform: 'translateY(-8px)',
                         boxShadow: '0 20px 40px rgba(37, 99, 235, 0.15)',
                         borderColor: 'rgba(37, 99, 235, 0.3)',
+                        textDecoration: 'none',
+                        color: 'inherit',
                       },
                     }}
                   >
@@ -175,23 +184,33 @@ const Certifications = () => {
                             justifyContent: 'center',
                           }}
                         >
-                          {certification}
+                          {certification.name}
                         </Typography>
                       </Box>
 
-                      <Chip
-                        label="Certified"
-                        size="small"
-                        sx={{
-                          bgcolor: 'rgba(37, 99, 235, 0.08)',
-                          color: 'primary.dark',
-                          fontWeight: 500,
-                          '&:hover': {
-                            bgcolor: 'rgba(37, 99, 235, 0.15)',
-                          },
-                          transition: 'all 0.2s ease',
-                        }}
-                      />
+                      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+                        <Chip
+                          label="Certified"
+                          size="small"
+                          sx={{
+                            bgcolor: 'rgba(37, 99, 235, 0.08)',
+                            color: 'primary.dark',
+                            fontWeight: 500,
+                            '&:hover': {
+                              bgcolor: 'rgba(37, 99, 235, 0.15)',
+                            },
+                            transition: 'all 0.2s ease',
+                          }}
+                        />
+                        <OpenInNewIcon 
+                          sx={{ 
+                            fontSize: 16, 
+                            color: 'primary.main',
+                            opacity: 0.7,
+                            transition: 'opacity 0.2s ease',
+                          }} 
+                        />
+                      </Box>
                     </CardContent>
                   </Card>
                 </motion.div>

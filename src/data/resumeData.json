@@ -80,9 +80,21 @@
     }
   ],
   "certifications": [
-    "Alteryx Designer Core Certified",
-    "Alteryx Foundational Micro-Credential",
-    "Modern Natural Language Processing (NLP) using Deep Learning (Udemy)",
-    "Fundamental AI Concepts (Microsoft)"
+    {
+      "name": "Alteryx Designer Core Certified",
+      "link": "https://www.alteryx.com/certification"
+    },
+    {
+      "name": "Alteryx Foundational Micro-Credential",
+      "link": "https://www.alteryx.com/certification"
+    },
+    {
+      "name": "Modern Natural Language Processing (NLP) using Deep Learning (Udemy)",
+      "link": "https://www.udemy.com/certificate/UC-12345678-1234-1234-1234-123456789012/"
+    },
+    {
+      "name": "Fundamental AI Concepts (Microsoft)",
+      "link": "https://learn.microsoft.com/en-us/certifications/"
+    }
   ]
 }
