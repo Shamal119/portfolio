@@ -2,8 +2,8 @@
 
 A modern, interactive portfolio website showcasing my experience as a **Data Scientist** specializing in **Generative AI**, **Business Intelligence**, and **Full-Stack Development**. This project demonstrates proficiency across the entire data science and development stack, from AI/ML model development to production deployment.
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-2563eb?style=for-the-badge&logo=vercel)](https://shamal119.github.io/portfolio)
-[![Portfolio](https://img.shields.io/badge/Portfolio-Website-2563eb?style=for-the-badge&logo=react)](https://shamal119.github.io/portfolio)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-2563eb?style=for-the-badge&logo=vercel)](https://shamal-portfolio.vercel.app)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Website-2563eb?style=for-the-badge&logo=react)](https://shamal-portfolio.vercel.app)
 
 ## 🎯 Project Overview
 
@@ -225,7 +225,7 @@ This project showcases proficiency in:
 **Shamal Musthafa**  
 📧 Email: shamalmusthafa59@gmail.com  
 💼 LinkedIn: [linkedin.com/in/shamalmusthafa](https://linkedin.com/in/shamalmusthafa)  
-🌐 Portfolio: [shamal119.github.io/portfolio](https://shamal119.github.io/portfolio)  
+🌐 Portfolio: [shamal-portfolio.vercel.app](https://shamal-portfolio.vercel.app)  
 📱 Phone: +91 7012464811  
 
 ---
