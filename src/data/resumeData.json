@@ -55,14 +55,14 @@
       "technologies": ["Power BI", "Alteryx", "NLP"]
     },
     {
-      "title": "Real-Time Stock Market Analysis",
-      "description": "Developed a dashboard with ML-based forecasting using TensorFlow and LSTMs.",
-      "technologies": ["Python", "TensorFlow", "LSTMs", "Machine Learning"]
+      "title": "AI-Powered Customer Churn Predictor",
+      "description": "Built end-to-end ML solution with 84.6% ROC AUC, featuring advanced feature engineering and full-stack deployment.",
+      "technologies": ["Python", "XGBoost", "React", "FastAPI", "Vercel"]
     }
   ],
   "skills": {
-    "cloud_ai_tools": ["Azure AI", "OpenAI", "GCP", "Dialogflow CX", "Gemini", "Vertex AI"],
-    "ai_ml": ["Generative AI", "LLMs", "NLP", "RAG", "LangChain", "TensorFlow"],
+    "cloud_ai_tools": ["Azure AI", "OpenAI", "GCP", "Dialogflow CX", "Gemini", "Vertex AI", "Vercel"],
+    "ai_ml": ["Generative AI", "LLMs", "NLP", "RAG", "LangChain", "TensorFlow", "XGBoost"],
     "bi_visualization": ["Alteryx", "Power BI", "Tableau", "Matplotlib", "Plotly"],
     "programming": ["Python", "FastAPI", "SQL", "JavaScript", "ReactJS"],
     "data_tools": ["Pandas", "NumPy", "FAISS", "Scikit-Learn"]

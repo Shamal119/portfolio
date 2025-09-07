@@ -114,18 +114,24 @@ const Projects = () => {
   };
 
   const projects: Project[] = [
-    // Resume projects
-    ...resumeData.projects.map(project => ({
-      title: project.title,
-      description: project.description,
-      tech: project.technologies,
-      link: undefined,
-      longDescription: project.description,
-      features: [],
-      implementation: "",
-      challenges: [],
-      outcome: ""
-    })),
+    // Resume projects (excluding those with detailed versions below)
+    ...resumeData.projects
+      .filter(project => ![
+        "RAG Chatbot Assistant",
+        "AI Financial Advisor", 
+        "AI-Powered Customer Churn Predictor"
+      ].includes(project.title))
+      .map(project => ({
+        title: project.title,
+        description: project.description,
+        tech: project.technologies,
+        link: undefined,
+        longDescription: project.description,
+        features: [],
+        implementation: "",
+        challenges: [],
+        outcome: ""
+      })),
     // Detailed projects
     {
       title: "Chatbot Platform",
@@ -218,27 +224,30 @@ const Projects = () => {
       outcome: "Successfully helped users achieve an average of 25% better budget management through AI-powered insights and recommendations."
     },
     {
-      title: "Indian Stock Market Analysis Dashboard",
-      description: "Developed a comprehensive real-time stock analysis platform for Indian markets featuring ML-powered predictions, technical analysis, and market intelligence.",
-      tech: ["Python", "TensorFlow", "Streamlit", "LSTM", "Plotly"],
-      link: "https://indianstockanalysis-shamal119.streamlit.app/",
-      longDescription: "A sophisticated stock market analysis platform that combines machine learning predictions with technical analysis to provide comprehensive insights for Indian market investors.",
+      title: "AI-Powered Customer Churn Predictor",
+      description: "Built a comprehensive end-to-end machine learning solution for customer churn prediction with 84.6% ROC AUC. Features advanced feature engineering, model optimization, and full-stack deployment with React frontend and FastAPI backend.",
+      tech: ["Python", "XGBoost", "Scikit-learn", "React", "FastAPI", "Vercel"],
+      link: "https://ai-powered-customer-churn-predictor-7ht7hy9kn.vercel.app",
+      longDescription: "A complete end-to-end machine learning workflow showcasing advanced feature engineering, model optimization, and modern full-stack development practices. This project demonstrates technical excellence with production-ready deployment and business-focused insights.",
       features: [
-        "Real-time market data tracking",
-        "LSTM-based 30-day price forecasting",
-        "Technical indicator analysis",
-        "Interactive price charts",
-        "Market sentiment analysis",
-        "Automated trading signals"
+        "Advanced feature engineering with 8 new engineered features",
+        "Model comparison: Logistic Regression, Random Forest, XGBoost",
+        "Hyperparameter tuning with 324 parameter combinations",
+        "Interactive React frontend with real-time predictions",
+        "FastAPI backend with automatic API documentation",
+        "Production deployment on Vercel",
+        "Comprehensive business insights and recommendations",
+        "Real-time predictions with <500ms response time"
       ],
-      implementation: "Utilized TensorFlow for LSTM model implementation, Streamlit for the web interface, and integrated various market data APIs. Implemented complex technical indicators using Python.",
+      implementation: "Developed using Python with XGBoost for gradient boosting, React 19 with TypeScript for the frontend, FastAPI for the backend API, and comprehensive feature engineering including tenure groups, service counts, and payment method analysis. Deployed on Vercel for production use.",
       challenges: [
-        "Handling real-time market data",
-        "Optimizing LSTM model accuracy",
-        "Managing market volatility in predictions",
-        "Processing large volumes of historical data"
+        "Improving model performance from 76% to 84.6% ROC AUC",
+        "Engineering meaningful features from raw customer data",
+        "Optimizing model for production deployment",
+        "Creating intuitive user interface for business users",
+        "Balancing model complexity with interpretability"
       ],
-      outcome: "Achieved good accuracy in short-term price predictions and helped users make more informed investment decisions through comprehensive market analysis."
+      outcome: "Achieved 84.6% ROC AUC with actionable business insights. Identified that month-to-month contracts have 55.1% churn rate and customers without online security churn 2.3x more. The model provides clear recommendations for reducing churn by 20-30% through targeted interventions."
     },
     {
       title: "Sentiment Analysis Dashboard",
