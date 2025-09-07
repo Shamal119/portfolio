@@ -81,7 +81,7 @@ const ResumePage = () => {
                 variant="contained"
                 startIcon={<Download />}
                 href={pdfUrl}
-                download="Shamal_Musthafa_Resume.pdf"
+                download="Shamal Musthafa - Resume.pdf"
                 sx={{ minWidth: { xs: 'auto', sm: '140px' } }}
               >
                 Download PDF
