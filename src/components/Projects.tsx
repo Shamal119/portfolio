@@ -227,7 +227,7 @@ const Projects = () => {
       title: "AI-Powered Customer Churn Predictor",
       description: "Built a comprehensive end-to-end machine learning solution for customer churn prediction with 84.6% ROC AUC. Features advanced feature engineering, model optimization, and full-stack deployment with React frontend and FastAPI backend.",
       tech: ["Python", "XGBoost", "Scikit-learn", "React", "FastAPI", "Vercel"],
-      link: "https://ai-powered-customer-churn-predictor-7ht7hy9kn.vercel.app",
+      link: "https://github.com/Shamal119/ai-powered-customer-churn-predictor",
       longDescription: "A complete end-to-end machine learning workflow showcasing advanced feature engineering, model optimization, and modern full-stack development practices. This project demonstrates technical excellence with production-ready deployment and business-focused insights.",
       features: [
         "Advanced feature engineering with 8 new engineered features",
