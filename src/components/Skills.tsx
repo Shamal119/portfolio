@@ -375,46 +375,221 @@ const skillCategories: SkillCategory[] = [
   {
     title: 'Cloud & AI Tools',
     icon: <CloudIcon fontSize="large" />,
-    skills: resumeData.skills.cloud_ai_tools.map(skill => ({
-      name: skill,
-      level: 85,
-      projects: []
-    }))
+    skills: [
+      {
+        name: 'Azure AI',
+        level: 90,
+        projects: [
+          { name: 'Enterprise AI Solutions', description: 'Led end-to-end development of enterprise AI solutions using Azure AI and OpenAI' }
+        ]
+      },
+      {
+        name: 'OpenAI',
+        level: 88,
+        projects: [
+          { name: 'RAG Chatbot Assistant', description: 'Developed context-aware chatbot using RAG with OpenAI for accurate answers' },
+          { name: 'AI Financial Advisor', description: 'Created platform for financial insights with AI-driven recommendations' }
+        ]
+      },
+      {
+        name: 'GCP',
+        level: 75,
+        projects: []
+      },
+      {
+        name: 'Dialogflow CX',
+        level: 85,
+        projects: [
+          { name: 'Enterprise Chatbots', description: 'Built and deployed enterprise chatbots using Dialogflow CX with Gemini and OpenAI integration' }
+        ]
+      },
+      {
+        name: 'Gemini',
+        level: 82,
+        projects: [
+          { name: 'RAG Chatbot Assistant', description: 'Integrated Gemini models for improved conversational intelligence' }
+        ]
+      },
+      {
+        name: 'Vertex AI',
+        level: 70,
+        projects: []
+      },
+      {
+        name: 'Vercel',
+        level: 80,
+        projects: [
+          { name: 'AI-Powered Customer Churn Predictor', description: 'Deployed full-stack ML solution with Vercel hosting' }
+        ]
+      }
+    ]
   },
   {
     title: 'AI & Machine Learning',
     icon: <BiotechIcon fontSize="large" />,
-    skills: resumeData.skills.ai_ml.map(skill => ({
-      name: skill,
-      level: 85,
-      projects: []
-    }))
+    skills: [
+      {
+        name: 'Generative AI',
+        level: 88,
+        projects: [
+          { name: 'Enterprise AI Solutions', description: 'Developed enterprise AI solutions with Azure AI and OpenAI integration' }
+        ]
+      },
+      {
+        name: 'LLMs',
+        level: 85,
+        projects: [
+          { name: 'RAG Chatbot Assistant', description: 'Implemented RAG-based solutions with Azure OpenAI for improved response accuracy' }
+        ]
+      },
+      {
+        name: 'NLP',
+        level: 90,
+        projects: [
+          { name: 'Call Center Analytics', description: 'Analyzed customer call transcripts using OpenAI Whisper and NLP techniques' }
+        ]
+      },
+      {
+        name: 'RAG',
+        level: 92,
+        projects: [
+          { name: 'RAG Chatbot Assistant', description: 'Developed context-aware chatbot using RAG with OpenAI & Gemini' },
+          { name: 'Intelligent Search System', description: 'Created intelligent search system using Azure OpenAI for context-aware information retrieval' }
+        ]
+      },
+      {
+        name: 'LangChain',
+        level: 80,
+        projects: []
+      },
+      {
+        name: 'TensorFlow',
+        level: 75,
+        projects: []
+      },
+      {
+        name: 'XGBoost',
+        level: 85,
+        projects: [
+          { name: 'AI-Powered Customer Churn Predictor', description: 'Built ML solution with 84.6% ROC AUC using XGBoost' }
+        ]
+      }
+    ]
   },
   {
     title: 'BI & Visualization',
     icon: <BarChartIcon fontSize="large" />,
-    skills: resumeData.skills.bi_visualization.map(skill => ({
-      name: skill,
-      level: 85,
-      projects: []
-    }))
+    skills: [
+      {
+        name: 'Alteryx',
+        level: 95,
+        projects: [
+          { name: 'Data Workflow Automation', description: 'Engineered and automated complex data preparation workflows, reducing processing time by 30%' },
+          { name: 'Call Center Analytics Dashboard', description: 'Built Power BI dashboard with data prepared in Alteryx for call driver analysis' }
+        ]
+      },
+      {
+        name: 'Tableau',
+        level: 92,
+        projects: [
+          { name: 'Business Intelligence', description: 'Developed interactive dashboards in Tableau for business insights' },
+          { name: 'KPI Monitoring Dashboards', description: 'Created comprehensive dashboards to monitor business KPIs and deliver insights to stakeholders' }
+        ]
+      },
+      {
+        name: 'Power BI',
+        level: 85,
+        projects: [
+          { name: 'Call Center Analytics Dashboard', description: 'Built dashboard to identify call drivers and sentiment trends' }
+        ]
+      },
+      {
+        name: 'Matplotlib',
+        level: 80,
+        projects: []
+      },
+      {
+        name: 'Plotly',
+        level: 85,
+        projects: [
+          { name: 'AI Financial Advisor', description: 'Created platform with Plotly visualizations for financial insights' }
+        ]
+      }
+    ]
   },
   {
     title: 'Programming',
     icon: <CodeIcon fontSize="large" />,
-    skills: resumeData.skills.programming.map(skill => ({
-      name: skill,
-      level: 85,
-      projects: []
-    }))
+    skills: [
+      {
+        name: 'Python',
+        level: 92,
+        projects: [
+          { name: 'RAG Chatbot Assistant', description: 'Developed context-aware chatbot using Python' },
+          { name: 'AI Financial Advisor', description: 'Created financial insights platform with Python' },
+          { name: 'AI-Powered Customer Churn Predictor', description: 'Built end-to-end ML solution with Python' }
+        ]
+      },
+      {
+        name: 'FastAPI',
+        level: 88,
+        projects: [
+          { name: 'RESTful APIs', description: 'Designed and developed scalable RESTful APIs using FastAPI for high-volume chatbot conversations' },
+          { name: 'AI-Powered Customer Churn Predictor', description: 'Built full-stack ML solution with FastAPI backend' }
+        ]
+      },
+      {
+        name: 'SQL',
+        level: 85,
+        projects: []
+      },
+      {
+        name: 'JavaScript',
+        level: 80,
+        projects: []
+      },
+      {
+        name: 'ReactJS',
+        level: 75,
+        projects: [
+          { name: 'Frontend Development', description: 'Provided development support to frontend team on various ReactJS projects' },
+          { name: 'AI-Powered Customer Churn Predictor', description: 'Built full-stack ML solution with React frontend' }
+        ]
+      }
+    ]
   },
   {
     title: 'Data Tools',
     icon: <StorageIcon fontSize="large" />,
-    skills: resumeData.skills.data_tools.map(skill => ({
-      name: skill,
-      level: 85,
-      projects: []
-    }))
+    skills: [
+      {
+        name: 'Pandas',
+        level: 90,
+        projects: [
+          { name: 'Data Analysis', description: 'Used extensively for data manipulation and analysis across all projects' }
+        ]
+      },
+      {
+        name: 'NumPy',
+        level: 85,
+        projects: [
+          { name: 'Data Processing', description: 'Used for numerical computations in ML and data science projects' }
+        ]
+      },
+      {
+        name: 'FAISS',
+        level: 80,
+        projects: [
+          { name: 'RAG Implementation', description: 'Used for vector similarity search in RAG-based solutions' }
+        ]
+      },
+      {
+        name: 'Scikit-Learn',
+        level: 85,
+        projects: [
+          { name: 'Machine Learning', description: 'Used for ML model development and evaluation across various projects' }
+        ]
+      }
+    ]
   }
 ];
