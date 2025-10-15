@@ -97,7 +97,7 @@ export default async function handler(req, res) {
     if (!chatSessions[session_id]) {
       // Create new chat session
       const model = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash-latest",
+        model: "gemini-flash-latest",
         generationConfig: {
           maxOutputTokens: 1000,
           temperature: 0.7,
