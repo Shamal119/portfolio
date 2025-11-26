@@ -42,30 +42,86 @@
     {
       "title": "RAG Chatbot Assistant",
       "description": "Developed a context-aware chatbot using RAG with OpenAI & Gemini for accurate, source-based answers.",
-      "technologies": ["RAG", "OpenAI", "Gemini", "Python"]
+      "technologies": [
+        "RAG",
+        "OpenAI",
+        "Gemini",
+        "Python"
+      ],
+      "github": "https://github.com/Shamal119/rag_chatbot"
     },
     {
       "title": "AI Financial Advisor",
       "description": "Created a platform for financial insights and AI-driven recommendations with Plotly visualizations.",
-      "technologies": ["Python", "Plotly", "Machine Learning"]
+      "technologies": [
+        "Python",
+        "Plotly",
+        "Machine Learning"
+      ],
+      "github": "https://github.com/Shamal119/ai_personal_finance"
     },
     {
       "title": "Call Center Analytics Dashboard",
       "description": "Built a Power BI dashboard with data prepared in Alteryx to identify call drivers and sentiment trends.",
-      "technologies": ["Power BI", "Alteryx", "NLP"]
+      "technologies": [
+        "Power BI",
+        "Alteryx",
+        "NLP"
+      ],
+      "github": "#"
     },
     {
       "title": "AI-Powered Customer Churn Predictor",
       "description": "Built end-to-end ML solution with 84.6% ROC AUC, featuring advanced feature engineering and full-stack deployment.",
-      "technologies": ["Python", "XGBoost", "React", "FastAPI", "Vercel"]
+      "technologies": [
+        "Python",
+        "XGBoost",
+        "React",
+        "FastAPI",
+        "Vercel"
+      ],
+      "github": "https://github.com/Shamal119/ai-powered-customer-churn-predictor"
     }
   ],
   "skills": {
-    "cloud_ai_tools": ["Azure AI", "OpenAI", "GCP", "Dialogflow CX", "Gemini", "Vertex AI", "Vercel"],
-    "ai_ml": ["Generative AI", "LLMs", "NLP", "RAG", "LangChain", "TensorFlow", "XGBoost"],
-    "bi_visualization": ["Alteryx", "Power BI", "Tableau", "Matplotlib", "Plotly"],
-    "programming": ["Python", "FastAPI", "SQL", "JavaScript", "ReactJS"],
-    "data_tools": ["Pandas", "NumPy", "FAISS", "Scikit-Learn"]
+    "cloud_ai_tools": [
+      "Azure AI",
+      "OpenAI",
+      "GCP",
+      "Dialogflow CX",
+      "Gemini",
+      "Vertex AI",
+      "Vercel"
+    ],
+    "ai_ml": [
+      "Generative AI",
+      "LLMs",
+      "NLP",
+      "RAG",
+      "LangChain",
+      "TensorFlow",
+      "XGBoost"
+    ],
+    "bi_visualization": [
+      "Alteryx",
+      "Power BI",
+      "Tableau",
+      "Matplotlib",
+      "Plotly"
+    ],
+    "programming": [
+      "Python",
+      "FastAPI",
+      "SQL",
+      "JavaScript",
+      "ReactJS"
+    ],
+    "data_tools": [
+      "Pandas",
+      "NumPy",
+      "FAISS",
+      "Scikit-Learn"
+    ]
   },
   "education": [
     {

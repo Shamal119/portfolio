@@ -18,14 +18,14 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 const getCurrentDateTime = () => {
   const now = new Date();
   return {
-    date: now.toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    date: now.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     }),
-    time: now.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
+    time: now.toLocaleTimeString('en-US', {
+      hour: '2-digit',
       minute: '2-digit',
       timeZoneName: 'short'
     }),
@@ -45,12 +45,12 @@ app.post('/chat', async (req, res) => {
     }
 
     const currentDateTime = getCurrentDateTime();
-    
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
     // Get or create chat session
     let chat = chatSessions.get(sessionId);
-    
+
     if (!chat) {
       const systemPrompt = `You are Shamal, a helpful and friendly AI chatbot for Shamal Musthafa's personal portfolio website. 
 
@@ -88,8 +88,8 @@ Remember: You ARE Shamal (the AI version), not just talking about him. Respond i
           },
           {
             role: 'model',
-            parts: [{ 
-              text: "Hi there! 👋 I'm Shamal, your AI assistant for Shamal Musthafa's portfolio. I'm here to help you learn about my skills, experience, and projects. Whether you're interested in my technical expertise, past work, or just want to know more about my background, I'm happy to chat! What would you like to know? 😊" 
+            parts: [{
+              text: "Hi there! 👋 I'm Shamal, your AI assistant for Shamal Musthafa's portfolio. I'm here to help you learn about my skills, experience, and projects. Whether you're interested in my technical expertise, past work, or just want to know more about my background, I'm happy to chat! What would you like to know? 😊"
             }],
           },
         ],
@@ -108,7 +108,7 @@ Remember: You ARE Shamal (the AI version), not just talking about him. Respond i
     const response = await result.response;
     const text = response.text();
 
-    res.json({ 
+    res.json({
       response: text,
       sessionId: sessionId,
       timestamp: currentDateTime.timestamp
@@ -116,17 +116,17 @@ Remember: You ARE Shamal (the AI version), not just talking about him. Respond i
 
   } catch (error) {
     console.error('Chat error:', error);
-    
+
     // Handle specific API errors
     if (error.message?.includes('API key')) {
       return res.status(401).json({ error: 'Invalid or missing API key' });
     }
-    
+
     if (error.message?.includes('quota')) {
       return res.status(429).json({ error: 'API quota exceeded. Please try again later.' });
     }
 
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Something went wrong. Please try again later.',
       details: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
@@ -136,7 +136,7 @@ Remember: You ARE Shamal (the AI version), not just talking about him. Respond i
 // Health check endpoint
 app.get('/health', (req, res) => {
   const currentDateTime = getCurrentDateTime();
-  res.json({ 
+  res.json({
     status: 'OK',
     timestamp: currentDateTime.timestamp,
     date: currentDateTime.date,
@@ -147,7 +147,7 @@ app.get('/health', (req, res) => {
 // Clear chat session endpoint
 app.delete('/chat/:sessionId', (req, res) => {
   const { sessionId } = req.params;
-  
+
   if (chatSessions.has(sessionId)) {
     chatSessions.delete(sessionId);
     res.json({ message: 'Chat session cleared successfully' });
@@ -159,7 +159,7 @@ app.delete('/chat/:sessionId', (req, res) => {
 // Get all active sessions (for debugging/admin)
 app.get('/sessions', (req, res) => {
   if (process.env.NODE_ENV !== 'production') {
-    res.json({ 
+    res.json({
       activeSessions: Array.from(chatSessions.keys()),
       count: chatSessions.size
     });
@@ -179,6 +179,14 @@ process.on('SIGINT', () => {
   console.log('SIGINT received. Shutting down gracefully...');
   chatSessions.clear();
   process.exit(0);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
 });
 
 app.listen(port, () => {

@@ -8,8 +8,14 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "composite": true
   },
-  "include": ["server.cjs"],
-  "exclude": ["node_modules", "src"]
+  "include": [
+    "server.cjs"
+  ],
+  "exclude": [
+    "node_modules",
+    "src"
+  ]
 }

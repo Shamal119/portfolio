@@ -16,13 +16,13 @@ const theme = createTheme({
 const ResumePage = () => {
   const navigate = useNavigate();
   const [pdfError, setPdfError] = useState(false);
-  
+
   // PDF path - works for development, GitHub Pages, and Vercel
   const getPdfUrl = () => {
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.MODE === 'development') {
       return '/resume.pdf';
     }
-    
+
     // Check if we're on Vercel (has vercel.app in URL) or GitHub Pages
     if (typeof window !== 'undefined') {
       const hostname = window.location.hostname;
@@ -32,11 +32,11 @@ const ResumePage = () => {
         return '/portfolio/resume.pdf'; // GitHub Pages
       }
     }
-    
+
     // Default fallback
     return '/resume.pdf';
   };
-  
+
   const pdfUrl = getPdfUrl();
 
   const handlePdfError = () => {
@@ -54,8 +54,8 @@ const ResumePage = () => {
         }}
       >
         <Container maxWidth="md" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
-          <Box 
-            sx={{ 
+          <Box
+            sx={{
               mb: { xs: 2, md: 3 },
               display: 'flex',
               flexDirection: { xs: 'column', sm: 'row' },
@@ -68,14 +68,14 @@ const ResumePage = () => {
               startIcon={<ArrowBack />}
               onClick={() => navigate('/')}
               variant="outlined"
-              sx={{ 
+              sx={{
                 alignSelf: { xs: 'flex-start', sm: 'auto' },
                 minWidth: { xs: 'auto', sm: '140px' }
               }}
             >
               Back to Home
             </Button>
-            
+
             <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
               <Button
                 variant="contained"
@@ -98,7 +98,7 @@ const ResumePage = () => {
               </Button>
             </Box>
           </Box>
-          
+
           {pdfError ? (
             <Box
               sx={{
@@ -123,10 +123,10 @@ const ResumePage = () => {
                 Data Scientist | Generative AI & Business Intelligence
               </Typography>
               <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 2, maxWidth: 400 }}>
-                With over two years of experience delivering end-to-end data solutions. 
-                Core competencies include automating complex data workflows with Alteryx, 
-                developing advanced Generative AI and LLM applications using Python, 
-                and translating data into actionable insights through dynamic visualizations 
+                With over two years of experience delivering end-to-end data solutions.
+                Core competencies include automating complex data workflows with Alteryx,
+                developing advanced Generative AI and LLM applications using Python,
+                and translating data into actionable insights through dynamic visualizations
                 in Tableau and Power BI.
               </Typography>
             </Box>
