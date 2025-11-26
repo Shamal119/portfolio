@@ -39,7 +39,7 @@ const Projects = () => {
                             transition={{ delay: index * 0.1 }}
                             className="group relative bg-surface rounded-xl overflow-hidden border border-gray-800 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-2"
                         >
-                            <div className="p-8">
+                            <div className="p-6 md:p-8">
                                 <div className="flex justify-between items-start mb-4">
                                     <div className="p-3 bg-blue-500/10 rounded-lg text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-colors">
                                         <Code size={24} />

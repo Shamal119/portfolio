@@ -30,7 +30,7 @@ const Experience = () => {
                             {/* Dot */}
                             <div className="absolute -left-[5px] top-0 w-3 h-3 bg-blue-500 rounded-full ring-4 ring-black" />
 
-                            <div className="bg-background p-6 rounded-xl border border-gray-800 hover:border-blue-500/50 transition-colors">
+                            <div className="bg-background p-4 md:p-6 rounded-xl border border-gray-800 hover:border-blue-500/50 transition-colors">
                                 <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                                     <div>
                                         <h3 className="text-xl font-bold text-white">{exp.title}</h3>

@@ -48,13 +48,13 @@ const Hero = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+                    <h1 className="text-4xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text leading-tight">
                         {resumeData.personal.name}
                     </h1>
-                    <h2 className="text-2xl md:text-3xl text-gray-300 mb-8 font-light">
+                    <h2 className="text-xl md:text-3xl text-gray-300 mb-8 font-light">
                         {resumeData.personal.title}
                     </h2>
-                    <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-gray-400 text-base md:text-lg mb-10 max-w-2xl mx-auto leading-relaxed px-4">
                         {resumeData.summary}
                     </p>
 

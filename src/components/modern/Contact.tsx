@@ -113,7 +113,7 @@ const Contact = () => {
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="bg-surface p-8 rounded-2xl border border-gray-800"
+                        className="bg-surface p-6 md:p-8 rounded-2xl border border-gray-800"
                     >
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
@@ -122,7 +122,7 @@ const Contact = () => {
                                     type="text"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="w-full bg-background border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                                    className="w-full bg-background border border-gray-700 rounded-lg px-4 py-3 text-base text-white focus:outline-none focus:border-blue-500 transition-colors"
                                     placeholder="Your Name"
                                     required
                                 />
@@ -133,7 +133,7 @@ const Contact = () => {
                                     type="email"
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full bg-background border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                                    className="w-full bg-background border border-gray-700 rounded-lg px-4 py-3 text-base text-white focus:outline-none focus:border-blue-500 transition-colors"
                                     placeholder="your@email.com"
                                     required
                                 />
@@ -143,7 +143,7 @@ const Contact = () => {
                                 <textarea
                                     value={formData.message}
                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                    className="w-full bg-background border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors h-32 resize-none"
+                                    className="w-full bg-background border border-gray-700 rounded-lg px-4 py-3 text-base text-white focus:outline-none focus:border-blue-500 transition-colors h-32 resize-none"
                                     placeholder="Your message..."
                                     required
                                 />

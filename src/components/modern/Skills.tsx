@@ -64,7 +64,7 @@ const Skills = () => {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className={`p-8 rounded-2xl border ${category.border} bg-background/50 backdrop-blur-sm hover:bg-background transition-colors`}
+                            className={`p-6 md:p-8 rounded-2xl border ${category.border} bg-background/50 backdrop-blur-sm hover:bg-background transition-colors`}
                         >
                             <div className="flex items-center mb-6">
                                 <div className={`p-3 rounded-lg ${category.bg} ${category.color} mr-4`}>

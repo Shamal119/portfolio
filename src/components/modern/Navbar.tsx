@@ -70,12 +70,12 @@ const Navbar = () => {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="absolute top-full left-0 right-0 bg-black/90 backdrop-blur-lg border-t border-gray-800 md:hidden"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-gray-800 md:hidden overflow-hidden"
                     >
-                        <div className="flex flex-col p-6 space-y-4">
+                        <div className="flex flex-col p-6 space-y-6">
                             {navLinks.map((link) => (
                                 <a
                                     key={link.name}
@@ -83,19 +83,19 @@ const Navbar = () => {
                                     target={link.target || "_self"}
                                     rel={link.target === "_blank" ? "noopener noreferrer" : ""}
                                     onClick={() => setIsOpen(false)}
-                                    className="text-gray-300 hover:text-white text-lg font-medium"
+                                    className="text-gray-300 hover:text-white text-xl font-medium py-2 block transition-colors"
                                 >
                                     {link.name}
                                 </a>
                             ))}
-                            <div className="flex space-x-6 pt-4 border-t border-gray-800">
-                                <a href="https://github.com/shamal119" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+                            <div className="flex space-x-8 pt-6 border-t border-gray-800 justify-center">
+                                <a href="https://github.com/shamal119" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white p-2">
                                     <Github size={24} />
                                 </a>
-                                <a href="https://linkedin.com/in/shamalmusthafa" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+                                <a href="https://linkedin.com/in/shamalmusthafa" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white p-2">
                                     <Linkedin size={24} />
                                 </a>
-                                <a href="mailto:shamalmusthafa59@gmail.com" className="text-gray-400 hover:text-white">
+                                <a href="mailto:shamalmusthafa59@gmail.com" className="text-gray-400 hover:text-white p-2">
                                     <Mail size={24} />
                                 </a>
                             </div>
