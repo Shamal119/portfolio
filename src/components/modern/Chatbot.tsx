@@ -42,7 +42,8 @@ const Chatbot = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('http://localhost:3001/chat', {
+            // Use relative path for API - works with Vercel functions and local proxy
+            const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: text })
@@ -72,7 +73,7 @@ const Chatbot = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsOpen(true)}
-                className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-lg shadow-blue-500/30 transition-all duration-300 ${isOpen ? 'scale-0 opacity-0' : 'bg-blue-600 text-white'
+                className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[9999] p-4 rounded-full shadow-lg shadow-blue-500/30 transition-all duration-300 ${isOpen ? 'scale-0 opacity-0' : 'bg-blue-600 text-white'
                     }`}
             >
                 <MessageSquare size={24} />
@@ -86,7 +87,7 @@ const Chatbot = () => {
                         initial={{ opacity: 0, y: 20, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                        className="fixed bottom-6 right-6 z-50 w-[90vw] md:w-[400px] h-[600px] max-h-[80vh] bg-surface/95 backdrop-blur-xl border border-blue-500/30 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+                        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[9999] w-[calc(100vw-2rem)] md:w-[400px] h-[600px] max-h-[80vh] bg-surface/95 backdrop-blur-xl border border-blue-500/30 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
                     >
                         {/* Header */}
                         <div className="p-4 bg-gradient-to-r from-blue-600 to-purple-600 flex justify-between items-center">
