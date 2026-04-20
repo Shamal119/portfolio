@@ -8,13 +8,7 @@ const setVH = () => {
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
   
-  // Additional mobile fixes
-  if (window.innerWidth <= 768) {
-    // Force proper scaling on mobile
-    document.documentElement.style.setProperty('--mobile-scale', '1');
-    document.body.style.transform = 'scale(1)';
-    document.body.style.zoom = '1';
-  }
+  document.documentElement.style.setProperty('--mobile-scale', '1');
 };
 
 // Set the CSS custom property on load

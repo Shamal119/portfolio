@@ -1,51 +1,49 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Award, ExternalLink } from 'lucide-react';
 import resumeData from '../../data/resumeData.json';
+import { SectionHeader } from './Experience';
+
+interface Cert {
+  name: string;
+  issuer: string;
+  link: string;
+}
 
 const Certifications = () => {
-    return (
-        <section id="certifications" className="py-20 bg-surface text-white">
-            <div className="max-w-7xl mx-auto px-6">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Certifications</h2>
-                    <div className="w-20 h-1 bg-blue-500 mx-auto rounded-full" />
-                </motion.div>
+  const certs = resumeData.certifications as Cert[];
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {resumeData.certifications.map((cert, index) => (
-                        <motion.a
-                            key={index}
-                            href={cert.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="block group bg-background p-6 rounded-xl border border-gray-800 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all duration-300"
-                        >
-                            <div className="flex items-start justify-between mb-4">
-                                <div className="p-3 bg-blue-500/10 rounded-lg text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-colors">
-                                    <Award size={24} />
-                                </div>
-                                <ExternalLink size={16} className="text-gray-500 group-hover:text-blue-400 transition-colors" />
-                            </div>
+  return (
+    <section id="certifications" className="relative py-28 border-t border-white/10">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+        <SectionHeader
+          n="05 — Credentials"
+          kicker="Verified"
+          title={<>Certifications<br /><span className="italic text-white/70">& vouches</span>.</>}
+        />
 
-                            <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors mb-2 line-clamp-2">
-                                {cert.name}
-                            </h3>
-                        </motion.a>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+        <div className="grid md:grid-cols-2 gap-4">
+          {certs.map((c, i) => (
+            <a key={i} href={c.link} target="_blank" rel="noreferrer"
+              className="group flex items-center gap-6 p-6 rounded-2xl border border-white/10 bg-white/[0.015] hover:bg-white/[0.04] hover:border-white/20 transition-all">
+              <div className="font-serif text-4xl text-white/30 group-hover:transition-colors w-12 shrink-0"
+                style={{ transition: 'color 0.2s' }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}>
+                {String(i + 1).padStart(2, '0')}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-white text-[15px] font-medium leading-snug">{c.name}</div>
+                <div className="text-white/40 text-xs font-mono mt-1 uppercase tracking-wider">{c.issuer}</div>
+              </div>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"
+                className="text-white/30 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0">
+                <path d="M7 17 17 7M9 7h8v8" />
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Certifications;

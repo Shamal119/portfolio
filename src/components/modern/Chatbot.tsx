@@ -1,197 +1,178 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Sparkles, Bot } from 'lucide-react';
+import { MessageSquare, X, Send } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 interface Message {
-    role: 'user' | 'model';
-    text: string;
+  role: 'user' | 'model';
+  text: string;
 }
 
+const SUGGESTED = [
+  'Tell me about your AI projects',
+  'What is your tech stack?',
+  'How can you help my business?',
+  'Show me your resume summary',
+];
+
 const Chatbot = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState<Message[]>([
-        { role: 'model', text: "System Online. ⚡ I am Nexus, Shamal's digital assistant. I've been initialized to guide you through his data-driven universe. Ask me about his AI projects, data mastery, or just say hello! Ready to compute? 🤖" }
-    ]);
-    const [input, setInput] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen]     = useState(false);
+  const [visible, setVisible]   = useState(false); // controls DOM presence for animation
+  const [messages, setMessages] = useState<Message[]>([
+    { role: 'model', text: "Hi — I'm Nexus, Shamal's AI assistant. Ask me about his projects, skills, or how he might help your team." }
+  ]);
+  const [input, setInput]   = useState('');
+  const [loading, setLoading] = useState(false);
+  const endRef = useRef<HTMLDivElement>(null);
 
-    const suggestedQuestions = [
-        "Tell me about your AI projects",
-        "What is your tech stack?",
-        "How can you help my business?",
-        "Show me your resume summary"
-    ];
+  // mount before animating in; unmount after animating out
+  useEffect(() => {
+    if (isOpen) {
+      setVisible(true);
+    } else {
+      const t = setTimeout(() => setVisible(false), 250);
+      return () => clearTimeout(t);
+    }
+  }, [isOpen]);
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    };
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
-    useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
+  const send = async (text: string) => {
+    if (!text.trim()) return;
+    setMessages(prev => [...prev, { role: 'user', text }]);
+    setInput('');
+    setLoading(true);
+    try {
+      const res  = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text }),
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      setMessages(prev => [...prev, { role: 'model', text: data.response }]);
+    } catch {
+      setMessages(prev => [...prev, { role: 'model', text: 'Connection error — please try again.' }]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const handleSend = async (text: string) => {
-        if (!text.trim()) return;
+  return (
+    <>
+      <style>{`
+        @keyframes fab-in { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .chatbot-fab { animation: fab-in 0.3s cubic-bezier(.34,1.56,.64,1) forwards; }
+        .chat-window { transition: opacity 0.2s ease, transform 0.2s ease; }
+        .chat-window.entering { opacity: 1; transform: translateY(0) scale(1); }
+        .chat-window.leaving  { opacity: 0; transform: translateY(12px) scale(0.97); }
+      `}</style>
 
-        const userMessage = { role: 'user' as const, text };
-        setMessages(prev => [...prev, userMessage]);
-        setInput('');
-        setIsLoading(true);
+      {/* FAB — always visible */}
+      <button
+        onClick={() => setIsOpen(o => !o)}
+        className="chatbot-fab fixed bottom-6 right-6 md:bottom-8 md:right-8 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-colors"
+        style={{ background: 'var(--accent)', zIndex: 99999, position: 'fixed' }}
+        aria-label={isOpen ? 'Close chat' : 'Open chat'}
+      >
+        <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 0.2s', transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)' }}>
+          {isOpen ? <X size={22} color="white" /> : <MessageSquare size={22} color="white" />}
+        </span>
+        {!isOpen && (
+          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#0a0a0a]" />
+        )}
+      </button>
 
-        try {
-            // Use relative path for API - works with Vercel functions and local proxy
-            const response = await fetch('/api/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: text })
-            });
+      {/* Chat window */}
+      {visible && (
+        <div
+          className={`chat-window fixed bottom-0 right-0 md:bottom-24 md:right-6 w-full h-[100dvh] md:w-[400px] md:h-[560px] md:max-h-[80vh] flex flex-col overflow-hidden rounded-none md:rounded-3xl border-t md:border border-white/10 bg-[#0f0f0f] shadow-2xl ${isOpen ? 'entering' : 'leaving'}`}
+          style={{ zIndex: 99998, backdropFilter: 'blur(20px)' }}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 shrink-0">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full grid place-items-center text-white text-xs font-semibold"
+                style={{ background: 'var(--accent)' }}>N</div>
+              <div>
+                <div className="text-white text-sm font-medium flex items-center gap-2">
+                  Nexus
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-[9px] font-mono uppercase tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />online
+                  </span>
+                </div>
+                <div className="font-mono text-[10px] text-white/40 uppercase tracking-wider">Powered by Gemini</div>
+              </div>
+            </div>
+            <button onClick={() => setIsOpen(false)} className="text-white/40 hover:text-white transition-colors p-1">
+              <X size={18} />
+            </button>
+          </div>
 
-            const data = await response.json();
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
+            {messages.map((msg, i) => (
+              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
+                  msg.role === 'user'
+                    ? 'text-white rounded-br-sm'
+                    : 'bg-white/[0.06] border border-white/10 text-white/85 rounded-bl-sm'
+                }`} style={msg.role === 'user' ? { background: 'var(--accent)' } : {}}>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown>
+                </div>
+              </div>
+            ))}
+            {loading && (
+              <div className="flex justify-start">
+                <div className="bg-white/[0.06] border border-white/10 px-4 py-3 rounded-2xl rounded-bl-sm flex gap-1.5 items-center">
+                  {[0, 150, 300].map(d => (
+                    <span key={d} className="w-1.5 h-1.5 rounded-full bg-white/40 animate-bounce"
+                      style={{ animationDelay: `${d}ms` }} />
+                  ))}
+                </div>
+              </div>
+            )}
+            <div ref={endRef} />
+          </div>
 
-            if (data.error) {
-                throw new Error(data.error);
-            }
+          {/* Suggested questions */}
+          {messages.length === 1 && (
+            <div className="px-5 pb-3 shrink-0">
+              <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30 mb-2">Suggested</div>
+              <div className="flex flex-wrap gap-2">
+                {SUGGESTED.map((q, i) => (
+                  <button key={i} onClick={() => send(q)}
+                    className="text-xs border border-white/10 text-white/60 hover:text-white hover:border-white/25 rounded-full px-3 py-1.5 transition-colors">
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
-            setMessages(prev => [...prev, { role: 'model', text: data.response }]);
-        } catch (error) {
-            console.error('Chat error:', error);
-            setMessages(prev => [...prev, { role: 'model', text: "⚠️ Connection Error: Neural link unstable. Please try again later." }]);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    return (
-        <>
-            {/* Floating Button */}
-            <motion.button
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setIsOpen(true)}
-                className={`fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[9999] p-4 rounded-full shadow-lg shadow-blue-500/30 transition-all duration-300 ${isOpen ? 'scale-0 opacity-0' : 'bg-blue-600 text-white'
-                    }`}
-            >
-                <MessageSquare size={24} />
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-            </motion.button>
-
-            {/* Chat Window */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                        className="fixed bottom-0 right-0 md:bottom-6 md:right-6 z-[9999] w-full h-[100dvh] md:w-[400px] md:h-[600px] md:max-h-[80vh] bg-surface/95 backdrop-blur-xl border-t md:border border-blue-500/30 md:rounded-2xl shadow-2xl flex flex-col overflow-hidden"
-                    >
-                        {/* Header */}
-                        <div className="p-4 bg-gradient-to-r from-blue-600 to-purple-600 flex justify-between items-center">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-white/10 rounded-lg">
-                                    <Bot size={20} className="text-white" />
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-white flex items-center gap-2">
-                                        Nexus AI
-                                        <span className="px-2 py-0.5 bg-green-500/20 text-green-300 text-[10px] rounded-full border border-green-500/30">ONLINE</span>
-                                    </h3>
-                                    <p className="text-xs text-blue-100">Powered by Gemini</p>
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => setIsOpen(false)}
-                                className="text-white/80 hover:text-white transition-colors"
-                            >
-                                <X size={20} />
-                            </button>
-                        </div>
-
-                        {/* Messages */}
-                        <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-                            {messages.map((msg, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                                >
-                                    <div
-                                        className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
-                                            ? 'bg-blue-600 text-white rounded-br-none'
-                                            : 'bg-gray-800 text-gray-200 rounded-bl-none border border-gray-700'
-                                            }`}
-                                    >
-                                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown>
-                                    </div>
-                                </motion.div>
-                            ))}
-
-                            {isLoading && (
-                                <div className="flex justify-start">
-                                    <div className="bg-gray-800 p-4 rounded-2xl rounded-bl-none border border-gray-700 flex gap-2 items-center">
-                                        <span className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                                        <span className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                                        <span className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                                    </div>
-                                </div>
-                            )}
-                            <div ref={messagesEndRef} />
-                        </div>
-
-                        {/* Suggested Questions */}
-                        {messages.length === 1 && (
-                            <div className="px-4 pb-2">
-                                <p className="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wider">Suggested Queries</p>
-                                <div className="flex flex-wrap gap-2">
-                                    {suggestedQuestions.map((q, i) => (
-                                        <button
-                                            key={i}
-                                            onClick={() => handleSend(q)}
-                                            className="text-xs bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/20 rounded-full px-3 py-1.5 transition-colors"
-                                        >
-                                            {q}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Input */}
-                        <div className="p-4 border-t border-gray-800 bg-black/20">
-                            <form
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    handleSend(input);
-                                }}
-                                className="flex gap-2"
-                            >
-                                <input
-                                    type="text"
-                                    value={input}
-                                    onChange={(e) => setInput(e.target.value)}
-                                    placeholder="Ask Nexus anything..."
-                                    className="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors"
-                                    disabled={isLoading}
-                                />
-                                <button
-                                    type="submit"
-                                    disabled={isLoading || !input.trim()}
-                                    className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white p-2.5 rounded-xl transition-colors"
-                                >
-                                    <Send size={18} />
-                                </button>
-                            </form>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </>
-    );
+          {/* Input */}
+          <div className="px-5 py-4 border-t border-white/10 shrink-0">
+            <form onSubmit={e => { e.preventDefault(); send(input); }} className="flex gap-2">
+              <input
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                placeholder="Ask anything…"
+                disabled={loading}
+                className="flex-1 bg-white/[0.04] border border-white/10 rounded-full px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-white/25 transition-colors"
+              />
+              <button type="submit" disabled={loading || !input.trim()}
+                className="w-10 h-10 rounded-full flex items-center justify-center text-white disabled:opacity-40 transition-colors shrink-0"
+                style={{ background: 'var(--accent)' }}>
+                <Send size={15} />
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default Chatbot;

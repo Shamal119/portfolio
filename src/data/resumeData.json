@@ -1,155 +1,172 @@
 {
   "personal": {
     "name": "Shamal Musthafa",
-    "title": "Data Scientist | Generative AI & Business Intelligence",
+    "title": "Data Scientist",
+    "subtitle": "Generative AI & Business Intelligence",
     "location": "India",
     "email": "shamalmusthafa59@gmail.com",
     "phone": "+91 7012464811",
     "linkedin": "linkedin.com/in/shamalmusthafa",
+    "github": "github.com/Shamal119",
     "portfolio": "shamal119.github.io/portfolio"
   },
-  "summary": "A Data Scientist with over two years of experience delivering end-to-end data solutions. Core competencies include automating complex data workflows with Alteryx, developing advanced Generative AI and LLM applications using Python, and translating data into actionable insights through dynamic visualizations in Tableau and Power BI. Leverages this diverse skill set across various projects to solve complex business challenges and drive data-driven decision-making.",
+  "summary": "Data Scientist with 2+ years delivering end-to-end data solutions — automating workflows with Alteryx, building Generative AI and LLM applications in Python, and translating data into decisions through Tableau and Power BI.",
+  "stats": [
+    { "k": "2+",    "l": "Years in data science" },
+    { "k": "40%",   "l": "Chatbot accuracy gain via RAG" },
+    { "k": "30%",   "l": "Data-prep time reduced" },
+    { "k": "84.6%", "l": "ROC AUC on churn model" }
+  ],
   "experience": [
     {
       "title": "Data Scientist",
       "company": "Truwave Software LLC",
       "location": "Madurai",
-      "period": "August 2023 - Present",
+      "period": "Aug 2023 — Present",
+      "current": true,
       "responsibilities": [
-        "Led the end-to-end development of enterprise AI solutions using Azure AI and OpenAI, enhancing customer service capabilities.",
-        "Engineered and automated complex data preparation workflows with Alteryx, reducing data processing time by over 30%.",
-        "Developed interactive dashboards in Power BI and Tableau to monitor business KPIs and deliver critical insights to stakeholders.",
-        "Built and deployed enterprise chatbots using Dialogflow CX, integrating Gemini and OpenAI models to improve conversational intelligence.",
-        "Implemented RAG-based solutions with Azure OpenAI, increasing chatbot response accuracy by 40% by leveraging internal documentation.",
-        "Designed and developed scalable RESTful APIs and custom middleware using FastAPI to efficiently manage high-volume chatbot conversations.",
-        "Created an intelligent search system using Azure OpenAI for highly accurate, context-aware information retrieval from enterprise data.",
-        "Provided development support to the frontend team on various ReactJS projects."
+        "Led end-to-end development of enterprise AI solutions using Azure AI and OpenAI, lifting customer-service capability.",
+        "Engineered Alteryx workflows that cut data-prep time by 30%+.",
+        "Shipped Power BI & Tableau dashboards tracking KPIs for stakeholders.",
+        "Built enterprise chatbots on Dialogflow CX with Gemini and OpenAI.",
+        "Implemented RAG on Azure OpenAI — 40% accuracy gain using internal docs.",
+        "Designed scalable FastAPI services and middleware for high-volume conversations.",
+        "Created an intelligent search system with Azure OpenAI for context-aware retrieval.",
+        "Supported the frontend team on several ReactJS projects."
       ]
     },
     {
       "title": "Data Analyst Intern",
       "company": "Truwave Software LLC",
       "location": "Madurai",
-      "period": "January 2023 - April 2023",
+      "period": "Jan 2023 — Apr 2023",
+      "current": false,
       "responsibilities": [
-        "Utilized Alteryx for efficient data cleansing, transformation, and analysis of customer call data, improving data quality for reporting.",
-        "Built insightful dashboards in Power BI from processed call data to identify key performance trends and customer satisfaction metrics.",
-        "Analyzed customer call transcripts using OpenAI Whisper and NLP techniques to extract actionable business insights."
+        "Used Alteryx to cleanse, transform and analyse customer call data, improving reporting quality.",
+        "Built Power BI dashboards on processed call data to surface performance and CSAT trends.",
+        "Analysed call transcripts with OpenAI Whisper and NLP to extract business insight."
       ]
     }
   ],
   "projects": [
     {
-      "title": "RAG Chatbot Assistant",
-      "description": "Developed a context-aware chatbot using RAG with OpenAI & Gemini for accurate, source-based answers.",
-      "technologies": [
-        "RAG",
-        "OpenAI",
-        "Gemini",
-        "Python"
-      ],
-      "github": "https://github.com/Shamal119/rag_chatbot"
+      "title": "MCP Server Integration Platform",
+      "tag": "Agentic AI • Tooling",
+      "description": "End-to-end Model Context Protocol server connecting AI assistants to project-management, cloud and observability tools — plain-English prompts, cross-tool reasoning, concrete actions.",
+      "technologies": ["Python", "FastMCP", "Claude", "Agentic AI"],
+      "github": "https://github.com/Shamal119",
+      "accent": "violet"
     },
     {
-      "title": "AI Financial Advisor",
-      "description": "Created a platform for financial insights and AI-driven recommendations with Plotly visualizations.",
-      "technologies": [
-        "Python",
-        "Plotly",
-        "Machine Learning"
-      ],
-      "github": "https://github.com/Shamal119/ai_personal_finance"
+      "title": "AI Ticket Summarisation Service",
+      "tag": "LLM • Production",
+      "description": "Gemini-powered summariser embedded in a customer-service portal — generates concise, keyword-tagged summaries and cut manual review time by ~40%.",
+      "technologies": ["Gemini API", "NestJS", "Node.js", "LLM"],
+      "github": "https://github.com/Shamal119",
+      "accent": "blue"
     },
     {
-      "title": "Call Center Analytics Dashboard",
-      "description": "Built a Power BI dashboard with data prepared in Alteryx to identify call drivers and sentiment trends.",
-      "technologies": [
-        "Power BI",
-        "Alteryx",
-        "NLP"
-      ],
-      "github": "#"
+      "title": "Incremental CDC Data Pipeline",
+      "tag": "Data Engineering",
+      "description": "MySQL → AWS Glue → Redshift incremental ETL for a BI analytics warehouse. 99% less data movement via change-data-capture; 10–100× faster analytics.",
+      "technologies": ["AWS Glue", "PySpark", "Redshift", "MySQL"],
+      "github": "https://github.com/Shamal119",
+      "accent": "emerald"
     },
     {
       "title": "AI-Powered Customer Churn Predictor",
-      "description": "Built end-to-end ML solution with 84.6% ROC AUC, featuring advanced feature engineering and full-stack deployment.",
-      "technologies": [
-        "Python",
-        "XGBoost",
-        "React",
-        "FastAPI",
-        "Vercel"
-      ],
-      "github": "https://github.com/Shamal119/ai-powered-customer-churn-predictor"
-    }
-  ],
-  "skills": {
-    "cloud_ai_tools": [
-      "Azure AI",
-      "OpenAI",
-      "GCP",
-      "Dialogflow CX",
-      "Gemini",
-      "Vertex AI",
-      "Vercel"
-    ],
-    "ai_ml": [
-      "Generative AI",
-      "LLMs",
-      "NLP",
-      "RAG",
-      "LangChain",
-      "TensorFlow",
-      "XGBoost"
-    ],
-    "bi_visualization": [
-      "Alteryx",
-      "Power BI",
-      "Tableau",
-      "Matplotlib",
-      "Plotly"
-    ],
-    "programming": [
-      "Python",
-      "FastAPI",
-      "SQL",
-      "JavaScript",
-      "ReactJS"
-    ],
-    "data_tools": [
-      "Pandas",
-      "NumPy",
-      "FAISS",
-      "Scikit-Learn"
-    ]
-  },
-  "education": [
-    {
-      "degree": "Master of Science in Data Science",
-      "institution": "CHRIST (Deemed to be University)",
-      "period": "2021 - 2023"
+      "tag": "Classical ML",
+      "description": "XGBoost-based risk model. Full-stack deployment with FastAPI backend and React frontend. 84.6% ROC AUC after advanced feature engineering and retune.",
+      "technologies": ["XGBoost", "Scikit-Learn", "FastAPI", "React"],
+      "github": "https://github.com/Shamal119/ai-powered-customer-churn-predictor",
+      "accent": "amber"
     },
     {
-      "degree": "Bachelor of Computer Applications",
-      "institution": "Kannur University",
-      "period": "2017 - 2020"
+      "title": "RAG Chatbot Assistant",
+      "tag": "Agentic • RAG",
+      "description": "Context-aware chatbot using Retrieval-Augmented Generation with OpenAI & Gemini — source-grounded answers, internal doc indexing via FAISS.",
+      "technologies": ["RAG", "OpenAI", "Gemini", "FAISS", "Python"],
+      "github": "https://github.com/Shamal119/rag_chatbot",
+      "accent": "violet"
+    },
+    {
+      "title": "Embedded BI Semantic Model",
+      "tag": "BI • Analytics",
+      "description": "Production-grade analytics dashboard with an enterprise semantic model — 15+ DAX measures grouped by Financial, KPI and Risk categories; authored via TMDL for maintainability at scale.",
+      "technologies": ["Power BI", "DAX", "TMDL", "SQL"],
+      "github": "#",
+      "accent": "emerald"
+    },
+    {
+      "title": "AI Financial Advisor",
+      "tag": "ML • Full-stack",
+      "description": "Platform for financial insights and AI-driven recommendations with interactive Plotly visualisations and a machine-learning recommendation layer.",
+      "technologies": ["Python", "Plotly", "Machine Learning", "FastAPI"],
+      "github": "https://github.com/Shamal119/ai_personal_finance",
+      "accent": "blue"
+    },
+    {
+      "title": "Sentiment Analysis Dashboard",
+      "tag": "NLP • Deployed",
+      "description": "Streamlit-hosted live dashboard pulling news into NLP pipelines — sentiment, keyword extraction and visual summary in one view.",
+      "technologies": ["Streamlit", "TextBlob", "NLTK", "Plotly"],
+      "github": "https://sentimentalanalysis-shamal.streamlit.app/",
+      "accent": "amber"
+    }
+  ],
+  "skills": [
+    {
+      "id": "ai",
+      "title": "AI & Machine Learning",
+      "skills": ["Generative AI", "LLMs", "NLP", "RAG", "LangChain", "TensorFlow", "XGBoost"]
+    },
+    {
+      "id": "cloud",
+      "title": "Cloud & AI Platforms",
+      "skills": ["Azure AI", "OpenAI", "GCP", "Dialogflow CX", "Gemini", "Vertex AI", "Vercel"]
+    },
+    {
+      "id": "bi",
+      "title": "Data & BI",
+      "skills": ["Alteryx", "Power BI", "Tableau", "Pandas", "NumPy", "FAISS", "Scikit-Learn", "Matplotlib", "Plotly"]
+    },
+    {
+      "id": "code",
+      "title": "Programming & Web",
+      "skills": ["Python", "FastAPI", "SQL", "JavaScript", "ReactJS"]
+    }
+  ],
+  "education": [
+    {
+      "degree": "M.Sc. Data Science",
+      "school": "CHRIST (Deemed to be University)",
+      "period": "2021 — 2023"
+    },
+    {
+      "degree": "B.C.A.",
+      "school": "Kannur University",
+      "period": "2017 — 2020"
     }
   ],
   "certifications": [
     {
       "name": "Alteryx Designer Core Certified",
+      "issuer": "Alteryx",
       "link": "https://www.credly.com/badges/e0df2dc8-a1d3-4efe-9f93-212450808e3b/linked_in_profile"
     },
     {
       "name": "Alteryx Foundational Micro-Credential",
+      "issuer": "Alteryx",
       "link": "https://www.credly.com/badges/570de401-a14f-4768-8cad-27fe32c899b6/linked_in_profile"
     },
     {
-      "name": "Modern Natural Language Processing (NLP) using Deep Learning (Udemy)",
+      "name": "Modern NLP using Deep Learning",
+      "issuer": "Udemy",
       "link": "https://www.udemy.com/certificate/UC-524f147c-c6fb-452d-bbbe-93375e7f2df6/"
     },
     {
-      "name": "Fundamental AI Concepts (Microsoft)",
+      "name": "Fundamental AI Concepts",
+      "issuer": "Microsoft",
       "link": "#"
     }
   ]

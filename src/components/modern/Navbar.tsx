@@ -1,110 +1,86 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+
+const links = [
+  { id: 'home',           label: 'Index',       n: '01' },
+  { id: 'work',           label: 'Work',        n: '02' },
+  { id: 'projects',       label: 'Projects',    n: '03' },
+  { id: 'skills',         label: 'Stack',       n: '04' },
+  { id: 'certifications', label: 'Credentials', n: '05' },
+  { id: 'contact',        label: 'Contact',     n: '06' },
+];
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive]     = useState('home');
+  const [open, setOpen]         = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      const ids = links.map(l => l.id);
+      for (let i = ids.length - 1; i >= 0; i--) {
+        const el = document.getElementById(ids[i]);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) {
+          setActive(ids[i]);
+          break;
+        }
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-    const navLinks = [
-        { name: 'Home', href: '#home' },
-        { name: 'Experience', href: '#experience' },
-        { name: 'Projects', href: '#projects' },
-        { name: 'Skills', href: '#skills' },
-        { name: 'Certifications', href: '#certifications' },
-        { name: 'Contact', href: '#contact' },
-        { name: 'Resume', href: '/resume.pdf', target: '_blank' },
-    ];
+  return (
+    <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? 'py-3' : 'py-6'}`}>
+      <div className={`mx-auto max-w-[1400px] px-6 lg:px-10 transition-all duration-300 ${scrolled ? 'backdrop-blur-xl bg-[#0a0a0a]/70 border-b border-white/5' : ''}`}>
+        <div className="flex items-center justify-between py-2">
+          <a href="#home" className="flex items-center gap-3">
+            <span className="w-8 h-8 grid place-items-center rounded-full bg-white text-black font-semibold text-sm tracking-tight">SM</span>
+            <span className="hidden sm:block font-serif italic text-lg text-white/90">Shamal Musthafa</span>
+          </a>
 
-    return (
-        <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-black/50 backdrop-blur-md py-4' : 'bg-transparent py-6'
-                }`}
-        >
-            <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-                <a href="#" className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                    SM.
-                </a>
+          <div className="hidden md:flex items-center gap-1">
+            {links.map(l => (
+              <a key={l.id} href={`#${l.id}`}
+                className={`group relative px-4 py-2 text-[13px] tracking-wide uppercase transition-colors ${active === l.id ? 'text-white' : 'text-white/50 hover:text-white/90'}`}>
+                <span className="mr-2 font-mono text-[10px] text-white/30">{l.n}</span>
+                {l.label}
+                <span className={`absolute left-4 right-4 bottom-1 h-px bg-[var(--accent)] origin-left transition-transform duration-300 ${active === l.id ? 'scale-x-100' : 'scale-x-0'}`} />
+              </a>
+            ))}
+          </div>
 
-                {/* Desktop Menu */}
-                <div className="hidden md:flex items-center space-x-8">
-                    {navLinks.map((link) => (
-                        <a
-                            key={link.name}
-                            href={link.href}
-                            target={link.target || "_self"}
-                            rel={link.target === "_blank" ? "noopener noreferrer" : ""}
-                            className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
-                        >
-                            {link.name}
-                        </a>
-                    ))}
-                    <div className="flex items-center space-x-4 ml-4 border-l border-gray-700 pl-4">
-                        <a href="https://github.com/shamal119" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                            <Github size={20} />
-                        </a>
-                        <a href="https://linkedin.com/in/shamalmusthafa" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                            <Linkedin size={20} />
-                        </a>
-                    </div>
-                </div>
+          <div className="flex items-center gap-3">
+            <a href="/resume.pdf" target="_blank" rel="noreferrer"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 text-[13px] text-white/80 hover:bg-white hover:text-black transition-all">
+              Résumé
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+            <button className="md:hidden text-white p-2" onClick={() => setOpen(!open)} aria-label="Menu">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                {open
+                  ? <><path d="M18 6 6 18"/><path d="m6 6 12 12"/></>
+                  : <><path d="M4 7h16"/><path d="M4 17h16"/></>}
+              </svg>
+            </button>
+          </div>
+        </div>
 
-                {/* Mobile Menu Button */}
-                <button
-                    className="md:hidden text-white"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    {isOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
-            </div>
-
-            {/* Mobile Menu */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-gray-800 md:hidden overflow-hidden"
-                    >
-                        <div className="flex flex-col p-6 space-y-6">
-                            {navLinks.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    target={link.target || "_self"}
-                                    rel={link.target === "_blank" ? "noopener noreferrer" : ""}
-                                    onClick={() => setIsOpen(false)}
-                                    className="text-gray-300 hover:text-white text-xl font-medium py-2 block transition-colors"
-                                >
-                                    {link.name}
-                                </a>
-                            ))}
-                            <div className="flex space-x-8 pt-6 border-t border-gray-800 justify-center">
-                                <a href="https://github.com/shamal119" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white p-2">
-                                    <Github size={24} />
-                                </a>
-                                <a href="https://linkedin.com/in/shamalmusthafa" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white p-2">
-                                    <Linkedin size={24} />
-                                </a>
-                                <a href="mailto:shamalmusthafa59@gmail.com" className="text-gray-400 hover:text-white p-2">
-                                    <Mail size={24} />
-                                </a>
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </nav>
-    );
+        {open && (
+          <div className="md:hidden border-t border-white/10 py-4 space-y-1">
+            {links.map(l => (
+              <a key={l.id} href={`#${l.id}`} onClick={() => setOpen(false)}
+                className="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-white/5 text-white/80">
+                <span className="font-mono text-[10px] text-white/30">{l.n}</span>
+                <span className="text-sm tracking-wide uppercase">{l.label}</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;

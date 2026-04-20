@@ -1,94 +1,76 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Cpu, Database, Globe, Terminal } from 'lucide-react';
 import resumeData from '../../data/resumeData.json';
+import { SectionHeader } from './Experience';
+
+interface SkillCategory {
+  id: string;
+  title: string;
+  skills: string[];
+}
 
 const Skills = () => {
-    const categories = [
-        {
-            id: 'ai_ml',
-            title: 'AI & Machine Learning',
-            icon: <Cpu size={24} />,
-            skills: resumeData.skills.ai_ml,
-            color: 'text-purple-400',
-            bg: 'bg-purple-500/10',
-            border: 'border-purple-500/20'
-        },
-        {
-            id: 'cloud_ai_tools',
-            title: 'Cloud & AI Tools',
-            icon: <Globe size={24} />,
-            skills: resumeData.skills.cloud_ai_tools,
-            color: 'text-blue-400',
-            bg: 'bg-blue-500/10',
-            border: 'border-blue-500/20'
-        },
-        {
-            id: 'data_tools',
-            title: 'Data Science & BI',
-            icon: <Database size={24} />,
-            skills: [...resumeData.skills.data_tools, ...resumeData.skills.bi_visualization],
-            color: 'text-emerald-400',
-            bg: 'bg-emerald-500/10',
-            border: 'border-emerald-500/20'
-        },
-        {
-            id: 'programming',
-            title: 'Programming & Web',
-            icon: <Terminal size={24} />,
-            skills: resumeData.skills.programming,
-            color: 'text-orange-400',
-            bg: 'bg-orange-500/10',
-            border: 'border-orange-500/20'
-        }
-    ];
+  const cats = resumeData.skills as SkillCategory[];
 
-    return (
-        <section id="skills" className="py-20 bg-surface text-white">
-            <div className="max-w-7xl mx-auto px-6">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Technical Skills</h2>
-                    <div className="w-20 h-1 bg-blue-500 mx-auto rounded-full" />
-                </motion.div>
+  return (
+    <section id="skills" className="relative py-28 border-t border-white/10">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+        <SectionHeader
+          n="04 — Stack"
+          kicker="Tools & capabilities"
+          title={<>The <span className="italic text-white/70">kit</span><br />I reach for.</>}
+          blurb="Grouped by where they live in a project — from model layer to BI surface. Depth over breadth; everything listed is something I've shipped."
+        />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {categories.map((category, index) => (
-                        <motion.div
-                            key={category.id}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className={`p-6 md:p-8 rounded-2xl border ${category.border} bg-background/50 backdrop-blur-sm hover:bg-background transition-colors`}
-                        >
-                            <div className="flex items-center mb-6">
-                                <div className={`p-3 rounded-lg ${category.bg} ${category.color} mr-4`}>
-                                    {category.icon}
-                                </div>
-                                <h3 className="text-xl font-bold">{category.title}</h3>
-                            </div>
-
-                            <div className="flex flex-wrap gap-3">
-                                {category.skills.map((skill, i) => (
-                                    <span
-                                        key={i}
-                                        className="px-4 py-2 bg-surface rounded-lg text-gray-300 text-sm font-medium border border-gray-800 hover:border-gray-600 transition-colors"
-                                    >
-                                        {skill}
-                                    </span>
-                                ))}
-                            </div>
-                        </motion.div>
-                    ))}
+        <div className="grid md:grid-cols-2 gap-6">
+          {cats.map((c, i) => (
+            <div key={c.id} className="relative rounded-3xl border border-white/10 p-8 bg-white/[0.015]">
+              <div className="flex items-baseline justify-between mb-6">
+                <div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/40 mb-2">
+                    {String(i + 1).padStart(2, '0')} / {String(cats.length).padStart(2, '0')}
+                  </div>
+                  <h3 className="font-serif text-2xl md:text-3xl text-white tracking-tight">{c.title}</h3>
                 </div>
+                <span className="font-mono text-xs text-white/30">{c.skills.length} items</span>
+              </div>
+
+              <ul className="flex flex-wrap gap-x-5 gap-y-2.5">
+                {c.skills.map((s, j) => (
+                  <li key={j} className="group inline-flex items-center gap-2 text-white/80 text-[15px]">
+                    <span className="font-mono text-[10px] text-white/30 w-6">{String(j + 1).padStart(2, '0')}</span>
+                    <span className="relative">
+                      {s}
+                      <span className="absolute -bottom-0.5 left-0 right-0 h-px origin-left scale-x-0 group-hover:scale-x-100 transition-transform"
+                        style={{ background: 'var(--accent)' }} />
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
-        </section>
-    );
+          ))}
+        </div>
+
+        {/* Education block */}
+        <div className="mt-10 rounded-3xl border border-white/10 p-8 bg-white/[0.015]">
+          <div className="flex items-center gap-4 mb-6">
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em]" style={{ color: 'var(--accent)' }}>Education</span>
+            <span className="h-px flex-1 bg-white/10" />
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {resumeData.education.map((e, i) => (
+              <div key={i} className="flex items-start justify-between gap-6">
+                <div>
+                  <div className="font-serif text-2xl text-white tracking-tight">{e.degree}</div>
+                  <div className="text-white/60 mt-1">{e.school}</div>
+                </div>
+                <div className="font-mono text-xs text-white/40 shrink-0 pt-2">{e.period}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Skills;

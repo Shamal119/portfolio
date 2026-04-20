@@ -1,166 +1,119 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, Send, Linkedin, Github } from 'lucide-react';
 import resumeData from '../../data/resumeData.json';
+import { SectionHeader } from './Experience';
 
 const Contact = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: ''
-    });
+  const { personal } = resumeData;
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [sent, setSent] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        const subject = `Portfolio Contact from ${formData.name}`;
-        const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
-        const mailtoLink = `mailto:${resumeData.personal.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const subj = `Portfolio contact from ${form.name}`;
+    const body = `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`;
+    window.location.href = `mailto:${personal.email}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+    setSent(true);
+  };
 
-        window.location.href = mailtoLink;
+  const socialLinks = [
+    { label: 'LinkedIn', href: `https://${personal.linkedin}` },
+    { label: 'GitHub',   href: `https://${personal.github}` },
+    { label: 'Résumé',   href: '/resume.pdf' },
+  ];
 
-        // Optional: Clear form after sending
-        setFormData({ name: '', email: '', message: '' });
-        alert('Redirecting to your email client...');
-    };
+  const inputClass = "mt-2 w-full bg-transparent border-0 border-b border-white/15 pb-2 text-white placeholder-white/30 focus:outline-none transition-colors";
 
-    return (
-        <section id="contact" className="py-20 bg-black text-white relative overflow-hidden">
-            {/* Background Gradient */}
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-blue-900/10 pointer-events-none" />
+  return (
+    <section id="contact" className="relative py-28 border-t border-white/10 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(800px 400px at 50% 100%, color-mix(in oklab, var(--accent) 25%, transparent), transparent 70%)'
+      }} />
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
-                    <div className="w-20 h-1 bg-blue-500 mx-auto rounded-full" />
-                </motion.div>
+      <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+        <SectionHeader
+          n="06 — Contact"
+          kicker="Open for work"
+          title={<>Let's build<br /><span className="italic text-white/70">something</span> together.</>}
+          blurb="Most useful for: LLM / RAG products, BI automation, or anything at the seam between data platforms and user-facing AI."
+        />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    {/* Contact Info */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                    >
-                        <h3 className="text-2xl font-bold mb-6">Let's Connect</h3>
-                        <p className="text-gray-400 mb-8 leading-relaxed">
-                            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
-                        </p>
+        <div className="grid lg:grid-cols-12 gap-10">
+          {/* Info column */}
+          <div className="lg:col-span-5 space-y-8">
+            <a href={`mailto:${personal.email}`} className="group block">
+              <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/40 mb-2">Email</div>
+              <div className="font-serif text-3xl md:text-4xl text-white group-hover:transition-colors break-all"
+                style={{ transition: 'color 0.2s' }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'white')}>
+                {personal.email}
+              </div>
+            </a>
 
-                        <div className="space-y-6">
-                            <div className="flex items-center text-gray-300">
-                                <div className="w-12 h-12 bg-surface rounded-full flex items-center justify-center text-blue-500 mr-4">
-                                    <Mail size={20} />
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">Email</p>
-                                    <a href={`mailto:${resumeData.personal.email}`} className="hover:text-white transition-colors">
-                                        {resumeData.personal.email}
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center text-gray-300">
-                                <div className="w-12 h-12 bg-surface rounded-full flex items-center justify-center text-blue-500 mr-4">
-                                    <Phone size={20} />
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">Phone</p>
-                                    <p>{resumeData.personal.phone}</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center text-gray-300">
-                                <div className="w-12 h-12 bg-surface rounded-full flex items-center justify-center text-blue-500 mr-4">
-                                    <MapPin size={20} />
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">Location</p>
-                                    <p>{resumeData.personal.location}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-10">
-                            <h4 className="text-lg font-semibold mb-4">Follow Me</h4>
-                            <div className="flex gap-4">
-                                <a
-                                    href={`https://${resumeData.personal.linkedin}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="w-10 h-10 bg-surface rounded-full flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all"
-                                >
-                                    <Linkedin size={20} />
-                                </a>
-                                <a
-                                    href="https://github.com/shamal119"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="w-10 h-10 bg-surface rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all"
-                                >
-                                    <Github size={20} />
-                                </a>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Contact Form */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="bg-surface p-6 md:p-8 rounded-2xl border border-gray-800"
-                    >
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-400 mb-2">Name</label>
-                                <input
-                                    type="text"
-                                    value={formData.name}
-                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="w-full bg-background border border-gray-700 rounded-lg px-4 py-3 text-base text-white focus:outline-none focus:border-blue-500 transition-colors"
-                                    placeholder="Your Name"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-400 mb-2">Email</label>
-                                <input
-                                    type="email"
-                                    value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full bg-background border border-gray-700 rounded-lg px-4 py-3 text-base text-white focus:outline-none focus:border-blue-500 transition-colors"
-                                    placeholder="your@email.com"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-400 mb-2">Message</label>
-                                <textarea
-                                    value={formData.message}
-                                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                    className="w-full bg-background border border-gray-700 rounded-lg px-4 py-3 text-base text-white focus:outline-none focus:border-blue-500 transition-colors h-32 resize-none"
-                                    placeholder="Your message..."
-                                    required
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
-                            >
-                                Send Message
-                                <Send size={18} />
-                            </button>
-                        </form>
-                    </motion.div>
-                </div>
+            <div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/40 mb-2">Phone</div>
+              <div className="font-serif text-2xl text-white/90">{personal.phone}</div>
             </div>
-        </section>
-    );
+
+            <div className="flex gap-3 flex-wrap">
+              {socialLinks.map(l => (
+                <a key={l.label} href={l.href} target="_blank" rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/15 text-white/80 text-sm hover:bg-white hover:text-black transition-all">
+                  {l.label}<span>↗</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Form */}
+          <div className="lg:col-span-7">
+            <form onSubmit={submit} className="rounded-3xl border border-white/10 p-8 bg-white/[0.02] backdrop-blur">
+              <div className="grid md:grid-cols-2 gap-5 mb-5">
+                <label className="block">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">Name</span>
+                  <input required placeholder="Your name" value={form.name}
+                    onChange={e => setForm({ ...form, name: e.target.value })}
+                    className={inputClass}
+                    onFocus={e => (e.target.style.borderBottomColor = 'var(--accent)')}
+                    onBlur={e => (e.target.style.borderBottomColor = 'rgba(255,255,255,0.15)')} />
+                </label>
+                <label className="block">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">Email</span>
+                  <input required type="email" placeholder="you@domain.com" value={form.email}
+                    onChange={e => setForm({ ...form, email: e.target.value })}
+                    className={inputClass}
+                    onFocus={e => (e.target.style.borderBottomColor = 'var(--accent)')}
+                    onBlur={e => (e.target.style.borderBottomColor = 'rgba(255,255,255,0.15)')} />
+                </label>
+              </div>
+
+              <label className="block mb-6">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">Message</span>
+                <textarea required rows={5} placeholder="Tell me about what you're building…" value={form.message}
+                  onChange={e => setForm({ ...form, message: e.target.value })}
+                  className={`${inputClass} resize-none`}
+                  onFocus={e => (e.target.style.borderBottomColor = 'var(--accent)')}
+                  onBlur={e => (e.target.style.borderBottomColor = 'rgba(255,255,255,0.15)')} />
+              </label>
+
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                <span className="font-mono text-[10px] text-white/40">
+                  {sent ? '✓ Opening your mail client…' : 'Opens in your default mail client'}
+                </span>
+                <button type="submit"
+                  className="group inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white text-black font-medium transition-all"
+                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'var(--accent)'; (e.currentTarget as HTMLButtonElement).style.color = 'white'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'white'; (e.currentTarget as HTMLButtonElement).style.color = 'black'; }}>
+                  Send message
+                  <span className="transition-transform group-hover:translate-x-1">→</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Contact;
