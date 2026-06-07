@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ITEMS = ['Generative AI', 'RAG', 'Azure OpenAI', 'Power BI', 'Alteryx', 'Python', 'FastAPI', 'React', 'Tableau'];
+const ITEMS = ['Generative AI', 'RAG', 'LangChain', 'Azure OpenAI', 'AWS Glue', 'Redshift', 'Power BI', 'FastAPI', 'MCP', 'XGBoost'];
 
 const Marquee = () => {
   const row = [...ITEMS, ...ITEMS, ...ITEMS];

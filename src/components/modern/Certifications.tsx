@@ -17,7 +17,7 @@ const Certifications = () => {
         <SectionHeader
           n="05 — Credentials"
           kicker="Verified"
-          title={<>Certifications<br /><span className="italic text-white/70">& vouches</span>.</>}
+          title={<>Credentials<br /><span className="italic text-white/70">& research</span>.</>}
         />
 
         <div className="grid md:grid-cols-2 gap-4">

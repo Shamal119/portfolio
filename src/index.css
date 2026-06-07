@@ -22,7 +22,7 @@ body {
   font-feature-settings: "ss01", "cv11", "cv02";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   margin: 0;
   min-height: 100vh;
 }
@@ -64,7 +64,7 @@ section { scroll-margin-top: 80px; }
 .font-serif {
   font-family: 'Newsreader', 'Instrument Serif', Georgia, serif !important;
   font-optical-sizing: auto;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 .font-mono {
   font-family: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace !important;

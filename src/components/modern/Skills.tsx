@@ -17,8 +17,8 @@ const Skills = () => {
         <SectionHeader
           n="04 — Stack"
           kicker="Tools & capabilities"
-          title={<>The <span className="italic text-white/70">kit</span><br />I reach for.</>}
-          blurb="Grouped by where they live in a project — from model layer to BI surface. Depth over breadth; everything listed is something I've shipped."
+          title={<>The <span className="italic text-white/70">stack</span><br />behind the work.</>}
+          blurb="Grouped by delivery surface: LLM layer, backend services, cloud data movement, analytics interfaces and ML research."
         />
 
         <div className="grid md:grid-cols-2 gap-6">

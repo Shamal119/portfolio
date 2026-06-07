@@ -16,7 +16,7 @@ export const SectionHeader = ({ n, kicker, title, blurb }: SectionHeaderProps) =
         <span className="h-px flex-1 bg-white/15" />
         <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/40">{kicker}</span>
       </div>
-      <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-[-0.03em] text-white">{title}</h2>
+      <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.95] text-white">{title}</h2>
     </div>
     {blurb && (
       <div className="md:col-span-6 md:col-start-7">
@@ -35,8 +35,8 @@ const Experience = () => {
         <SectionHeader
           n="02 — Work"
           kicker="Selected history"
-          title={<>A track record<br /><span className="italic text-white/70">of shipped</span> work.</>}
-          blurb="Two years, one company, consistent outcomes — from intern-scale dashboards to production LLM systems."
+          title={<>From dashboards<br /><span className="italic text-white/70">to deployed</span> AI.</>}
+          blurb="Two years at Truwave, moving from analytics workflows into production GenAI services, RAG systems, cloud pipelines and stakeholder-facing BI."
         />
 
         <div className="grid md:grid-cols-12 gap-8">

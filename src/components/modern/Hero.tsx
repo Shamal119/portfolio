@@ -1,113 +1,143 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import resumeData from '../../data/resumeData.json';
 
 const Hero = () => {
-  const { personal, summary, stats } = resumeData;
-  const heroRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const el = heroRef.current;
-    if (!el) return;
-    const onMove = (e: MouseEvent) => {
-      const r = el.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width  - 0.5) * 8;
-      const y = ((e.clientY - r.top)  / r.height - 0.5) * 8;
-      el.style.setProperty('--px', x + 'px');
-      el.style.setProperty('--py', y + 'px');
-    };
-    el.addEventListener('mousemove', onMove);
-    return () => el.removeEventListener('mousemove', onMove);
-  }, []);
+  const { personal, summary, stats, focus } = resumeData;
+  const stack = ['RAG', 'LangChain', 'FastAPI', 'AWS Glue', 'Power BI', 'XGBoost'];
 
   return (
-    <section id="home" ref={heroRef} className="relative min-h-screen pt-28 pb-16 overflow-hidden">
-      {/* Gradient blobs */}
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background:
-          'radial-gradient(1100px 600px at 80% -10%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 60%), radial-gradient(900px 500px at -10% 110%, color-mix(in oklab, var(--accent2) 18%, transparent), transparent 60%)'
-      }} />
-      {/* Parallax grid */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.07]" style={{
-        transform: 'translate(var(--px,0px), var(--py,0px))',
-        backgroundImage: 'linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)',
-        backgroundSize: '56px 56px'
-      }} />
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#0a0a0a]" />
+    <section id="home" className="relative min-h-screen overflow-hidden bg-[#090909] pt-28 pb-14">
+      <div className="absolute inset-x-0 top-0 h-px bg-white/10" />
+      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(255,255,255,0.035),transparent_32%)]" />
+      <div className="absolute right-0 top-24 hidden h-[620px] w-[44%] border-l border-white/8 bg-white/[0.018] lg:block" />
 
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
-        {/* Status bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 text-[11px] font-mono uppercase tracking-[0.2em] text-white/40 mb-16">
+        <div className="mb-12 flex flex-wrap items-center justify-between gap-4 text-[11px] font-mono uppercase tracking-[0.2em] text-white/45">
           <div className="flex items-center gap-3">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Available Q2 2026</span>
+            <span>Available for AI and data roles</span>
           </div>
           <div className="flex items-center gap-6">
             <span>{personal.location}</span>
-            <span>Portfolio / v3.0</span>
+            <span>Portfolio / v4.0</span>
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-10 items-end">
-          <div className="lg:col-span-8">
-            <p className="font-mono text-[11px] uppercase tracking-[0.25em] mb-8" style={{ color: 'var(--accent)' }}>
-              ⎯⎯ Data Scientist / Applied AI
-            </p>
-            <h1 className="font-serif leading-[0.9] tracking-[-0.04em] text-white"
-              style={{ fontSize: 'clamp(3.2rem, 10vw, 9.5rem)' }}>
-              Shamal<br />
-              <span className="italic text-white/70">Musthafa</span>
+        <div className="grid items-start gap-8 lg:grid-cols-12 xl:gap-14">
+          <div className="order-2 lg:order-1 lg:col-span-7">
+            <div className="mb-8 inline-flex flex-wrap items-center gap-2 border border-white/10 bg-white/[0.035] px-3 py-2 text-[11px] font-mono uppercase tracking-[0.16em] text-white/70">
+              <span className="h-1.5 w-1.5 rounded-full" style={{ background: 'var(--accent)' }} />
+              {personal.title}
+              <span className="text-white/25">/</span>
+              {personal.subtitle}
+            </div>
+
+            <h1
+              className="font-serif max-w-5xl leading-[0.88] text-white"
+              style={{ fontSize: 'clamp(3.6rem, 8.4vw, 7.6rem)' }}
+            >
+              Building AI<br />
+              <span className="italic text-white/68">that works</span>
               <span style={{ color: 'var(--accent)' }}>.</span>
             </h1>
-            <div className="mt-10 flex items-start gap-6 max-w-2xl">
-              <span className="mt-2 block h-px w-12 bg-white/30 shrink-0" />
-              <p className="text-white/70 text-lg leading-relaxed">{summary}</p>
+
+            <div className="mt-7 grid gap-5 md:grid-cols-[1fr_auto] md:items-end">
+              <p className="max-w-2xl text-lg leading-relaxed text-white/72">{summary}</p>
+              <div className="hidden h-px w-28 bg-white/20 md:block" />
             </div>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <a href="#projects"
-                className="group inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-white text-black font-medium transition-all"
-                style={{ ['--hover-bg' as string]: 'var(--accent)' }}
+
+            <div className="mt-7 flex flex-wrap gap-2">
+              {stack.map((item) => (
+                <span key={item} className="border border-white/12 bg-black/20 px-3 py-1.5 text-xs font-mono uppercase tracking-[0.12em] text-white/65">
+                  {item}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#projects"
+                className="group inline-flex items-center gap-3 bg-white px-6 py-3.5 text-black font-medium transition-all"
                 onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'var(--accent)'; (e.currentTarget as HTMLAnchorElement).style.color = 'white'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'white'; (e.currentTarget as HTMLAnchorElement).style.color = 'black'; }}>
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'white'; (e.currentTarget as HTMLAnchorElement).style.color = 'black'; }}
+              >
                 See selected work
                 <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
               </a>
-              <a href="#contact"
-                className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full border border-white/20 text-white/90 hover:bg-white/5 transition-all">
+              <a href="#contact" className="inline-flex items-center gap-3 border border-white/18 px-6 py-3.5 text-white/90 transition-all hover:bg-white/5">
                 Start a conversation
+              </a>
+              <a href="/resume.pdf" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 border border-white/18 px-6 py-3.5 text-white/90 transition-all hover:bg-white/5">
+                Latest resume
+                <span>↗</span>
               </a>
             </div>
           </div>
 
-          {/* Currently card */}
-          <div className="lg:col-span-4">
-            <div className="relative p-6 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur">
-              <div className="flex items-center justify-between mb-5">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">Currently</span>
-                <span className="font-mono text-[10px] text-white/40">01 / 04</span>
+          <div className="order-1 lg:order-2 lg:col-span-5">
+            <div className="relative mx-auto max-w-[340px] sm:max-w-[400px] lg:max-w-[500px]">
+              <div className="absolute -left-5 top-8 z-20 hidden w-28 border border-white/10 bg-black/45 p-4 backdrop-blur md:block">
+                <div className="font-serif text-4xl text-white">2+</div>
+                <div className="mt-2 text-[10px] font-mono uppercase tracking-[0.16em] text-white/45">Years shipping AI</div>
               </div>
-              <p className="text-white/90 leading-relaxed">
-                Shipping <span style={{ color: 'var(--accent)' }}>RAG pipelines</span> and{' '}
-                <span style={{ color: 'var(--accent)' }}>BI automations</span> at Truwave — bridging enterprise data and LLMs.
-              </p>
-              <div className="mt-5 pt-5 border-t border-white/10 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-white/80 to-white/30 grid place-items-center text-black font-semibold text-xs">SM</div>
-                <div className="text-sm">
-                  <div className="text-white/90">Truwave Software</div>
-                  <div className="text-white/40 text-xs">Data Scientist · Madurai</div>
+              <div className="absolute -right-4 bottom-16 z-20 hidden w-40 border border-white/10 bg-black/55 p-4 backdrop-blur md:block">
+                <div className="text-sm text-white">Current</div>
+                <div className="mt-1 text-xs leading-relaxed text-white/55">Data Scientist / AI Solutions Builder at Truwave</div>
+              </div>
+
+              <div className="absolute inset-x-10 bottom-8 top-16 border border-white/10 bg-white/[0.018]" />
+              <div className="absolute left-0 right-0 top-20 h-px bg-white/12" />
+              <div className="absolute bottom-24 left-0 right-0 h-px bg-white/12" />
+              <div className="absolute bottom-8 left-1/2 top-12 w-px bg-white/10" />
+              <div className="absolute inset-x-12 bottom-0 h-28 bg-[radial-gradient(ellipse_at_center,rgba(0,200,150,0.24),transparent_68%)] blur-2xl" />
+
+              <div className="relative flex min-h-[430px] items-end justify-center sm:min-h-[520px] lg:min-h-[600px]">
+                <img
+                  src="/assets/shamal-portrait-cutout.png"
+                  alt="Shamal Musthafa in a suit"
+                  className="relative z-10 h-auto max-h-[610px] w-full object-contain drop-shadow-[0_34px_70px_rgba(0,0,0,0.55)]"
+                />
+                <div className="absolute inset-x-0 bottom-0 z-20 border-y border-white/10 bg-black/55 p-4 backdrop-blur-md">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <div className="font-serif text-2xl text-white">{personal.name}</div>
+                      <div className="text-xs font-mono uppercase tracking-[0.15em] text-white/45">{personal.location}</div>
+                    </div>
+                    <div className="grid h-11 w-11 place-items-center bg-white text-sm font-semibold text-black">SM</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Stats rail */}
-        <div className="mt-24 grid grid-cols-2 md:grid-cols-4 border-t border-white/10">
-          {stats.map((s, i) => (
-            <div key={i} className={`py-8 px-4 md:px-6 ${i > 0 ? 'md:border-l border-white/10' : ''} ${i > 1 ? 'border-t md:border-t-0 border-white/10' : ''}`}>
-              <div className="font-serif text-4xl md:text-5xl text-white tracking-tight">{s.k}</div>
-              <div className="mt-2 text-xs font-mono uppercase tracking-[0.15em] text-white/50">{s.l}</div>
-            </div>
-          ))}
+        <div className="mt-12 grid gap-3 lg:grid-cols-12">
+          <div className="grid grid-cols-2 border border-white/10 bg-white/[0.02] md:grid-cols-4 lg:col-span-7">
+            {stats.map((s, i) => (
+              <div key={i} className={`p-5 ${i > 0 ? 'md:border-l border-white/10' : ''} ${i > 1 ? 'border-t md:border-t-0 border-white/10' : ''}`}>
+                <div className="font-serif text-4xl md:text-5xl text-white">{s.k}</div>
+                <div className="mt-2 text-xs font-mono uppercase tracking-[0.15em] text-white/50">{s.l}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid gap-3 md:grid-cols-3 lg:col-span-5">
+            {focus.map((item, i) => (
+              <div key={item.label} className="border border-white/10 bg-black/25 p-5">
+                <div className="font-mono text-[10px] text-white/35 mb-3">0{i + 1}</div>
+                <div className="text-sm font-medium text-white">{item.label}</div>
+                <p className="mt-2 text-xs leading-relaxed text-white/50">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-y border-white/10 py-4 text-xs font-mono uppercase tracking-[0.16em] text-white/42">
+          <span>GenAI systems</span>
+          <span>Cloud ETL</span>
+          <span>BI automation</span>
+          <span>ML products</span>
+          <span>Research mindset</span>
         </div>
       </div>
     </section>

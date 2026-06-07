@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
-import HomePage from '../HomePage'
 import { beforeAll, describe, it, expect, vi } from 'vitest'
+import App from '../../App'
 
 beforeAll(() => {
   // Mock IntersectionObserver
@@ -27,11 +26,7 @@ beforeAll(() => {
 
 describe('HomePage', () => {
   it('renders hero heading', () => {
-    render(
-      <MemoryRouter>
-        <HomePage />
-      </MemoryRouter>
-    )
-    expect(screen.getByRole('heading', { name: /shamal musthafa/i })).toBeInTheDocument()
+    render(<App />)
+    expect(screen.getByRole('heading', { name: /building aithat works/i })).toBeTruthy()
   })
 })

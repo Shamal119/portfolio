@@ -7,6 +7,8 @@ const ACCENT_COLORS: Record<string, string> = {
   violet:  '#a78bfa',
   emerald: '#34d399',
   amber:   '#fbbf24',
+  teal:    '#2dd4bf',
+  copper:  '#f26b3a',
 };
 
 interface Project {
@@ -69,9 +71,9 @@ const Projects = () => {
       <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
         <SectionHeader
           n="03 — Projects"
-          kicker="Recent builds"
-          title={<>Work that<br /><span className="italic text-white/70">earns</span> its keep.</>}
-          blurb="From RAG assistants to churn models — each is production-shaped: real data, real deployment, measurable outcomes."
+          kicker="Systems & proofs"
+          title={<>AI and data<br /><span className="italic text-white/70">systems</span> that ship.</>}
+          blurb="A portfolio shaped around production habits: retrieval quality, API reliability, clean data layers, measurable automation and dashboards stakeholders can actually use."
         />
 
         <div className="grid md:grid-cols-2 gap-5">

@@ -34,7 +34,7 @@ const Contact = () => {
           n="06 — Contact"
           kicker="Open for work"
           title={<>Let's build<br /><span className="italic text-white/70">something</span> together.</>}
-          blurb="Most useful for: LLM / RAG products, BI automation, or anything at the seam between data platforms and user-facing AI."
+          blurb="Most useful for: LLM / RAG products, BI automation, cloud data pipelines, or user-facing AI built on reliable data systems."
         />
 
         <div className="grid lg:grid-cols-12 gap-10">

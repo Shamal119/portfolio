@@ -2,37 +2,51 @@
   "personal": {
     "name": "Shamal Musthafa",
     "title": "Data Scientist",
-    "subtitle": "Generative AI & Business Intelligence",
-    "location": "India",
+    "subtitle": "GenAI / LLM Engineer",
+    "location": "Madurai, Tamil Nadu, India",
     "email": "shamalmusthafa59@gmail.com",
     "phone": "+91 7012464811",
     "linkedin": "linkedin.com/in/shamalmusthafa",
     "github": "github.com/Shamal119",
-    "portfolio": "shamal119.github.io/portfolio"
+    "portfolio": "shamal-portfolio.vercel.app"
   },
-  "summary": "Data Scientist with 2+ years delivering end-to-end data solutions — automating workflows with Alteryx, building Generative AI and LLM applications in Python, and translating data into decisions through Tableau and Power BI.",
+  "summary": "Data Scientist and AI Solutions Builder with 2+ years building Generative AI apps, RAG knowledge systems, LLM chatbots, backend AI services, cloud ETL pipelines, BI dashboards, ML models and workflow automation.",
   "stats": [
-    { "k": "2+",    "l": "Years in data science" },
-    { "k": "40%",   "l": "Chatbot accuracy gain via RAG" },
-    { "k": "30%",   "l": "Data-prep time reduced" },
-    { "k": "84.6%", "l": "ROC AUC on churn model" }
+    { "k": "2+", "l": "Years building AI/data systems" },
+    { "k": "99%", "l": "Less reporting data movement via CDC" },
+    { "k": "40%", "l": "Manual ticket review effort reduced" },
+    { "k": "84.6%", "l": "ROC AUC on churn prediction" }
+  ],
+  "focus": [
+    {
+      "label": "RAG systems",
+      "detail": "Document ingestion, chunking, embeddings, vector retrieval, prompt templates and grounded Q&A."
+    },
+    {
+      "label": "AI services",
+      "detail": "FastAPI and NestJS services for chatbots, ticket summarisation, file workflows and search."
+    },
+    {
+      "label": "Data platforms",
+      "detail": "AWS Glue, S3, Redshift Serverless, RDS, SQL validation layers and Power BI reporting."
+    }
   ],
   "experience": [
     {
-      "title": "Data Scientist",
+      "title": "Data Scientist / AI Solutions Builder",
       "company": "Truwave Software LLC",
       "location": "Madurai",
       "period": "Aug 2023 — Present",
       "current": true,
       "responsibilities": [
-        "Led end-to-end development of enterprise AI solutions using Azure AI and OpenAI, lifting customer-service capability.",
-        "Engineered Alteryx workflows that cut data-prep time by 30%+.",
-        "Shipped Power BI & Tableau dashboards tracking KPIs for stakeholders.",
-        "Built enterprise chatbots on Dialogflow CX with Gemini and OpenAI.",
-        "Implemented RAG on Azure OpenAI — 40% accuracy gain using internal docs.",
-        "Designed scalable FastAPI services and middleware for high-volume conversations.",
-        "Created an intelligent search system with Azure OpenAI for context-aware retrieval.",
-        "Supported the frontend team on several ReactJS projects."
+        "Built enterprise GenAI and LLM solutions using Azure OpenAI, OpenAI/Gemini APIs, LangChain, FAISS and Python for RAG, knowledge search and chatbot workflows.",
+        "Designed RAG knowledge base systems with ingestion, chunking, embeddings, vector retrieval, prompt templates and conversational response generation.",
+        "Developed FastAPI and NestJS backend AI services for chatbots, intelligent search, file processing, ticket summarisation, OTP flows and API automation.",
+        "Created Gemini-powered ticket summarisation workflows that reduced manual review effort by about 40% and improved triage speed.",
+        "Built AWS analytics pipelines from MySQL RDS to AWS Glue, S3, Redshift Serverless and Power BI with watermark-based incremental loading, cutting downstream reporting data volume by about 99%.",
+        "Designed SQL/Python migration workflows with raw, staging, validation and target layers, legacy ID preservation, reconciliation and rollback planning.",
+        "Delivered Power BI and Tableau dashboards for billing, meter usage, call-center analytics and operational KPI reporting.",
+        "Automated data preparation and reporting with Python, SQL and Alteryx Designer, reducing recurring processing effort by about 30%."
       ]
     },
     {
@@ -42,108 +56,118 @@
       "period": "Jan 2023 — Apr 2023",
       "current": false,
       "responsibilities": [
-        "Used Alteryx to cleanse, transform and analyse customer call data, improving reporting quality.",
-        "Built Power BI dashboards on processed call data to surface performance and CSAT trends.",
-        "Analysed call transcripts with OpenAI Whisper and NLP to extract business insight."
+        "Cleaned, transformed and analysed call-center and operational datasets using Python, SQL, Alteryx and BI workflows.",
+        "Built Power BI dashboards to track call performance, customer satisfaction signals, service trends and operational KPIs.",
+        "Explored transcript analytics with OpenAI Whisper and NLP to convert unstructured call data into measurable insights."
       ]
     }
   ],
   "projects": [
     {
-      "title": "MCP Server Integration Platform",
-      "tag": "Agentic AI • Tooling",
-      "description": "End-to-end Model Context Protocol server connecting AI assistants to project-management, cloud and observability tools — plain-English prompts, cross-tool reasoning, concrete actions.",
-      "technologies": ["Python", "FastMCP", "Claude", "Agentic AI"],
+      "title": "Enterprise RAG Knowledge Systems",
+      "tag": "GenAI • Retrieval",
+      "description": "Production-oriented RAG systems with document ingestion, chunking, embeddings, FAISS/vector retrieval, prompt templates and context-aware Q&A for internal knowledge access.",
+      "technologies": ["Azure OpenAI", "LangChain", "FAISS", "Python", "RAG"],
+      "github": "https://github.com/Shamal119/rag_chatbot",
+      "accent": "teal"
+    },
+    {
+      "title": "AWS Incremental Analytics Pipeline",
+      "tag": "Data Engineering",
+      "description": "MySQL RDS to AWS Glue, S3, Redshift Serverless and Power BI pipeline with transformation layers and watermark-based incremental loading, reducing reporting data movement by about 99%.",
+      "technologies": ["AWS Glue", "Amazon S3", "Redshift", "RDS", "Power BI"],
       "github": "https://github.com/Shamal119",
-      "accent": "violet"
+      "accent": "emerald"
     },
     {
       "title": "AI Ticket Summarisation Service",
       "tag": "LLM • Production",
-      "description": "Gemini-powered summariser embedded in a customer-service portal — generates concise, keyword-tagged summaries and cut manual review time by ~40%.",
-      "technologies": ["Gemini API", "NestJS", "Node.js", "LLM"],
+      "description": "Gemini-powered support workflow that turns structured ticket data into concise, keyword-tagged summaries, cutting manual review effort by roughly 40%.",
+      "technologies": ["Gemini API", "NestJS", "Node.js", "React", "LLM"],
+      "github": "https://github.com/Shamal119",
+      "accent": "copper"
+    },
+    {
+      "title": "Legacy Data Migration Framework",
+      "tag": "ETL • Validation",
+      "description": "Raw-to-staging-to-validation-to-target migration framework with preserved legacy IDs, mapping tables, dependency checks, reconciliation and sign-off controls.",
+      "technologies": ["Python", "SQL", "ETL", "Validation"],
       "github": "https://github.com/Shamal119",
       "accent": "blue"
     },
     {
-      "title": "Incremental CDC Data Pipeline",
-      "tag": "Data Engineering",
-      "description": "MySQL → AWS Glue → Redshift incremental ETL for a BI analytics warehouse. 99% less data movement via change-data-capture; 10–100× faster analytics.",
-      "technologies": ["AWS Glue", "PySpark", "Redshift", "MySQL"],
-      "github": "https://github.com/Shamal119",
-      "accent": "emerald"
-    },
-    {
-      "title": "AI-Powered Customer Churn Predictor",
-      "tag": "Classical ML",
-      "description": "XGBoost-based risk model. Full-stack deployment with FastAPI backend and React frontend. 84.6% ROC AUC after advanced feature engineering and retune.",
-      "technologies": ["XGBoost", "Scikit-Learn", "FastAPI", "React"],
+      "title": "Customer Churn Prediction App",
+      "tag": "ML • Full-stack",
+      "description": "End-to-end churn prediction app with feature engineering, XGBoost model evaluation, FastAPI serving and a lightweight React frontend; achieved 84.6% ROC AUC.",
+      "technologies": ["XGBoost", "Scikit-Learn", "FastAPI", "React", "Vercel"],
       "github": "https://github.com/Shamal119/ai-powered-customer-churn-predictor",
       "accent": "amber"
     },
     {
-      "title": "RAG Chatbot Assistant",
-      "tag": "Agentic • RAG",
-      "description": "Context-aware chatbot using Retrieval-Augmented Generation with OpenAI & Gemini — source-grounded answers, internal doc indexing via FAISS.",
-      "technologies": ["RAG", "OpenAI", "Gemini", "FAISS", "Python"],
-      "github": "https://github.com/Shamal119/rag_chatbot",
+      "title": "Pipe Failure Prediction",
+      "tag": "Predictive Maintenance",
+      "description": "Predictive analytics prototypes using asset, usage and operational features to support risk ranking, anomaly detection and maintenance prioritisation.",
+      "technologies": ["Python", "Scikit-Learn", "SQL", "Power BI"],
+      "github": "https://github.com/Shamal119",
+      "accent": "teal"
+    },
+    {
+      "title": "MCP Demo Server",
+      "tag": "Agentic AI • Tooling",
+      "description": "FastMCP demo server with simulated Jira, GitHub and CloudWatch-style data to demonstrate tool-based AI querying and agentic workflow patterns.",
+      "technologies": ["FastMCP", "Python", "Tool Calling", "AI Agents"],
+      "github": "https://github.com/Shamal119",
       "accent": "violet"
     },
     {
-      "title": "Embedded BI Semantic Model",
-      "tag": "BI • Analytics",
-      "description": "Production-grade analytics dashboard with an enterprise semantic model — 15+ DAX measures grouped by Financial, KPI and Risk categories; authored via TMDL for maintainability at scale.",
-      "technologies": ["Power BI", "DAX", "TMDL", "SQL"],
-      "github": "#",
-      "accent": "emerald"
-    },
-    {
-      "title": "AI Financial Advisor",
-      "tag": "ML • Full-stack",
-      "description": "Platform for financial insights and AI-driven recommendations with interactive Plotly visualisations and a machine-learning recommendation layer.",
-      "technologies": ["Python", "Plotly", "Machine Learning", "FastAPI"],
-      "github": "https://github.com/Shamal119/ai_personal_finance",
+      "title": "Computer Vision Research",
+      "tag": "Research • CV",
+      "description": "Presented CIDA-23 research on side-face image generation for vulnerability analysis of face-recognition algorithms and robustness dataset creation.",
+      "technologies": ["Computer Vision", "Face Recognition", "Dataset Generation"],
+      "github": "https://github.com/Shamal119",
       "accent": "blue"
-    },
-    {
-      "title": "Sentiment Analysis Dashboard",
-      "tag": "NLP • Deployed",
-      "description": "Streamlit-hosted live dashboard pulling news into NLP pipelines — sentiment, keyword extraction and visual summary in one view.",
-      "technologies": ["Streamlit", "TextBlob", "NLTK", "Plotly"],
-      "github": "https://sentimentalanalysis-shamal.streamlit.app/",
-      "accent": "amber"
     }
   ],
   "skills": [
     {
-      "id": "ai",
-      "title": "AI & Machine Learning",
-      "skills": ["Generative AI", "LLMs", "NLP", "RAG", "LangChain", "TensorFlow", "XGBoost"]
+      "id": "llm",
+      "title": "Generative AI & LLM Engineering",
+      "skills": ["RAG", "LangChain", "FAISS", "Vector Search", "Embeddings", "Prompt Engineering", "AI Agents", "Tool Calling", "MCP"]
     },
     {
-      "id": "cloud",
-      "title": "Cloud & AI Platforms",
-      "skills": ["Azure AI", "OpenAI", "GCP", "Dialogflow CX", "Gemini", "Vertex AI", "Vercel"]
+      "id": "platforms",
+      "title": "AI Platforms & NLP",
+      "skills": ["Azure OpenAI", "OpenAI API", "Gemini API", "Vertex AI", "Dialogflow CX", "OpenAI Whisper", "NLP", "Semantic Search"]
     },
     {
-      "id": "bi",
-      "title": "Data & BI",
-      "skills": ["Alteryx", "Power BI", "Tableau", "Pandas", "NumPy", "FAISS", "Scikit-Learn", "Matplotlib", "Plotly"]
+      "id": "backend",
+      "title": "Backend & Full Stack",
+      "skills": ["Python", "FastAPI", "NestJS", "React", "Next.js", "TypeScript", "JavaScript", "Streamlit", "REST APIs", "SQLModel"]
     },
     {
-      "id": "code",
-      "title": "Programming & Web",
-      "skills": ["Python", "FastAPI", "SQL", "JavaScript", "ReactJS"]
+      "id": "data",
+      "title": "Cloud Data Engineering",
+      "skills": ["AWS Glue", "Amazon S3", "Redshift Serverless", "Amazon RDS", "MySQL", "PostgreSQL", "SQL Server", "ETL/ELT", "Incremental Loads"]
+    },
+    {
+      "id": "analytics",
+      "title": "BI, Analytics & Automation",
+      "skills": ["Power BI", "Tableau", "DAX", "Alteryx Designer", "KPI Reporting", "Data Modeling", "Workflow Automation", "Git", "Docker Basics"]
+    },
+    {
+      "id": "ml",
+      "title": "Machine Learning & Research",
+      "skills": ["Pandas", "NumPy", "Scikit-Learn", "XGBoost", "TensorFlow Basics", "Feature Engineering", "Model Evaluation", "Anomaly Detection", "Computer Vision"]
     }
   ],
   "education": [
     {
       "degree": "M.Sc. Data Science",
-      "school": "CHRIST (Deemed to be University)",
+      "school": "CHRIST University",
       "period": "2021 — 2023"
     },
     {
-      "degree": "B.C.A.",
+      "degree": "Bachelor of Computer Applications",
       "school": "Kannur University",
       "period": "2017 — 2020"
     }
@@ -160,12 +184,17 @@
       "link": "https://www.credly.com/badges/570de401-a14f-4768-8cad-27fe32c899b6/linked_in_profile"
     },
     {
+      "name": "Presented CIDA-23 Research: Side Face Image Generation for Vulnerability Analysis of Face Recognition Algorithms",
+      "issuer": "Computational Intelligence and Data Analytics",
+      "link": "#"
+    },
+    {
       "name": "Modern NLP using Deep Learning",
       "issuer": "Udemy",
       "link": "https://www.udemy.com/certificate/UC-524f147c-c6fb-452d-bbbe-93375e7f2df6/"
     },
     {
-      "name": "Fundamental AI Concepts",
+      "name": "Fundamental AI Concepts / Azure AI Learning",
       "issuer": "Microsoft",
       "link": "#"
     }

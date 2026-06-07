@@ -36,7 +36,9 @@ const Navbar = () => {
       <div className={`mx-auto max-w-[1400px] px-6 lg:px-10 transition-all duration-300 ${scrolled ? 'backdrop-blur-xl bg-[#0a0a0a]/70 border-b border-white/5' : ''}`}>
         <div className="flex items-center justify-between py-2">
           <a href="#home" className="flex items-center gap-3">
-            <span className="w-8 h-8 grid place-items-center rounded-full bg-white text-black font-semibold text-sm tracking-tight">SM</span>
+            <span className="h-9 w-9 overflow-hidden border border-white/20 bg-white">
+              <img src="/assets/shamal-portrait.png" alt="" className="h-full w-full object-cover object-[55%_22%]" aria-hidden="true" />
+            </span>
             <span className="hidden sm:block font-serif italic text-lg text-white/90">Shamal Musthafa</span>
           </a>
 
@@ -53,7 +55,7 @@ const Navbar = () => {
 
           <div className="flex items-center gap-3">
             <a href="/resume.pdf" target="_blank" rel="noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 text-[13px] text-white/80 hover:bg-white hover:text-black transition-all">
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 border border-white/15 text-[13px] text-white/80 hover:bg-white hover:text-black transition-all">
               Résumé
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
